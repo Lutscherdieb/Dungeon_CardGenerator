@@ -1,7 +1,7 @@
 ---- Turn order ----
 1. Replenish: Draw to 3 cards
-?7. Move Enemy: Place/Move Heroes
-2. Recruit: Draw from your Domain until over
+?9. Move Enemy: Place/Move Heroes
+2. Summon: Draw from your Domain until over
     1. Draw a Creature from your Domain
     2. Place the Creature at your Dungeon Hearth (or any other Room explicitly allowing it).
     3. Move the placed Creature.
@@ -21,6 +21,7 @@
     1. Pay Building Cost
         - See Rules->Costs
 ?6. Buy: Buy Cards and add them to Deck
+?7. Recruit: Buy Creatures 
 ?8. Fight: Any number of [Creature] within a room with a hero fight that hero
     1. Fight
     2. The Hero plunders the room if no [Creature] are left in the room.

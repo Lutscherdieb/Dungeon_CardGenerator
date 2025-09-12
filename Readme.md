@@ -12,62 +12,20 @@ This project generates print-ready boardgame cards from JSON definitions, using 
 
 ---
 
-## 🔧 Installation
-
-Clone or copy the project, then install Python dependencies:
-
+## Quickstart Summary
 ```bash
+# Clone Repository
+git clone <your-repo>
+
+# Install requirements
+cd project-root
 pip install -r requirements.txt
-```
-Install Chromium for Playwright:
-```bash
 python -m playwright install chromium
+
+# Generate cards from data/mixed
+python generate_card.py data/mixed
 ```
-
-## Project Structure
-
-```bash
-project-root/
-├── generate_card.py          # main generator script
-├── style.css                 # global styles (shared across all card types)
-├── assets/                   # icons, faction symbols, filters.svg, etc.
-│   ├── demon.png
-│   ├── undead.png
-│   ├── wild.png
-│   ├── magic.png
-│   ├── all.png
-│   ├── mana.png
-│   ├── cards.png
-│   ├── defence.png
-│   ├── treasure.png
-│   ├── movement.png
-│   └── filters.svg
-├── templates/                # all *_template.html files (per type)
-│   ├── room_template.html
-│   ├── spell_template.html
-│   ├── hero_template.html
-│   ├── creature_template.html
-│   ├── research_template.html
-│   ├── treasure_template.html
-│   ├── overlord_template.html
-│   └── trap_template.html
-├── schemas/                  # JSON schema definitions
-│   ├── room.schema.json
-│   ├── spell.schema.json
-│   ├── hero.schema.json
-│   ├── creature.schema.json
-│   ├── research.schema.json
-│   ├── treasure.schema.json
-│   ├── overlord.schema.json
-│   └── trap.schema.json
-├── backgrounds/              # per-card artwork
-│   ├── Sanctuary.png
-│   ├── Black_Emperor.png
-│   └── ...
-└── outputs/                  # auto-created, stores results
-    └── 1754698284_45/        # timestamped folder with batch output
-```
-
+Result: print-ready .png and .html files in outputs/<timestamp>_<count>/.
 ## Usage
 
 Generate a batch of cards 
@@ -150,14 +108,3 @@ body[data-type="mytype"] {
 }
 ```
 Create an example JSON:
-## Quickstart Summary
-```bash
-git clone <your-repo>
-cd project-root
-pip install -r requirements.txt
-python -m playwright install chromium
-
-# Generate cards from data/mixed
-python generate_card.py data/mixed
-```
-Result: print-ready .png and .html files in outputs/<timestamp>_<count>/.

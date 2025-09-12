@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Mummy",
+    "Faction":"Undead",
+    "Description":"",
+    "Mana":3,
+    "Cards":2,
+    "Defence":2,
+    "Movement":2,
+    "Health":3,
+    "Background": "./backgrounds/Mummy.png"
+}

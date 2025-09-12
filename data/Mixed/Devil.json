@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Devil",
+    "Faction":"Demon",
+    "Description":"",
+    "Mana":1,
+    "Cards":4,
+    "Defence":4,
+    "Movement":3,
+    "Health":4,
+    "Background": "./backgrounds/Devil.png"
+}

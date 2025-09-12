@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Skelett",
+    "Faction":"Undead",
+    "Description":"",
+    "Mana":0,
+    "Cards":1,
+    "Defence":1,
+    "Movement":2,
+    "Health":1,
+    "Background": "./backgrounds/Skelett.png"
+}

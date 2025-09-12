@@ -1,0 +1,8 @@
+{
+    "Type":"Research",
+    "Name":"Defensive Enchantment",
+    "Description":"",
+    "Mana":1,
+    "Cards":2,
+    "Background": "./backgrounds/Defensive_Enchantment.png"
+}

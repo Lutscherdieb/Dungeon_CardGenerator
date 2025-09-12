@@ -6,7 +6,7 @@
     "Mana":1,
     "Cards":2,
     "Defence":2,
-    "Movement":2,
+    "Movement":1,
     "Health":4,
     "Background": "./backgrounds/Crystal_Hedgehog.png"
 }
