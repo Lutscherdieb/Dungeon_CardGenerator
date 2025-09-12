@@ -1,0 +1,17 @@
+{
+    "Type":"Room",
+    "Subtype": "Basic",
+    "Name":"Library",
+    "Rules":"",
+    "Mana":0,
+    "Cards":2,
+    "Defence":0,
+    "Treasure":3,
+    "Roads":["N","E","S"],
+    "Slots": [
+        { "1": [ ["All", 0] ] },
+        { "2": [] },
+        { "3": [] }
+        ],
+    "Background": "./backgrounds/Library.png"
+}

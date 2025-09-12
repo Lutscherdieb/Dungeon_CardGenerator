@@ -1,0 +1,17 @@
+{
+    "Type":"Room",
+    "Subtype": "Basic",
+    "Name":"Ritual Chamber",
+    "Rules":"",
+    "Mana":3,
+    "Cards":0,
+    "Defence":0,
+    "Treasure":1,
+    "Roads":["N","S"],
+    "Slots": [
+        { "1": [ ["All", 0] ] },
+        { "2": [ ["Magic", 0], ["Demon", 0] ] },
+        { "3": [] }
+        ],
+    "Background": "./backgrounds/Ritual_Chamber.png"
+}

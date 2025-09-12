@@ -1,0 +1,34 @@
+<!-- Shared white halo filters -->
+<svg width="0" height="0" style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- Soft white glow that follows icon alpha -->
+    <filter id="whiteGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="expanded"/>
+      <feGaussianBlur in="expanded" stdDeviation="2" result="blurred"/>
+      <feColorMatrix in="blurred" type="matrix"
+        values="1 0 0 0 1
+                0 1 0 0 1
+                0 0 1 0 1
+                0 0 0 0.25 0" result="whitened"/>
+      <feMerge>
+        <feMergeNode in="whitened"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Slightly stronger glow -->
+    <filter id="whiteGlowStrong" x="-60%" y="-60%" width="220%" height="220%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="expanded"/>
+      <feGaussianBlur in="expanded" stdDeviation="3.5" result="blurred"/>
+      <feColorMatrix in="blurred" type="matrix"
+        values="1 0 0 0 1
+                0 1 0 0 1
+                0 0 1 0 1
+                0 0 0 0.5 0" result="whitened"/>
+      <feMerge>
+        <feMergeNode in="whitened"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>

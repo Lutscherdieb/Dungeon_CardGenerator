@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Treant",
+    "Faction":"Wild",
+    "Description":"When a [Wild] would die, return it to your domain instead ignoring their creature type trigger",
+    "Mana":1,
+    "Cards":1,
+    "Defence":3,
+    "Movement":1,
+    "Health":3,
+    "Background": "./backgrounds/Treant.png"
+}

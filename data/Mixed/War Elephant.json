@@ -1,0 +1,11 @@
+{
+    "Type":"Hero",
+    "Name":"War Elephant",
+    "Description":"",
+    "Mana":3,
+    "Cards":2,
+    "Defence":5,
+    "Movement":2,
+    "Health":12,
+    "Background": "./backgrounds/War_Elephant.png"
+}

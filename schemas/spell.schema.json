@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Spell Card",
+  "type": "object",
+  "required": ["Name", "Description", "Mana", "Cards"],
+  "properties": {
+    "Type": { "const": "Spell" },
+    "Name": { "type": "string", "minLength": 1 },
+    "Description": { "type": "string" },
+    "Mana": { "type": "integer" },
+    "Cards": { "type": "integer" },
+    "Background": { "type": "string" }
+  },
+  "additionalProperties": true
+}

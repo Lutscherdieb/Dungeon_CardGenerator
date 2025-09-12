@@ -1,0 +1,8 @@
+{
+    "Type":"Research",
+    "Name":"Mana Factory",
+    "Description":"At the start of Replenish: Gain 1 [Mana]",
+    "Mana":0,
+    "Cards":1,
+    "Background": "./backgrounds/Mana_Factory.png"
+}

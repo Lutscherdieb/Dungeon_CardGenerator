@@ -1,0 +1,11 @@
+{
+    "Type":"Hero",
+    "Name":"Dwarf Slayer",
+    "Description":"+1 [Defence] for each [Demon] in the room.",
+    "Mana":1,
+    "Cards":1,
+    "Defence":4,
+    "Movement":2,
+    "Health":10,
+    "Background": "./backgrounds/Dwarf_Slayer.png"
+}

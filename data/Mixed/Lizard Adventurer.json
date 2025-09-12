@@ -1,0 +1,11 @@
+{
+    "Type":"Hero",
+    "Name":"Lizard Adventurer",
+    "Description":"",
+    "Mana":1,
+    "Cards":0,
+    "Defence":2,
+    "Movement":2,
+    "Health":6,
+    "Background": "./backgrounds/Lizard_Adventurer.png"
+}

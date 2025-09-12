@@ -1,0 +1,12 @@
+{
+    "Type":"Overlord",
+    "Name":"Terror of the Seas",
+    "Description":"You can spend [Food] as though it were [Mana]",
+    "Mana":0,
+    "Cards":2,
+    "Defence":0,
+    "Health":0,
+    "Movement":0,
+    "Creatures":["Demon","Magic","Magic","Magic","Wild","Wild","Wild","Undead"],
+    "Background": "./backgrounds/Terror_of_the_Seas.png"
+}

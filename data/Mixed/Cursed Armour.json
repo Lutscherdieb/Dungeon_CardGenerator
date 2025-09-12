@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Cursed Armour",
+    "Faction":"Magic",
+    "Description":"+1 [Defence] for each [Mana] you have stored in a room up to a maximum of +5.",
+    "Mana":4,
+    "Cards":0,
+    "Defence":0,
+    "Movement":2,
+    "Health":2,
+    "Background": "./backgrounds/Cursed_Armour.png"
+}

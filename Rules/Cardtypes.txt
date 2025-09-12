@@ -1,0 +1,11 @@
+3.5 Square
+- Room
+- Spell
+- Hero
+- Trap
+- Research
+- Treasure
+
+tcg format
+- Overlord
+- Creature

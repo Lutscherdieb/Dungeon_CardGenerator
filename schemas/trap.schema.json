@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Trap Card Schema",
+  "type": "object",
+  "required": ["Type", "Name", "Description", "Mana", "Cards", "Background"],
+  "properties": {
+    "Type":       { "const": "Trap" },
+    "Name":       { "type": "string" },
+    "Description":{ "type": "string" },
+    "Mana":       { "type": "integer" },
+    "Cards":      { "type": "integer" },
+    "Background": { "type": "string" }
+  },
+  "additionalProperties": false
+}

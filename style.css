@@ -1,0 +1,703 @@
+:root {
+  --title-min-width: 400px;
+  --name-height: 64px;
+  --slot-size:102px;
+
+  --rules-bottom-offset: 80px;     /* matches .rules-box bottom offset */
+  --faction-size: 102px; /* tweak per taste */
+
+  --box-border-width: 5px;
+  --safe-border-width: 8px;
+  --seam-overlap: 8px;  /* tweak to 3–4px if you still see a hairline */
+  --road-overlap: 2px;  /* ONLY used where the frame meets the road-band */
+  --safe-border-radius: 10px; /* tweak per taste */
+
+  --bleed-size: 75px;     /* distance from safe-zone to canvas edge on all sides */
+  --road-width: 214px;     /* visual width of the road channel */
+
+  --frame-border-width: 2px;
+
+  --costs-top-offset: 12px;   /* distance from safe-zone top to COSTS box */
+  --costs-box-height: 60px;   /* tweak if you change icon size/padding */
+  /* COLORS */
+  --slot-text-color: #ffffff;             /* number in slot icons */
+  --frame-background: rgba(0,0,0,0.5);    /* background of name, stats, type, description boxes */
+  --frame-text-color: #ffffff;            /* text color in these boxes */
+  --frame-border-color: #000000;          /* border color */
+  
+}
+
+/* ========= Base per-Type themes ========= */
+/* OVERLORD — dark dominion */
+body[data-type="overlord"] {
+  --frame-background: rgba(10, 10, 12, 0.65);  /* near-black overlay, slightly transparent */
+  --frame-border-color: #111111;               /* deep black border */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+
+  /* accents (optional subtle purple glow to set it apart from plain black) */
+  --accent-color: #7d5cff;                     /* muted violet highlight */
+  --accent-glow: rgba(125, 92, 255, 0.18);
+}
+
+/* ROOM — neutral dark steel */
+body[data-type="room"] {
+  --frame-background: rgba(20, 20, 22, 0.65);   /* deep neutral overlay */
+  --frame-border-color: #6a6a6a;                /* mid steel grey */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+}
+/* ROOM — HEARTH subtype */
+body[data-type="room"][data-subtype="hearth"] {
+  /* keep same background + border as normal room */
+  --frame-background: rgba(26, 15, 15, 0.65);
+  --frame-border-color: #d46a6a;
+
+  /* override text color with a warm red */
+  --frame-text-color: #fff;   /* warm clay red */
+  --slot-text-color: #fff;
+}
+/* SPELL — arcane teal */
+body[data-type="spell"] {
+  --frame-background: rgba(40, 38, 10, 0.65);  /* yellow tint */
+  --frame-border-color: #d3d173;              /* yellow border */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #fdfb8b;                    /* glowing yellow */
+  --accent-glow: rgba(216, 199, 47, 0.18);
+}
+
+/* RESEARCH — emerald knowledge */
+body[data-type="research"] {
+  --frame-background: rgba(10, 50, 60, 0.65);   /* deep teal overlay */
+  --frame-border-color: #24c0c0;                /* bright cyan edge */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #2fffff;                      /* glowing teal */
+  --accent-glow: rgba(63, 213, 230, 0.18);
+}
+
+/* HERO — crisp high-contrast */
+body[data-type="hero"] {
+  --frame-background: rgba(18, 18, 18, 0.65);   /* clean dark */
+  --frame-border-color: #f1f1f1;                /* soft white border (less harsh than pure) */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+}
+
+/* TRAP — fiery orange */
+body[data-type="trap"] {
+  --frame-background: rgba(65, 32, 5, 0.65);    /* dark ember overlay */
+  --frame-border-color: #c75a0a;                /* molten orange border */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #ff7a1f;                      /* glowing orange */
+  --accent-glow: rgba(255, 122, 31, 0.18);
+}
+
+/* CREATURE (default if no faction specified) — muted green */
+body[data-type="creature"] {
+  --frame-background: rgba(18, 36, 20, 0.65);   /* forest tint */
+  --frame-border-color: #2e6a3a;                /* moss green */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+}
+/* TREASURE — rich metallic gold (distinct from Spell’s yellow) */
+body[data-type="treasure"] {
+  /* Deeper, warmer overlay so white text stays crisp over busy art */
+  --frame-background: rgba(56, 40, 10, 0.55);   /* dark amber/burnished base */
+  /* Metallic edge with a hint of bronze so it reads “gold” not “yellow” */
+  --frame-border-color: #c7a648;                /* classic antique gold */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+
+  /* Accents for glows/badges: warmer, more orange-gold than Spell’s lemon-yellow */
+  --accent-color: #e8c35a;                      /* warm gold highlight */
+  --accent-glow: rgba(232, 195, 90, 0.18);
+}
+
+
+/* ========= Creature per-Faction themes ========= */
+
+/* DEMON — red */
+body[data-type="creature"][data-faction="demon"] {
+  --frame-background: rgba(55, 10, 10, 0.65);
+  --frame-border-color: #a62323;  /* saturated deep red */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #ff4d4d;
+  --accent-glow: rgba(255, 77, 77, 0.18);
+}
+
+/* WILD — green */
+body[data-type="creature"][data-faction="wild"] {
+  --frame-background: rgba(16, 40, 18, 0.65);
+  --frame-border-color: #2f7a40;  /* lively evergreen */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #78ff78;
+  --accent-glow: rgba(120, 255, 120, 0.16);
+}
+
+/* MAGIC — blue */
+body[data-type="creature"][data-faction="magic"] {
+  --frame-background: rgba(16, 28, 56, 0.65);
+  --frame-border-color: #2a56a5;  /* arcane blue */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #7fb2ff;
+  --accent-glow: rgba(127, 178, 255, 0.16);
+}
+
+/* UNDEAD — purple */
+body[data-type="creature"][data-faction="undead"] {
+  --frame-background: rgba(40, 18, 55, 0.65);
+  --frame-border-color: #7a45b3;  /* eerie violet */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #caa0ff;
+  --accent-glow: rgba(202, 160, 255, 0.16);
+}
+
+/* ALL — neutral grey */
+body[data-type="creature"][data-faction="all"] {
+  --frame-background: rgba(34, 34, 36, 0.65);
+  --frame-border-color: #7a7a7a;  /* balanced mid-grey */
+  --frame-text-color: #fff;
+  --slot-text-color: #fff;
+  --accent-color: #d6d6d6;
+  --accent-glow: rgba(214, 214, 214, 0.16);
+}
+
+/* =========================
+   CANVAS / SAFE ZONE
+   ========================= */
+   /* FINAL OVERRIDE: disable the default outward safe-zone border for Room,
+   so our side bars + road bands define the frame precisely */
+
+
+/* =========================================================
+   ROOM roads (non-pseudo-element version)
+   ========================================================= */
+
+
+
+/* Make sure the body is the positioning context; no transforms */
+html, body { height: 100%; }
+body { position: relative; transform: none; }
+
+/* 1) For ROOM cards, turn OFF the one-piece border drawn by .safe-zone::after */
+body[data-type="room"] .safe-zone::after { content: none !important; }
+
+/* 2) The four side border DIVs you placed inside .safe-zone */
+.safe-borders {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;        /* above road bands */
+  overflow: visible;  /* allow outward offset to show */
+}
+.safe-border {
+  position: absolute;
+  background: var(--frame-border-color);
+  pointer-events: none;
+}
+
+
+/* Extend only the outside edge by --seam-overlap */
+.safe-border.safe-top {
+  top:    calc(-1 * var(--safe-border-width));
+  left:   0;
+  right:  0;
+  height: var(--safe-border-width);
+}
+.safe-border.safe-bottom {
+  bottom: calc(-1 * var(--safe-border-width));
+  left:   0;
+  right:  0;
+  height: var(--safe-border-width);
+}
+.safe-border.safe-left {
+  left:   calc(-1 * var(--safe-border-width));
+  top:    0;
+  bottom: 0;
+  width:  var(--safe-border-width);
+}
+.safe-border.safe-right {
+  right:  calc(-1 * var(--safe-border-width));
+  top:    0;
+  bottom: 0;
+  width:  var(--safe-border-width);
+}
+
+/* Add corner overlap only outward */
+.safe-border.safe-top    { left:  calc(-1 * var(--seam-overlap)); right:  calc(-1 * var(--seam-overlap)); }
+.safe-border.safe-bottom { left:  calc(-1 * var(--seam-overlap)); right:  calc(-1 * var(--seam-overlap)); }
+.safe-border.safe-left   { top:   calc(-1 * var(--seam-overlap)); bottom: calc(-1 * var(--seam-overlap)); }
+.safe-border.safe-right  { top:   calc(-1 * var(--seam-overlap)); bottom: calc(-1 * var(--seam-overlap)); }
+
+/* TOP */
+body.road-n .safe-border.safe-top {
+  background:
+    linear-gradient(to right,
+      var(--frame-border-color) 0 calc(50% - (var(--road-width)/2) + var(--road-overlap)),
+      transparent               calc(50% - (var(--road-width)/2) + var(--road-overlap)) calc(50% + (var(--road-width)/2) - var(--road-overlap)),
+      var(--frame-border-color) calc(50% + (var(--road-width)/2) - var(--road-overlap)) 100%);
+}
+/* BOTTOM */
+body.road-s .safe-border.safe-bottom {
+  background:
+    linear-gradient(to right,
+      var(--frame-border-color) 0 calc(50% - (var(--road-width)/2) + var(--road-overlap)),
+      transparent               calc(50% - (var(--road-width)/2) + var(--road-overlap)) calc(50% + (var(--road-width)/2) - var(--road-overlap)),
+      var(--frame-border-color) calc(50% + (var(--road-width)/2) - var(--road-overlap)) 100%);
+}
+/* LEFT */
+body.road-w .safe-border.safe-left {
+  background:
+    linear-gradient(to bottom,
+      var(--frame-border-color) 0 calc(50% - (var(--road-width)/2) + var(--road-overlap)),
+      transparent               calc(50% - (var(--road-width)/2) + var(--road-overlap)) calc(50% + (var(--road-width)/2) - var(--road-overlap)),
+      var(--frame-border-color) calc(50% + (var(--road-width)/2) - var(--road-overlap)) 100%);
+}
+/* RIGHT */
+body.road-e .safe-border.safe-right {
+  background:
+    linear-gradient(to bottom,
+      var(--frame-border-color) 0 calc(50% - (var(--road-width)/2) + var(--road-overlap)),
+      transparent               calc(50% - (var(--road-width)/2) + var(--road-overlap)) calc(50% + (var(--road-width)/2) - var(--road-overlap)),
+      var(--frame-border-color) calc(50% + (var(--road-width)/2) - var(--road-overlap)) 100%);
+}
+
+
+/* Road bands anchored to the safe-zone so they always meet its edges */
+.safe-zone .road-band {
+  position: absolute;
+  z-index: 10;                 /* below .safe-borders (30), above background */
+  pointer-events: none;
+  background: transparent;
+  border: var(--safe-border-width) solid var(--frame-border-color);
+  box-sizing: border-box;
+}
+
+/* NORTH: outside above safe-zone; bottom edge kisses safe-zone top */
+.safe-zone .road-band.n {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--road-width);
+  height: var(--bleed-size);
+  border-bottom: none;          /* inner edge = the one touching safe-zone */
+  border-top:none;
+}
+
+/* SOUTH: outside below safe-zone; top edge kisses safe-zone bottom */
+.safe-zone .road-band.s {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--road-width);
+  height: var(--bleed-size);
+  border-top: none;
+  border-bottom: none;
+}
+
+/* WEST: outside left of safe-zone; right edge kisses safe-zone left */
+.safe-zone .road-band.w {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--bleed-size);
+  height: var(--road-width);
+  border-right: none;
+  border-left: none;
+}
+
+/* EAST: outside right of safe-zone; left edge kisses safe-zone right */
+.safe-zone .road-band.e {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--bleed-size);
+  height: var(--road-width);
+  border-left: none;
+  border-right: none;
+}
+
+
+/* Keep card content above roads and below nothing else */
+.safe-zone > * { position: relative; z-index: 40; }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;     /* bleed + trim area */
+  width: 1125px;
+  height: 1125px;
+  font-family: Arial, sans-serif;
+}
+
+.safe-zone {
+  position: relative;
+  width: 975px;
+  height: 975px;
+  margin: 75px;                /* centers inside bleed area */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;         /* center children like the name header */
+}
+/* draw a border that doesn’t affect layout */
+.safe-zone::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--safe-border-width));  /* grow outward by border width */
+  border: var(--safe-border-width) solid var(--frame-border-color);
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+}
+.safe-borders { 
+  position:absolute; 
+  inset:0;
+  pointer-events:none; 
+  z-index:30;
+  
+}
+.safe-border {
+  position:absolute; 
+  background: var(--frame-border-color);
+  
+}
+
+/* =========================
+   NAME HEADER
+   ========================= */
+.name-header {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: calc(var(--costs-top-offset) + var(--costs-box-height) - var(--box-border-width)) auto 0;
+
+  min-width: var(--title-min-width);
+  max-width: 90%;
+  height: var(--name-height);
+  background-color: var(--frame-background);
+  border: var(--box-border-width) solid var(--frame-border-color);
+  color: var(--frame-text-color);
+  border-radius: 8px;
+   z-index: 41;
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  padding: 0 20px;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text-colors);
+  text-align: center;
+  text-shadow: none;
+}
+/* =========================
+   TYPE BOX (below Name)
+   ========================= */
+.type-box {
+  display: inline-flex;             /* shrink to fit content */
+  align-items: center;
+  justify-content: center;
+  height: 30px;                     /* fixed height */
+  background-color: var(--frame-background);
+  border: var(--box-border-width) solid var(--frame-border-color);
+  color: var(--frame-text-color);
+  border-radius: 6px;
+  padding: 0 12px;                  /* add horizontal breathing room */
+  margin-top: calc(-1 * var(--box-border-width));
+}
+
+.type-text {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-colors);
+  white-space: nowrap;              /* prevent wrapping */
+}
+/* =========================
+   FACTION BOX (below Type)
+   ========================= */
+
+/* Bottom-right faction icon, aligned to rules box bottom edge */
+.faction-badge {
+  position: absolute;
+  right: 0;                             /* hug the right edge of safe zone */
+  bottom: 0;   /* align bottom to rules box bottom */
+  /* No transform → bottom edges align perfectly */
+  z-index: 2;                           /* above background */
+  pointer-events: none;                 /* purely decorative */
+  padding: 4px;                         /* tiny breathing room from the edge */
+}
+
+.faction-badge .faction-icon {
+  width: calc(var(--faction-size)*1.5);
+  height: calc(var(--faction-size)*1.5);
+  border-radius: 50%;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+/* =========================
+   HEADER-ALIGNED ROW
+   (starts exactly at the bottom of the name header)
+   ========================= */
+.header-aligned {
+  position: absolute;
+  top: calc(
+    var(--costs-top-offset) + var(--costs-box-height) - var(--box-border-width) + var(--name-height)
+  );
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0;
+}
+
+
+.header-aligned .slots {
+  margin-left: 0; /* stick to left edge */
+}
+
+.header-aligned .stats {
+  margin-left: auto; /* pushes stats all the way to the right */
+  right:calc(-1 * var(--safe-border-width)/2);
+}
+
+
+/* =========================
+   SLOTS (left)
+   ========================= */
+.slots {
+  position: relative;          /* no absolute offset anymore */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.slot {
+  display: flex;
+  gap: 6px;
+}
+.slot-icon {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  border-radius: 50%;
+  object-fit: cover;
+}
+.slot-icon-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.slot-count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(var(--slot-size) * 0.35);
+  font-weight: 800;
+  color: var(--slot-text-color);   /* configurable */
+  line-height: 1;
+  pointer-events: none;
+}
+
+
+
+/* =========================
+   COSTS (top-center, all types)
+   ========================= */
+
+.costs-box {
+  position: absolute;
+  top: var(--costs-top-offset);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--frame-background);
+  border: var(--box-border-width) solid var(--frame-border-color);
+  color: var(--frame-text-color);
+  border-radius: 6px;
+  padding: 6px 8px;
+  z-index: 40;          /* sits just beneath the name bar for a fused seam */
+  pointer-events: none;
+}
+
+.costs-strip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 22px;      /* controls icon size via 1.5em .inline-symbol */
+  line-height: 1;
+}
+.costs-strip .inline-symbol {
+  width: 1.75em; height: 1.75em; object-fit: contain; vertical-align: middle;
+}
+
+
+/* =========================
+   STATS (right)
+   ========================= */
+.stats {
+  position: relative;          /* no absolute offset anymore */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  right: calc(-1 * var(--safe-border-width));
+}
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  background-color: var(--frame-background);
+  border: var(--box-border-width) solid var(--frame-border-color);
+  margin-top: calc(-1 * var(--box-border-width));
+  color: var(--frame-text-color);
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 26px;
+  text-shadow: none;
+}
+.stat-item img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 4px;
+  padding: 2px;
+  flex: 0 0 auto;
+}
+/* Fallback (works even if filters are missing) */
+.icon-glow,
+.icon-glow--strong {
+  filter:
+    drop-shadow(0 0 4px rgba(255,255,255,0.35))
+    drop-shadow(0 0 8px rgba(255,255,255,0.15));
+}
+
+/* Prefer the inline SVG filters (overrides fallback) */
+.icon-glow { filter: url(#whiteGlow); }
+.icon-glow--strong { filter: url(#whiteGlowStrong); }
+
+
+/* If SVG filter is supported, it will override the fallback */
+.icon-glow.svg-glow      { filter: url(#whiteGlow); }
+.icon-glow--strong.svg-glow { filter: url(#whiteGlowStrong); }
+
+/* =========================
+   ROADS (arrow compass)
+   ========================= */
+.roads {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+}
+.road-arrow {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  image-rendering: auto;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35));
+}
+/* scope to the arrow container so body classes don't rotate the whole page */
+.roads .road-n { top: 0;    left: 50%; transform: translate(-50%, 0) rotate(0deg); }
+.roads .road-e { right: 0;  top: 50%;  transform: translate(0, -50%) rotate(90deg); }
+.roads .road-s { bottom: 0; left: 50%; transform: translate(-50%, 0) rotate(180deg); }
+.roads .road-w { left: 0;   top: 50%;  transform: translate(0, -50%) rotate(-90deg); }
+
+
+
+/* =========================
+   RULES BOX (bottom-center)
+   ========================= */
+.rules-box {
+  position: absolute;
+  bottom: var(--rules-bottom-offset);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  background-color: var(--frame-background);
+  border: var(--box-border-width) solid var(--frame-border-color);
+  color: var(--frame-text-color);
+  border-radius: 8px;
+  padding: 7px;
+  font-size: 18pt;
+  line-height: 1.3;
+  text-align: left;
+  /* Shadow color automatically based on text color */
+  box-shadow: inset 0 0 8px color-mix(in srgb, var(--text-colors) 20%, transparent);
+}
+
+.inline-symbol {
+  width: 1.5em;                /* same as current font size */
+  height: 1.5em;               /* keep it square */
+  object-fit: contain;
+  vertical-align: middle;    /* align with text baseline */
+}
+
+/* Stack at the bottom center: Creatures strip, then Rules if present */
+    .bottom-stack {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: var(--rules-bottom-offset);
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .creatures-box {
+      background-color: var(--frame-background);
+      border: var(--box-border-width) solid var(--frame-border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      box-shadow: inset 0 0 8px color-mix(in srgb, var(--text-colors) 20%, transparent);
+    }
+    .creatures-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      /* make inline-symbol sizing convenient: 1em baseline = controls icon size */
+      font-size: 20px;
+      line-height: 1;
+    }
+    .creatures-strip .inline-symbol {
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align: middle;
+    }
+
+    /* When rules-box is inside bottom-stack, we want normal flow (no absolute) */
+    .bottom-stack .rules-box {
+      position: static;
+      left: auto;
+      transform: none;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* fuse borders only when rules follow creatures */
+    .bottom-stack .creatures-box + .rules-box {
+      margin-top: calc(-1 * var(--box-border-width));
+    }
+    body[data-type="room"] .safe-zone::after {
+      content: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+

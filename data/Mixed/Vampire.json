@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Vampire",
+    "Faction":"Undead",
+    "Description":"",
+    "Mana":3,
+    "Cards":2,
+    "Defence":2,
+    "Movement":3,
+    "Health":3,
+    "Background": "./backgrounds/Vampire.png"
+}

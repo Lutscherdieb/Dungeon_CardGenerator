@@ -1,0 +1,8 @@
+{
+    "Type":"Research",
+    "Name":"Soul Creation",
+    "Description":"[Mana] & Sacrifice [Wild]: Add 1 [Undead] to your Domain",
+    "Mana":3,
+    "Cards":1,
+    "Background": "./backgrounds/Soul_Creation.png"
+}

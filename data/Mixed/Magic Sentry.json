@@ -1,0 +1,8 @@
+{
+    "Type":"Trap",
+    "Name":"Battledroid",
+    "Description":"On activation: If a [All] you control would die this turn, instead deal 2 damage to all [Hero]",
+    "Mana":1,
+    "Cards":1,
+    "Background": "./backgrounds/Magic_Sentry.png"
+}

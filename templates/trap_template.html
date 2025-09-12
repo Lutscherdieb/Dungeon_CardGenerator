@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ Name }}</title>
+
+  <!-- Resolve all URLs from project root -->
+  <base href="{{ base_href }}" />
+
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Optional background image (base64 or path) */
+    .safe-zone {
+      {% if background_b64 %}
+      background-image: url('data:image/png;base64,{{ background_b64 }}');
+      {% elif Background %}
+      background-image: url('{{ Background }}');
+      {% endif %}
+    }
+  </style>
+</head>
+<body data-type="{{ Type|lower }}">
+  {% include 'filters_defs.html' %}
+  <div class="safe-zone">
+    {% include '_costs_box.html' %}
+
+    <!-- NAME HEADER -->
+    <div class="name-header">
+      <span class="title">{{ Name }}</span>
+    </div>
+
+    <div class="type-box">
+      <span class="type-text">{{ Type }}</span>
+    </div>
+
+    <!-- ALIGNMENT ROW (mirror Spell: empty slots left, stats right) -->
+    <div class="header-aligned">
+      <div class="slots"><!-- no slots for Trap --></div>
+
+      <div class="stats">
+      </div>
+    </div>
+
+    <!-- DESCRIPTION (uses rules-box style, supports inline icons via |safe) -->
+    {% if Description and Description.strip() %}
+      <div class="rules-box">
+        {{ Description | safe }}
+      </div>
+    {% endif %}
+    <div class="faction-badge">
+      <img src="assets/trap.png" alt="Hero" class="faction-icon icon-glow">
+    </div>
+
+  </div>
+</body>
+</html>

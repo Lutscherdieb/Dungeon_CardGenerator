@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Spellscroll",
+    "Faction":"Magic",
+    "Description":"When you activate [Magic], Add [Mana]",
+    "Mana":1,
+    "Cards":1,
+    "Defence":0,
+    "Movement":1,
+    "Health":1,
+    "Background": "./backgrounds/Spellscroll.png"
+}

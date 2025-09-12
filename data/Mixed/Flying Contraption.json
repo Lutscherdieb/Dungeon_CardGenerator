@@ -1,0 +1,8 @@
+{
+    "Type":"Trap",
+    "Name":"Flying Contraption",
+    "Description":"On activation: a [All] from an adjacent room may participate in combat in this room this turn.",
+    "Mana":0,
+    "Cards":1,
+    "Background": "./backgrounds/Flying_Contraption.png"
+}

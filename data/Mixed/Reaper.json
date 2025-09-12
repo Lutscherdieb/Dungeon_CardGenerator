@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Reaper",
+    "Faction":"Undead",
+    "Description":"Damage from [Undead] will instantly kill Heroes",
+    "Mana":2,
+    "Cards":4,
+    "Defence":2,
+    "Movement":3,
+    "Health":4,
+    "Background": "./backgrounds/Reaper.png"
+}

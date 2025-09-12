@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Divine Projection",
+    "Faction":"Magic",
+    "Description":"If this creature would die, return it to your domain instead.<br>Start of Combat: You may sacrifice this creature to deal 4 damage to each Hero in the room",
+    "Mana":7,
+    "Cards":2,
+    "Defence":4,
+    "Movement":4,
+    "Health":6,
+    "Background": "./backgrounds/Divine_Projection.png"
+}

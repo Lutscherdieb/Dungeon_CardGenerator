@@ -1,0 +1,8 @@
+{
+    "Type":"Trap",
+    "Name":"Artifical Sun",
+    "Description":"On activation: Kill all [All] and [Hero] in this room.",
+    "Mana":3,
+    "Cards":2,
+    "Background": "./backgrounds/Artifical_Sun.png"
+}

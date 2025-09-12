@@ -1,0 +1,8 @@
+{
+    "Type":"Trap",
+    "Name":"Maw Trap",
+    "Description":"On activation: Deal 2 damage to the activating Hero",
+    "Mana":0,
+    "Cards":1,
+    "Background": "./backgrounds/Maw_Trap.png"
+}

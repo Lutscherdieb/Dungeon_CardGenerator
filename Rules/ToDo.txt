@@ -1,0 +1,27 @@
+- When is over when drawing from your domain?
+    - When drawing a [Chaos], choose a phase from Recruit,Activation,Build,Buy and Fight. Skip the chosen Phase this turn.
+- How does combat go?
+    - (Combined defence of all your unexhausted creatures in the room) = X , (Combined defence of all enemies in the room) = Y 
+    - X - Y = CombatValue (Can be negative)
+    - 10 - CombatValue = Threshold for D20 roll
+    - Roll D20 
+    - if D20 value is lower than the Threshold your Creatures take damage equal to the difference distributed as you like not exceeding their individual [Health] valeus, if it is greater, your Enemies takes that much damage distributed as you like but nalso not exceeding their individual [Health] values.
+    - Distribute the damage among your creatures not exceeding their individual [Health] Values, non-lethal damage to creatures does not need to be tracked. 
+        - eg. 2 [Wild] unexhausted creatures with [Defence] 2 and [Health] 2 are in a Room with [Defence] + 1. One Hero with [Defence] 4 is also in the room.
+        - 2+2+1 = 5 is your Defence. 4 = Enemy Defence.
+        - 5-4 = 1
+        - 10 - 1 = 9
+        - D20 Roll = 7
+        - 7 is lower than Thresold 9 so you take damage equal to the difference 9-7=2
+        - Disribute the 2 damage among your creatures, one damage to each creature so both survive.
+- How do Treasures work?
+- How does the market work?
+    - 9 cards around market card staple
+    - may place or move marker on one card open in the market.
+    - Prices of cards are related to the distance to your marker. eG 0 distance = 0 cost, 1 distance = 1 cost ...
+- Is Slot Icon size correct(can it be bigger?)
+- Treasure Card implementation
+- Overlord,Creature Card implementation
+- Food Icon
+- Mana Icon Rework
+- What is Level Bonus for creatures?

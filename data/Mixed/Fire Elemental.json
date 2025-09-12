@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Fire Elemental",
+    "Faction":"Magic",
+    "Description":"",
+    "Mana":3,
+    "Cards":1,
+    "Defence":3,
+    "Movement":2,
+    "Health":1,
+    "Background": "./backgrounds/Fire_Elemental.png"
+}

@@ -1,0 +1,8 @@
+{
+    "Type":"Trap",
+    "Name":"Spike Bomb",
+    "Description":"On activation: Deal 4 Damage to each [All] and [Hero] in the room.",
+    "Mana":0,
+    "Cards":1,
+    "Background": "./backgrounds/Spike_Bomb.png"
+}

@@ -1,0 +1,8 @@
+{
+    "Type":"Trap",
+    "Name":"Lava Trap",
+    "Description":"On activation: the activating [Hero] and his party take 2 damage",
+    "Mana":0,
+    "Cards":1,
+    "Background": "./backgrounds/Lava_Trap.png"
+}

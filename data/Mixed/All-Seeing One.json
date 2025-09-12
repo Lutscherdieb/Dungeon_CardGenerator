@@ -1,0 +1,12 @@
+{
+    "Type":"Overlord",
+    "Name":"All-Seeing One",
+    "Description":"All Discover Boni marker in your dungeon are face-up",
+    "Mana":0,
+    "Cards":3,
+    "Defence":0,
+    "Health":0,
+    "Movement":1,
+    "Creatures":["Demon","Magic","Magic","Magic","Wild","Undead","Undead","Undead"],
+    "Background": "./backgrounds/Mad_God.png"
+}

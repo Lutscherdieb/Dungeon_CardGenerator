@@ -1,0 +1,17 @@
+{
+    "Type":"Room",
+    "Subtype": "Basic",
+    "Name":"Sacred Hain",
+    "Rules":"If a [Wild] with Level 1 would die, return it to your Domain instead",
+    "Mana":3,
+    "Cards":1,
+    "Defence":1,
+    "Treasure":1,
+    "Roads":["E","W"],
+    "Slots":[
+        {"1":[ ["Wild", 2], ["Wild", 2]]},
+        {"2":[["All",0]]},
+        {"3":[]}
+    ],
+    "Background": "./backgrounds/Sacred_Hain.png"
+}

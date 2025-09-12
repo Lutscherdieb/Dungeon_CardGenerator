@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Overlord Card Schema",
+  "type": "object",
+  "required": ["Type","Name","Description","Mana","Cards","Defence","Health","Movement","Creatures","Background"],
+  "properties": {
+    "Type":       { "const": "Overlord" },
+    "Name":       { "type": "string" },
+    "Description":{ "type": "string" },
+    "Mana":       { "type": "integer" },
+    "Cards":      { "type": "integer" },
+    "Defence":    { "type": "integer" },
+    "Health":     { "type": "integer" },
+    "Movement":   { "type": "integer" },
+    "Creatures": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["Demon","Magic","Wild","Undead","All"] }
+    },
+    "Background": { "type": "string" }
+  },
+  "additionalProperties": false
+}

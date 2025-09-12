@@ -1,0 +1,8 @@
+{
+    "Type":"Research",
+    "Name":"Mutation Engineering",
+    "Description":"When you replace a creature type with another you pay 1 [Mana] less",
+    "Mana":0,
+    "Cards":1,
+    "Background": "./backgrounds/Mutation_Engineering.png"
+}

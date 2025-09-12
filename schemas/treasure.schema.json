@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Treasure Card",
+  "type": "object",
+  "required": ["Type","Name", "Description", "Mana", "Cards"],
+  "properties": {
+    "Type": { "const": "Treasure" },
+    "Name": { "type": "string", "minLength": 1 },
+    "Description": { "type": "string" },
+    "Mana": { "type": "integer" },
+    "Cards": { "type": "integer" },
+    "Background": { "type": "string" }
+  },
+  "additionalProperties": true
+}

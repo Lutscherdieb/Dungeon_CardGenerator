@@ -1,0 +1,12 @@
+{
+    "Type":"Overlord",
+    "Name":"Ageless Horror",
+    "Description":"Heroes have - 1 [Defence]",
+    "Mana":3,
+    "Cards":1,
+    "Defence":0,
+    "Health":0,
+    "Movement":0,
+    "Creatures":["Demon","Demon","Demon","Magic","Magic","Magic","Undead","Undead","Undead"],
+    "Background": "./backgrounds/Ageless_Horror.png"
+}

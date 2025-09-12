@@ -1,0 +1,11 @@
+{
+    "Type":"Hero",
+    "Name":"Summoner",
+    "Description":" Has +1 [Defence] for each [All] in combat.",
+    "Mana":4,
+    "Cards":0,
+    "Defence":3,
+    "Movement":2,
+    "Health":7,
+    "Background": "./backgrounds/Summoner.png"
+}

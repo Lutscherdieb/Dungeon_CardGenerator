@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Stone Golem",
+    "Faction":"Magic",
+    "Description":"+1 [Defence] when fighting alone",
+    "Mana":4,
+    "Cards":2,
+    "Defence":3,
+    "Movement":2,
+    "Health":2,
+    "Background": "./backgrounds/Golem.png"
+}

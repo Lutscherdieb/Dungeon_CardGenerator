@@ -1,0 +1,11 @@
+{
+    "Type":"Hero",
+    "Name":"Enchantress",
+    "Description":"+2 [Defence] when fighting in a party.",
+    "Mana":1,
+    "Cards":1,
+    "Defence":1,
+    "Movement":2,
+    "Health":8,
+    "Background": "./backgrounds/Enchantress.png"
+}

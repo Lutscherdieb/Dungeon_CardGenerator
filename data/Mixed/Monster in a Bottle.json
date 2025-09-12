@@ -1,0 +1,8 @@
+{
+    "Type":"Research",
+    "Name":"Bottled Monster",
+    "Description":"During Recruit: You may place 1 [All] you drew this turn in reserve, you may place it anytime before placing a Creature you drew from your domain.",
+    "Mana":1,
+    "Cards":2,
+    "Background": "./backgrounds/Monster_in_a_Bottle.png"
+}

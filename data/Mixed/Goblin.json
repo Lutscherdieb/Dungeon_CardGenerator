@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Goblin",
+    "Faction":"Wild",
+    "Description":"",
+    "Mana":1,
+    "Cards":0,
+    "Defence":1,
+    "Movement":3,
+    "Health":1,
+    "Background": "./backgrounds/Goblin.png"
+}

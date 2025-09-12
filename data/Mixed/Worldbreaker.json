@@ -1,0 +1,12 @@
+{
+    "Type":"Overlord",
+    "Name":"Worldbreaker",
+    "Description":"",
+    "Mana":3,
+    "Cards":1,
+    "Defence":2,
+    "Health":0,
+    "Movement":0,
+    "Creatures":["Demon","Demon","Demon","Magic","Magic","Wild","Wild","Undead","Undead"],
+    "Background": "./backgrounds/Worldbreaker.png"
+}

@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Wolf",
+    "Faction":"Wild",
+    "Description":"",
+    "Mana":1,
+    "Cards":0,
+    "Defence":1,
+    "Movement":4,
+    "Health":1,
+    "Background": "./backgrounds/Wolf.png"
+}

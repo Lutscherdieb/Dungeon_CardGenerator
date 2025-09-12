@@ -1,0 +1,17 @@
+{
+    "Type":"Room",
+    "Subtype": "Basic",
+    "Name":"Shark Tank",
+    "Rules":"[Wild] / [Magic],[Food]: Deal 3 damage to any one hero in this room",
+    "Mana":1,
+    "Cards":1,
+    "Defence":-1,
+    "Treasure":1,
+    "Roads":["N","E","W"],
+    "Slots":[
+        {"1":[["Wild", 0], ["Wild", 0]]},
+        {"2":[["Magic", 0], ["Magic", 0]]},
+        {"3":[]}
+    ],
+    "Background": "./backgrounds/Shark_Tank.png"
+}

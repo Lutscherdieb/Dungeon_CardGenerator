@@ -1,0 +1,12 @@
+{
+    "Type":"Overlord",
+    "Name":"Timeless Horror",
+    "Description":"Heroes have - 1 [Movement]",
+    "Mana":3,
+    "Cards":2,
+    "Defence":0,
+    "Health":0,
+    "Movement":0,
+    "Creatures":["Demon","Magic","Magic","Magic","Magic","Wild","Wild","Wild"],
+    "Background": "./backgrounds/Timeless_Horror.png"
+}

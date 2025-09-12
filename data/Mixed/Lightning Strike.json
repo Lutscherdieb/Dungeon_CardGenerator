@@ -1,0 +1,8 @@
+{
+    "Type":"Spell",
+    "Name":"Lightning Strike",
+    "Description":"Deal X damage to all [All] and [Hero] in a room, where X is the number of all [All] and [Hero] in that room.",
+    "Mana":1,
+    "Cards":1,
+    "Background": "./backgrounds/Lightning_Strike.png"
+}

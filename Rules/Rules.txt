@@ -1,0 +1,48 @@
+---- Turn order ----
+1. Replenish: Draw to 3 cards
+?7. Move Enemy: Place/Move Heroes
+2. Recruit: Draw from your Domain until over
+    1. Draw a Creature from your Domain
+    2. Place the Creature at your Dungeon Hearth (or any other Room explicitly allowing it).
+    3. Move the placed Creature.
+        - [Creature] may move <= [Movement], as depicted on their Creature Type card.
+        - [Creature] may only move along connected adjacent rooms(other cards may change this behaviour)
+        - [Creature] must end their movement in a room with a free spot they can occupy. If there is no such movement possible it can't move and must occupy a spot in its current room. If that is also not possible the creature is returned to your Domain.
+        - [Creature] only have to occupy a spot in the room where their movement ends. Not along the way
+3. Activate: Activate any Number of Abilities on cards in your Dungeon
+    1. Pay activation cost
+        - See Rules->Costs
+        - Cards that dont require any [Creature] as cost may be activated only during this phase and as often as one can pay the activation cost.
+    2. Resolve Effect
+4. Return: Return any number of [exhausted creature] on your Board to your Domain, pay [Food] for the rest
+    1. Choose any number of [exhausted creature] in your dungeon and pay 1 [Food] for each of these creatures, flip these creatures [Creature]
+    2. Return all other [exhausted creature] not choosen this way to your Domain
+?5. Build: Place Rooms/Traps from Hand
+    1. Pay Building Cost
+        - See Rules->Costs
+?6. Buy: Buy Cards and add them to Deck
+?8. Fight: Any number of [Creature] within a room with a hero fight that hero
+    1. Fight
+    2. The Hero plunders the room if no [Creature] are left in the room.
+
+
+---- Rules ----
+Costs: 
+- Costs are defined in front of a ":" within the description of a card.
+- Costs can be Resources like [Mana] or[Cards], they can be Creature types like [Demon][Undead][Wild][Magic] or [All].
+    - If the Cost is a Resource it is paid by returning the corresponding amount of the resource, which is in your stash or stored in a room of your dungeon, to the Bank.
+    - If the Cost is a Creature Type, it is paid by flipping a creature of the corresponding type in that room on the other side [exhausted creature].
+
+Effect Resolving:
+- Directly resolve any effect of paying cost, or triggered by effects before resolving other effects, 
+eg creatures with abilities that trigger on exhaustion resolve before the ability for which the cost was paid resolves.
+- If multiple effects you control would trigger at the same time you may choose their resolving order freely.
+
+Basic Crature Type Boons:
+- [Undead]: when this creature would die, return it to your domain instead.
+- [Wild]: when adding a new [Wild] to your domain you may directly place that creature and move it.
+- [Magic]: when a [Magic] is activated, add 1 [Mana]
+- [Demon]: If you deal damage to a Hero and there is a [Demon] in the same room, deal 1 more damage instead.
+
+Reserve:
+- return any creatures in your reserve to your domain at the end of Activation.

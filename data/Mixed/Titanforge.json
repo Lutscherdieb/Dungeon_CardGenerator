@@ -1,0 +1,8 @@
+{
+    "Type":"Research",
+    "Name":"Titanforge",
+    "Description":"Can't be plundered <br>[All] with [Defence] >= 4 have +1 [Defence]",
+    "Mana":1,
+    "Cards":2,
+    "Background": "./backgrounds/Titanforge.png"
+}

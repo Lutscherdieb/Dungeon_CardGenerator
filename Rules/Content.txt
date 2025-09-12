@@ -1,0 +1,32 @@
+General
+1x Rulebook
+
+---- Cards ----
+X x Room
+X x Spell
+X x Hero
+X x Trap
+X x Research
+X x Overlord
+X x Creature
+X x Treasure
+
+---- Token ----
+X x Undead Lvl 1
+X x Undead Lvl 2
+X x Undead Lvl 3
+X x Wild Lvl 1
+X x Wild Lvl 2
+X x Wild Lvl 3
+X x Magic Lvl 1
+X x Magic Lvl 2
+X x Magic Lvl 3
+X x Demon Lvl 1
+X x Demon Lvl 2
+X x Demon Lvl 3
+X x Hero
+X x Chaos
+X x Mana
+X x Food
+X x Treasure/Research
+X x Trap

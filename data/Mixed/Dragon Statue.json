@@ -1,0 +1,8 @@
+{
+    "Type":"Treasure",
+    "Name":"Dragon Statue",
+    "Description":"End of Game: Gain 1 [WinPoint] for each Dragon creature type in your dungeon.",
+    "Mana":0,
+    "Cards":3,
+    "Background": "./backgrounds/Dragon_Statue.png"
+}

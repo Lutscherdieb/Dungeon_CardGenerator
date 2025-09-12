@@ -1,0 +1,8 @@
+{
+    "Type":"Research",
+    "Name":"Magical Drafting",
+    "Description":"When building a Room from your hand, you may pay 1 [Cards] less",
+    "Mana":2,
+    "Cards":2,
+    "Background": "./backgrounds/Magic_Drafts.png"
+}

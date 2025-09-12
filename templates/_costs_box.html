@@ -1,0 +1,17 @@
+{# Show only if any cost > 0 #}
+{% set m = Mana|default(0) %}
+{% set c = Cards|default(0) %}
+{% if m > 0 or c > 0 %}
+<div class="costs-box">
+  <div class="costs-strip">
+    {# Mana icons #}
+    {% for _ in range(m) %}
+      <img class="inline-symbol icon-glow" src="assets/mana.png" alt="Mana">
+    {% endfor %}
+    {# Cards icons #}
+    {% for _ in range(c) %}
+      <img class="inline-symbol icon-glow" src="assets/cards.png" alt="Cards">
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

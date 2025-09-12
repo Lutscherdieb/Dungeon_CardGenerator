@@ -1,0 +1,6 @@
+- Split Creature Symbols
+- Level on Creatures
+- Gold Resource that can be paid instead of cards
+- Requirements on Room.CreatureSlots (eg min Level,Speed,Defence)
+- Entrance Rooms or abilities when a hero enters
+- Hidden Quests and Rewards at end of game (eg +1 WP for each Spell in your deck)

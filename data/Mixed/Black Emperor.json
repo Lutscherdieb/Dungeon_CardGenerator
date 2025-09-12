@@ -1,0 +1,12 @@
+{
+    "Type":"Overlord",
+    "Name":"Black Emperor",
+    "Description":"",
+    "Mana":1,
+    "Cards":3,
+    "Defence":1,
+    "Health":0,
+    "Movement":0,
+    "Creatures":["Demon","Demon","Magic","Magic","Wild","Wild","Undead","Undead"],
+    "Background": "./backgrounds/Black_Emperor.png"
+}

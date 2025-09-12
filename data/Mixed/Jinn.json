@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Jinn",
+    "Faction":"Magic",
+    "Description":"Activate [Magic] to add [Food]",
+    "Mana":4,
+    "Cards":2,
+    "Defence":3,
+    "Movement":4,
+    "Health":3,
+    "Background": "./backgrounds/Jinn.png"
+}

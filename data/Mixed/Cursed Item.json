@@ -1,0 +1,12 @@
+{
+    "Type":"Creature",
+    "Name":"Cursed Item",
+    "Faction":"Demon",
+    "Description":"",
+    "Mana":3,
+    "Cards":1,
+    "Defence":2,
+    "Movement":1,
+    "Health":5,
+    "Background": "./backgrounds/Cursed_Item.png"
+}

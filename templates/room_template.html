@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ Name }}</title>
+
+  <!-- Resolve all relative URLs from the project root -->
+  <base href="{{ base_href }}" />
+
+  <!-- Shared stylesheet at project root -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Optional background image (either embedded base64 or file path) */
+    .safe-zone {
+      {% if background_b64 %}
+      background-image: url('data:image/png;base64,{{ background_b64 }}');
+      {% elif Background %}
+      background-image: url('{{ Background }}');
+      {% endif %}
+    }
+  </style>
+</head>
+<body data-type="{{ Type|lower }}" {% if Subtype %}data-subtype="{{ Subtype|lower }}"{% endif %}
+      class="{% if 'N' in Roads %}road-n {% endif %}{% if 'E' in Roads %}road-e {% endif %}{% if 'S' in Roads %}road-s {% endif %}{% if 'W' in Roads %}road-w{% endif %}">
+
+  {% include 'filters_defs.html' %}
+<div class="safe-zone">
+  {% if 'N' in Roads %}<div class="road-band n"></div>{% endif %}
+  {% if 'E' in Roads %}<div class="road-band e"></div>{% endif %}
+  {% if 'S' in Roads %}<div class="road-band s"></div>{% endif %}
+  {% if 'W' in Roads %}<div class="road-band w"></div>{% endif %}
+
+  <div class="safe-borders">
+    <div class="safe-border safe-top"></div>
+    <div class="safe-border safe-right"></div>
+    <div class="safe-border safe-bottom"></div>
+    <div class="safe-border safe-left"></div>
+  </div>
+    {% include '_costs_box.html' %}
+
+    <!-- NAME HEADER -->
+    <div class="name-header">
+      <span class="title">{{ Name }}</span>
+    </div>
+
+    <div class="type-box">
+      <span class="type-text">{{ Type }}</span>
+    </div>
+
+    <!-- SLOTS + STATS start directly under the Name bar -->
+    <div class="header-aligned">
+
+      <!-- SLOTS (left) -->
+      <div class="slots">
+        {# Support both shapes:
+           A) [{"1":["All","All"]}, {"2":[...]}]
+           B) [ ["All","All"], ["Undead", ...] ]
+        #}
+        {% for slot in Slots %}
+  <div class="slot">
+    {% for value in slot.values() %}
+      {% for pair in value %}
+        {% set icon = pair[0] %}
+        {% set count = pair[1] %}
+        <div class="slot-icon-wrapper">
+          <img src="assets/{{ icon|lower }}.png" class="slot-icon icon-glow">
+          {% if count > 0 %}
+            <span class="slot-count">{{ count }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endfor %}
+
+      </div>
+
+      <!-- STATS (right) -->
+      <div class="stats">
+        <div class="stat-item"><img src="assets/defence.png" alt="Defence" class="icon-glow"><span>{{ Defence }}</span></div>
+        <div class="stat-item"><img src="assets/treasure.png" alt="Treasure" class="icon-glow"><span>{{ Treasure }}</span></div>
+      </div>
+
+    </div>
+
+    <!-- RULES -->
+    {% if Rules and Rules.strip() %}
+      <div class="rules-box">
+        {{ Rules | safe }}
+      </div>
+    {% endif %}
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ Name }}</title>
+
+  <!-- Resolve all URLs from project root -->
+  <base href="{{ base_href }}" />
+
+  <!-- Shared stylesheet at project root -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Optional background image (either embedded base64 or file path) */
+    .safe-zone {
+      {% if background_b64 %}
+      background-image: url('data:image/png;base64,{{ background_b64 }}');
+      {% elif Background %}
+      background-image: url('{{ Background }}');
+      {% endif %}
+    }
+  </style>
+</head>
+<body data-type="{{ Type|lower }}" data-faction="{{ Faction|lower }}">
+  {% include 'filters_defs.html' %}
+  <div class="safe-zone">
+    {% include '_costs_box.html' %}
+    <!-- NAME HEADER -->
+    <div class="name-header">
+      <span class="title">{{ Name }}</span>
+    </div>
+
+    <div class="type-box">
+      <span class="type-text">{{ Type }} - {{ Faction }}</span>
+    </div>
+
+    <!-- ALIGNMENT ROW (matches room layout) -->
+    <div class="header-aligned">
+      <div class="slots"><!-- intentionally empty for Spell --></div>
+
+      <div class="stats">
+        <div class="stat-item"><img src="assets/defence.png" alt="Defence" class="icon-glow"><span>{{ Defence }}</span></div>
+        <div class="stat-item"><img src="assets/health.png" alt="Health" class="icon-glow"><span>{{ Health }}</span></div>
+        <div class="stat-item"><img src="assets/movement.png" alt="Movement" class="icon-glow"><span>{{ Movement }}</span></div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTION (uses rules-box styling) -->
+    {% if Description and Description.strip() %}
+      <div class="rules-box">
+        {{ Description | safe }}
+      </div>
+    {% endif %}
+
+    <!-- Faction badge (bottom-right) -->
+    <div class="faction-badge">
+      <img src="assets/{{ Faction|lower }}.png" alt="{{ Faction }}" class="faction-icon icon-glow">
+    </div>
+
+  </div>
+</body>
+</html>

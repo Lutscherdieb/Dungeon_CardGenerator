@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Room Card",
+  "type": "object",
+  "required": ["Name", "Mana", "Cards", "Defence", "Treasure"],
+  "properties": {
+    "Type": { "const": "Room" },
+    "Name": { "type": "string", "minLength": 1 },
+    "Rules": { "type": "string" },
+    "Mana": { "type": "integer" },
+    "Cards": { "type": "integer" },
+    "Defence": { "type": "integer" },
+    "Treasure": { "type": "integer" },
+    "Subtype": { "type": "string", "enum": ["Hearth","Basic"] },
+    "Roads": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "Slots": {
+  "type": "array",
+  "items": {
+    "type": "object",
+    "patternProperties": {
+      "^[0-9]+$": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "string", "enum": ["Demon", "Undead", "Magic", "Wild", "All"] },
+            { "type": "integer" }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+}
+,
+    "Background": { "type": "string" }
+  },
+  "additionalProperties": true
+}
