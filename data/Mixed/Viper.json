@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Viper",
     "Faction":"Wild",
+    "Tier":2,
     "Description":"For each [Wild] in a room: If damage would be dealt to an enemy [Hero] in this room, deal that much + 1 more damage instead",
     "Mana":3,
     "Cards":3,

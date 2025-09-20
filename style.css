@@ -438,6 +438,33 @@ body {
   pointer-events: none;                 /* purely decorative */
   padding: 4px;                         /* tiny breathing room from the edge */
 }
+/* Roman numeral overlay inside the faction badge */
+.tier-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* perfectly centered */
+
+  font-family: fantasy, serif;  /* classic Roman numeral style */
+  font-weight: 700;
+  font-size: 69pt;                  /* scale as needed */
+  line-height: 1;
+  color: var(--frame-text-color);   /* matches current theme text color */
+  letter-spacing: 2px;
+
+  -webkit-text-stroke: 1.5px var(--frame-border-color);
+    /* Halo effect (white glow) */
+  text-shadow:
+    0 0 2px rgba(255,255,255,0.8),
+    0 0 4px rgba(255,255,255,0.6),
+    0 0 6px rgba(255,255,255,0.4);
+
+  background: none;                 /* remove chip background */
+  border: none;                     /* remove border */
+  box-shadow: none;                 /* remove shadow */
+  pointer-events: none;             /* decorative only */
+  z-index: 3;                       /* ensures it's above the badge icon */
+}
 
 .faction-badge .faction-icon {
   width: calc(var(--faction-size)*1.5);
@@ -453,9 +480,7 @@ body {
    ========================= */
 .header-aligned {
   position: absolute;
-  top: calc(
-    var(--costs-top-offset) + var(--costs-box-height) - var(--box-border-width) + var(--name-height)
-  );
+  top: 140px;  /* exactly at bottom of name header */
   left: 0;
   right: 0;
   display: flex;

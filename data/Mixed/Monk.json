@@ -1,0 +1,11 @@
+{
+    "Type":"Hero",
+    "Name":"Monk",
+    "Description":"Immunity to Spells and Traps.",
+    "Mana":5,
+    "Cards":0,
+    "Defence":4,
+    "Movement":2,
+    "Health":9,
+    "Background": "./backgrounds/Monk.png"
+}

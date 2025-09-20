@@ -53,9 +53,17 @@
     {% endif %}
 
     <!-- Faction badge (bottom-right) -->
-    <div class="faction-badge">
-      <img src="assets/{{ Faction|lower }}.png" alt="{{ Faction }}" class="faction-icon icon-glow">
-    </div>
+  <div class="faction-badge">
+    {# Tier → roman numeral (I, II, III). Only show if valid (1–3) #}
+    {% set _tier = Tier|default(0)|int %}
+    {% set _roman = 'I' if _tier == 1 else ('II' if _tier == 2 else ('III' if _tier == 3 else '')) %}
+    {% if _roman %}
+      <div class="tier-mark">{{ _roman }}</div>
+    {% endif %}
+
+    <img src="assets/{{ Faction|lower }}.png" alt="{{ Faction }}" class="faction-icon icon-glow">
+  </div>
+
 
   </div>
 </body>

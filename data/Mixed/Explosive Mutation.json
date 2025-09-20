@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Explosive Mutation",
     "Faction":"Demon",
+    "Tier":2,
     "Description":"Start of Combat: Sacrifice this creature and deal 4 damage to each [Creature] and [Hero] in the room",
     "Mana":5,
     "Cards":1,

@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Troll",
     "Faction":"Wild",
+    "Tier":2,
     "Description":"",
     "Mana":2,
     "Cards":3,

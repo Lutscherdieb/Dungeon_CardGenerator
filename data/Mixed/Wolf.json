@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Wolf",
     "Faction":"Wild",
+    "Tier":1,
     "Description":"",
     "Mana":1,
     "Cards":0,

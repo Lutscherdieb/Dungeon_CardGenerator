@@ -1,0 +1,8 @@
+{
+    "Type":"Treasure",
+    "Name":"Divine Crown",
+    "Description":"End of Summon: If you control the creature with the highest [Defence], gain 1 [Mana],1 [Food] and 1 [Cards].",
+    "Mana":0,
+    "Cards":2,
+    "Background": "./backgrounds/Divine_Crown.png"
+}

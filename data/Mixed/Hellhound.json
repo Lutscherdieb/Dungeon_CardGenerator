@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Hellhound",
     "Faction":"Demon",
+    "Tier":1,
     "Description":"",
     "Mana":3,
     "Cards":2,

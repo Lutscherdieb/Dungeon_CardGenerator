@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Beholder",
     "Faction":"Wild",
+    "Tier":2,
     "Description":"Also counts as [Magic]",
     "Mana":4,
     "Cards":1,

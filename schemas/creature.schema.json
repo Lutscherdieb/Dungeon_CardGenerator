@@ -2,17 +2,18 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Creature Card Schema",
   "type": "object",
-  "required": ["Type", "Name", "Description", "Mana", "Cards", "Defence", "Movement", "Health", "Background"],
+  "required": ["Type", "Name", "Description", "Mana", "Cards", "Defence", "Movement", "Health", "Background", "Faction", "Tier"],
   "properties": {
     "Type":       { "const": "Creature" },
     "Name":       { "type": "string" },
-    "Faction":    { "type": "string", "enum": ["Demon", "Undead", "Magic", "Wild", "All"] },
-    "Description":{ "type": "string" },
+    "Faction":    { "type": "string", "enum": ["Demon","Magic","Wild","Undead","All"] },
+    "Description":{"type": "string" },
     "Mana":       { "type": "integer" },
     "Cards":      { "type": "integer" },
     "Defence":    { "type": "integer" },
     "Movement":   { "type": "integer" },
     "Health":     { "type": "integer" },
+    "Tier":       { "type": "integer", "enum": [1,2,3] },
     "Background": { "type": "string" }
   },
   "additionalProperties": false

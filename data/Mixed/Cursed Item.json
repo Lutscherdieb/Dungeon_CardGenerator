@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Cursed Item",
     "Faction":"Demon",
+    "Tier":1,
     "Description":"",
     "Mana":3,
     "Cards":1,

@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Spellscroll",
     "Faction":"Magic",
+    "Tier":1,
     "Description":"When you activate [Magic], Add [Mana]",
     "Mana":1,
     "Cards":1,

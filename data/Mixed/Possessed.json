@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Possessed",
     "Faction":"Demon",
+    "Tier":2,
     "Description":"",
     "Mana":3,
     "Cards":2,

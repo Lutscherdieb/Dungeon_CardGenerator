@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Dragon",
     "Faction":"Wild",
+    "Tier":3,
     "Description":"",
     "Mana":5,
     "Cards":5,

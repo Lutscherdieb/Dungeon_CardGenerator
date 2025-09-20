@@ -1,5 +1,6 @@
 ---- Turn order ----
 1. Replenish: Draw to 3 cards
+?10.Move Creatures which are on the board
 ?9. Move Enemy: Place/Move Heroes
 2. Summon: Draw from your Domain until over
     1. Draw a Creature from your Domain

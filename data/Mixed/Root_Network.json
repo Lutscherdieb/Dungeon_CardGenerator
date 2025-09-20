@@ -1,0 +1,8 @@
+{
+    "Type":"Treasure",
+    "Name":"Root Network",
+    "Description":"[All] can activate abilities of rooms which are adjacent and connected to the room they are in.",
+    "Mana":2,
+    "Cards":1,
+    "Background": "./backgrounds/Root_Network.png"
+}

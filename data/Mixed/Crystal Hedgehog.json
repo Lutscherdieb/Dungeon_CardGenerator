@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Crystal Hedgehog",
     "Faction":"Wild",
+    "Tier":1,
     "Description":"Whenever a [Hero] deals damage to this, you may deal an equal amount of damage to any [Hero] in this room. ",
     "Mana":1,
     "Cards":2,

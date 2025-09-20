@@ -1,6 +1,7 @@
 {
     "Type":"Creature",
     "Name":"Mummy",
+    "Tier":1,
     "Faction":"Undead",
     "Description":"",
     "Mana":3,

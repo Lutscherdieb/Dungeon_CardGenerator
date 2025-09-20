@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Black Knight",
     "Faction":"Undead",
+    "Tier":2,
     "Description":"",
     "Mana":4,
     "Cards":3,

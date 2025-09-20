@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Wraith",
     "Faction":"Undead",
+    "Tier":1,
     "Description":"May ignore Paths when moving",
     "Mana":2,
     "Cards":0,

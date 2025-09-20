@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Cultist",
     "Faction":"Demon",
+    "Tier":1,
     "Description":"Sacrifice [Demon][Demon][Demon]: Play any one Demon creature card without paying its costs.",
     "Mana":1,
     "Cards":0,

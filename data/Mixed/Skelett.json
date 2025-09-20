@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Skelett",
     "Faction":"Undead",
+    "Tier":1,
     "Description":"",
     "Mana":0,
     "Cards":1,

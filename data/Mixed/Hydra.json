@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Hydra",
     "Faction":"Wild",
+    "Tier":3,
     "Description":"",
     "Mana":6,
     "Cards":3,

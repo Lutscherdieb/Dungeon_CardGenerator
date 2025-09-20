@@ -1,0 +1,8 @@
+{
+    "Type":"Spell",
+    "Name":"Sleeping Gas",
+    "Description":"There is no combat in this room this turn.<br>[All] and [Hero] in this room take 1 damage.",
+    "Mana":1,
+    "Cards":1,
+    "Background": "./backgrounds/Fog.png"
+}

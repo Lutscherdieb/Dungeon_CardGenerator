@@ -1,12 +1,12 @@
 {
     "Type":"Overlord",
-    "Name":"Timeless Horror",
-    "Description":"Heroes have - 1 [Movement]",
+    "Name":"Chaos Overseer",
+    "Description":"You start with 1 [Chaos] less in your domain.",
     "Mana":3,
     "Cards":2,
     "Defence":0,
     "Health":0,
     "Movement":0,
-    "Creatures":["Demon","Magic","Magic","Magic","Magic","Wild","Wild","Wild"],
+    "Creatures":["Demon","Demon","Magic","Magic","Magic","Wild","Undead","Undead"],
     "Background": "./backgrounds/Timeless_Horror.png"
 }

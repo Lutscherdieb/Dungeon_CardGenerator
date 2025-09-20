@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Lightning Elemental",
     "Faction":"Magic",
+    "Tier":1,
     "Description":"",
     "Mana":3,
     "Cards":1,

@@ -1,0 +1,8 @@
+{
+    "Type":"Treasure",
+    "Name":"Divine Extraction",
+    "Description":"Start of Replenish: Gain 1 [Mana] and 1 [Cards]",
+    "Mana":2,
+    "Cards":2,
+    "Background": "./backgrounds/Divine_Extraction.png"
+}

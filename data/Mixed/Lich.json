@@ -2,6 +2,7 @@
     "Type":"Creature",
     "Name":"Lich",
     "Faction":"Undead",
+    "Tier":2,
     "Description":"",
     "Mana":6,
     "Cards":2,
