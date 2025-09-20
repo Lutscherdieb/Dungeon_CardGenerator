@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Cinzel';
+  src: url('assets/fonts/Cinzel-Bold.ttf') format('ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap; /* renders immediately, swaps when loaded */
+}
 :root {
   --title-min-width: 400px;
   --name-height: 64px;
@@ -445,19 +452,20 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); /* perfectly centered */
 
-  font-family: fantasy, serif;  /* classic Roman numeral style */
-  font-weight: 700;
+    display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Cinsel, serif;  /* classic Roman numeral style */
+  font-weight: 900;
   font-size: 69pt;                  /* scale as needed */
   line-height: 1;
-  color: var(--frame-text-color);   /* matches current theme text color */
-  letter-spacing: 2px;
+  color: var(--frame-border-color);   
+  letter-spacing: -0.1ch;
 
-  -webkit-text-stroke: 1.5px var(--frame-border-color);
+  -webkit-text-stroke: 3px var(--frame-text-color);
     /* Halo effect (white glow) */
-  text-shadow:
-    0 0 2px rgba(255,255,255,0.8),
-    0 0 4px rgba(255,255,255,0.6),
-    0 0 6px rgba(255,255,255,0.4);
+
 
   background: none;                 /* remove chip background */
   border: none;                     /* remove border */
