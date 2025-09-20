@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Monk",
+    "Tier":2,
     "Description":"Immunity to Spells and Traps.",
     "Mana":5,
     "Cards":0,

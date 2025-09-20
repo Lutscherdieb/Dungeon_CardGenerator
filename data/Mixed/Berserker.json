@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Berserker",
+    "Tier":1,
     "Description":"+3 [Defence] when fighting alone",
     "Mana":1,
     "Cards":1,

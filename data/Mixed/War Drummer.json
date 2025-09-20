@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"War Drummer",
+    "Tier":1,
     "Description":" Each hero in the party has +5 [Health]",
     "Mana":1,
     "Cards":2,

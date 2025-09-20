@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Slayer",
+    "Tier":2,
     "Description":"+1 [Defence] for each [Demon] in the room.",
     "Mana":1,
     "Cards":1,

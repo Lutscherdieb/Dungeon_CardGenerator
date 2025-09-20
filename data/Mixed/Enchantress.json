@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Enchantress",
+    "Tier":2,
     "Description":"+2 [Defence] when fighting in a party.",
     "Mana":1,
     "Cards":1,

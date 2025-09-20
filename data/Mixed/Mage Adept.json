@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Mage Adept",
+    "Tier":1,
     "Description":"",
     "Mana":1,
     "Cards":0,

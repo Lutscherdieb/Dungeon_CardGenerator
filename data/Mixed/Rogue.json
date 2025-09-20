@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Rogue",
+    "Tier":1,
     "Description":"On the first combat this [Hero] fights in a room: +2 [Defence]",
     "Mana":0,
     "Cards":2,

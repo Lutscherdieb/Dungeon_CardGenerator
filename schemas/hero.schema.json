@@ -2,10 +2,11 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Hero Card Schema",
   "type": "object",
-  "required": ["Type", "Name", "Description", "Mana", "Cards", "Defence", "Movement", "Health", "Background"],
+  "required": ["Type", "Name", "Tier", "Description", "Mana", "Cards", "Defence", "Movement", "Health", "Background"],
   "properties": {
     "Type":      { "const": "Hero" },
     "Name":      { "type": "string" },
+    "Tier": { "type": "integer", "minimum": 1, "maximum": 3 },
     "Description": { "type": "string" },
     "Mana":      { "type": "integer" },
     "Cards":     { "type": "integer" },

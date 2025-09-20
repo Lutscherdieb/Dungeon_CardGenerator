@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Sorcerer",
+    "Tier":2,
     "Description":"",
     "Mana":3,
     "Cards":0,

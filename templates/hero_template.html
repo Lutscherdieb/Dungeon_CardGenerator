@@ -55,6 +55,11 @@
     
     <div class="faction-badge">
       <img src="assets/hero.png" alt="Hero" class="faction-icon icon-glow">
+      {% if Tier %}
+        <span class="tier-mark">
+          {% if Tier == 1 %}I{% elif Tier == 2 %}II{% elif Tier == 3 %}III{% endif %}
+        </span>
+      {% endif %}
     </div>
 
 

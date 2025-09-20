@@ -1,6 +1,7 @@
 {
     "Type":"Hero",
     "Name":"Summoner",
+    "Tier":2,
     "Description":" Has +1 [Defence] for each [All] in combat.",
     "Mana":4,
     "Cards":0,

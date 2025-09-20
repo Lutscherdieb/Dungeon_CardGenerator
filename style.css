@@ -460,11 +460,10 @@ body {
   font-weight: 900;
   font-size: 69pt;                  /* scale as needed */
   line-height: 1;
-  color: var(--frame-border-color);   
+  color: var(--frame-background);   
   letter-spacing: -0.1ch;
 
-  -webkit-text-stroke: 3px var(--frame-text-color);
-    /* Halo effect (white glow) */
+  -webkit-text-stroke: 3.5px var(--frame-border-color);
 
 
   background: none;                 /* remove chip background */
