@@ -24,6 +24,7 @@
 <body data-type="{{ Type|lower }}">
   {% include 'filters_defs.html' %}
   <div class="safe-zone">
+    {% include '_spiderweb.html' %}
     {% include '_costs_box.html' %}
 
     <!-- NAME HEADER -->
@@ -50,8 +51,14 @@
         {{ Description | safe }}
       </div>
     {% endif %}
+    <!-- Bottom-right badge with Tier roman numeral -->
     <div class="faction-badge">
-      <img src="assets/treasure.png" alt="treasure" class="faction-icon icon-glow">
+      <img src="assets/treasure.png" alt="Treasure" class="faction-icon icon-glow">
+      {% set _t = Tier|default(0)|int %}
+      {% set _roman = 'I' if _t == 1 else ('II' if _t == 2 else ('III' if _t == 3 else ('IV' if _t == 4 else ''))) %}
+      {% if _roman %}
+        <span class="tier-mark">{{ _roman }}</span>
+      {% endif %}
     </div>
 
   </div>

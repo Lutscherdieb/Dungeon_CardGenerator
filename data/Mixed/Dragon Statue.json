@@ -1,7 +1,8 @@
 {
     "Type":"Treasure",
     "Name":"Dragon Statue",
-    "Description":"End of Game: Gain 1 [WinPoint] for each Dragon creature type in your dungeon.",
+    "Tier":2,
+    "Description":"Whenever [All] with [Defence] > 4 enters your dungeon: Gain 1 [WinPoint]",
     "Mana":0,
     "Cards":3,
     "Background": "./backgrounds/Dragon_Statue.png"

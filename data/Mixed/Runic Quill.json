@@ -1,6 +1,7 @@
 {
     "Type":"Treasure",
     "Name":"Runic Quill",
+    "Tier":2,
     "Description":"When you draw your first [Chaos] in a turn, you may put it back into your domain",
     "Mana":2,
     "Cards":1,

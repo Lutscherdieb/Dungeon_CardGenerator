@@ -372,15 +372,17 @@ body.road-e .safe-border.safe-right {
 }
 
 /* Tier intensity & density (T1 lightest, T3 heaviest) */
-body[data-type="creature"][data-tier="1"] .tier-filaments .t2,
-body[data-type="creature"][data-tier="1"] .tier-filaments .t3 { display: none; }
+body[data-tier="1"] .tier-filaments .t2,
+body[data-tier="1"] .tier-filaments .t3 { display: none; }
 
-body[data-type="creature"][data-tier="2"] .tier-filaments .t3 { display: none; }
+body[data-tier="2"] .tier-filaments .t3 { display: none; }
 
 /* Optional per-tier width tweaks */
-body[data-type="creature"][data-tier="1"] .tier-filaments .webline { stroke-width: 2; opacity: .55; }
-body[data-type="creature"][data-tier="2"] .tier-filaments .webline { stroke-width: 3; opacity: .65; }
-body[data-type="creature"][data-tier="3"] .tier-filaments .webline { stroke-width: 3.5; opacity: .75; }
+body[data-tier="1"] .tier-filaments .webline { stroke-width: 2.5; opacity: .55; }
+body[data-tier="2"] .tier-filaments .webline { stroke-width: 3; opacity: .65; }
+body[data-tier="3"] .tier-filaments .webline { stroke-width: 3.5; opacity: .75; }
+body[data-tier="4"] .tier-filaments .webline { stroke-width: 4; opacity: .85; }
+
 
 
 

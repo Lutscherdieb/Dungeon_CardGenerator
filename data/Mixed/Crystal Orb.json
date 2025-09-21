@@ -1,8 +1,0 @@
-{
-    "Type":"Treasure",
-    "Name":"Crystal Orb",
-    "Description":"Start of Replenish: Look at the top card of your library, you may put it into your discard pile.",
-    "Mana":3,
-    "Cards":0,
-    "Background": "./backgrounds/Crystal_Orb.png"
-}

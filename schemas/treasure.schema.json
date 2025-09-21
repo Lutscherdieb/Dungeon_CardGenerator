@@ -9,6 +9,7 @@
     "Description": { "type": "string" },
     "Mana": { "type": "integer" },
     "Cards": { "type": "integer" },
+    "Tier":        { "type": "integer", "enum": [1,2,3,4] },
     "Background": { "type": "string" }
   },
   "additionalProperties": true

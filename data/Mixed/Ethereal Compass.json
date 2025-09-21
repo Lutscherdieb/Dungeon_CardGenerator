@@ -1,7 +1,8 @@
 {
     "Type":"Treasure",
     "Name":"Ethereal Compass",
-    "Description":"When a hero enters your dungeon, you may reroll the room-selection dice once per turn",
+    "Tier":2,
+    "Description":"When a hero enters your dungeon, you choose the room it enters at.",
     "Mana":2,
     "Cards":1,
     "Background": "./backgrounds/Ethereal_Compass.png"
