@@ -31,6 +31,11 @@
   --frame-background: rgba(0,0,0,0.5);    /* background of name, stats, type, description boxes */
   --frame-text-color: #ffffff;            /* text color in these boxes */
   --frame-border-color: #000000;          /* border color */
+
+  /* Filaments (tier lines) */
+  --filament-color: var(--frame-border-color); /* default = frame color */
+  --filament-blur: 0px;                        /* 0–1px if you want softer */
+
   
 }
 
@@ -334,6 +339,51 @@ body.road-e .safe-border.safe-right {
 
 /* Keep card content above roads and below nothing else */
 .safe-zone > * { position: relative; z-index: 40; }
+/* ===== Creature Tier Filaments (SVG overlay) ===== */
+.safe-zone > svg.tier-filaments {
+  position: absolute;                 /* override the generic relative */
+  /* Expand out into the bleed around the safe-zone (975 + 75*2 = 1125) */
+  top:  calc(-1 * var(--bleed-size));
+  left: calc(-1 * var(--bleed-size));
+  width: 1125px;
+  height: 1125px;
+  z-index: 8;                         /* below borders/content (30/40) */
+  pointer-events: none;
+}
+
+
+
+/* Angular spiderweb lines */
+.tier-filaments .webline {
+  stroke: var(--frame-border-color);
+  fill: none;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 6;
+  filter: blur(var(--filament-blur));
+  opacity: 0.60;
+  stroke-width: 2.5px;
+}
+
+/* Cross links slightly lighter */
+.tier-filaments .web-cross {
+  opacity: 0.45;
+  stroke-width: 2px;
+}
+
+/* Tier intensity & density (T1 lightest, T3 heaviest) */
+body[data-type="creature"][data-tier="1"] .tier-filaments .t2,
+body[data-type="creature"][data-tier="1"] .tier-filaments .t3 { display: none; }
+
+body[data-type="creature"][data-tier="2"] .tier-filaments .t3 { display: none; }
+
+/* Optional per-tier width tweaks */
+body[data-type="creature"][data-tier="1"] .tier-filaments .webline { stroke-width: 2; opacity: .55; }
+body[data-type="creature"][data-tier="2"] .tier-filaments .webline { stroke-width: 3; opacity: .65; }
+body[data-type="creature"][data-tier="3"] .tier-filaments .webline { stroke-width: 3.5; opacity: .75; }
+
+
+
 body {
   margin: 0;
   padding: 0;
@@ -456,7 +506,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-family: Cinsel, serif;  /* classic Roman numeral style */
+  font-family: 'Cinzel', serif;  /* classic Roman numeral style */
   font-weight: 900;
   font-size: 69pt;                  /* scale as needed */
   line-height: 1;

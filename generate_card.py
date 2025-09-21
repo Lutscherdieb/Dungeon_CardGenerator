@@ -5,6 +5,7 @@ import base64
 import re
 import argparse
 import time
+import hashlib, random
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
@@ -161,6 +162,117 @@ def validate_assets(project_root: Path):
         print("\nPlease add the missing files to your project before running again.")
         sys.exit(1)
 
+def _rng_from_seed(seed: str) -> random.Random:
+    h = hashlib.sha256(seed.encode("utf-8")).digest()
+    # use first 8 bytes to create a deterministic int
+    seed_int = int.from_bytes(h[:8], "big")
+    return random.Random(seed_int)
+
+def _gen_spider_side(side: str, tier: int, rng: random.Random,
+                     canvas=1125, bleed=75, safe=975,
+                     min_rays=12, max_rays=30,
+                     steps_tier=( (2,3), (3,4), (4,6) ),
+                     jitter_x=22, jitter_y=22):
+    """
+    side: 'top'|'bottom'|'left'|'right'
+    Returns: list of paths (each: {'pts': [(x,y), ...]})
+    Rays start at the safe-zone edge and step into the bleed with angular L segments.
+    """
+    # number of rays grows with tier
+    rays = rng.randint(min_rays + tier, max_rays + 2 * tier)
+
+    # safe-zone bounds
+    safe_min = bleed
+    safe_max = bleed + safe
+
+    paths = []
+
+    if side in ("top", "bottom"):
+        # y coords
+        y_start = safe_min if side == "top" else safe_max
+        y_end   = 0 if side == "top" else canvas
+        # x slots across the frame
+        slots = [safe_min + (i + 0.5) * (safe / (rays + 0.0)) for i in range(rays)]
+        for x0 in slots:
+            steps = rng.randint(*steps_tier[tier-1])  # how many interior bends
+            pts = [(x0, y_start)]
+            # walk outward in steps (hard angles)
+            for s in range(steps):
+                # progress toward y_end
+                t = (s + 1) / (steps + 1)
+                y = y_start + t * (y_end - y_start)
+                x = x0 + rng.randint(-jitter_x, jitter_x)
+                pts.append((x, y))
+            pts.append((x0 + rng.randint(-jitter_x, jitter_x), y_end))
+            paths.append({"pts": pts})
+    else:
+        # left/right => x varies to edge, y spans safe edge
+        x_start = safe_min if side == "left" else safe_max
+        x_end   = 0 if side == "left" else canvas
+        slots = [safe_min + (i + 0.5) * (safe / (rays + 0.0)) for i in range(rays)]
+        for y0 in slots:
+            steps = rng.randint(*steps_tier[tier-1])
+            pts = [(x_start, y0)]
+            for s in range(steps):
+                t = (s + 1) / (steps + 1)
+                x = x_start + t * (x_end - x_start)
+                y = y0 + rng.randint(-jitter_y, jitter_y)
+                pts.append((x, y))
+            pts.append((x_end, y0 + rng.randint(-jitter_y, jitter_y)))
+            paths.append({"pts": pts})
+
+    return paths
+
+def _gen_cross_links(side: str, paths: list, rng: random.Random, link_prob=0.0, max_links=6):
+    """
+    Create short cross links between nearby rays within the bleed.
+    Returns: list of segments [{'a':(x1,y1),'b':(x2,y2)}]
+    """
+    links = []
+    n = len(paths)
+    if n < 2:
+        return links
+    # try between adjacent rays
+    attempts = 0
+    while len(links) < max_links and attempts < max_links * 4:
+        i = rng.randrange(0, n-1)
+        p1 = paths[i]["pts"]
+        p2 = paths[i+1]["pts"]
+        # pick a step index (skip endpoints to avoid the frame)
+        if len(p1) > 2 and len(p2) > 2 and rng.random() < link_prob:
+            k = rng.randrange(1, min(len(p1), len(p2)))
+            a = p1[k]
+            b = p2[k]
+            # slight jitter so lines aren’t parallel/perfect
+            ax, ay = a[0] + rng.randint(-6, 6), a[1] + rng.randint(-6, 6)
+            bx, by = b[0] + rng.randint(-6, 6), b[1] + rng.randint(-6, 6)
+            links.append({"a": (ax, ay), "b": (bx, by)})
+        attempts += 1
+    return links
+
+def generate_spiderweb_geometry(card_dict: dict) -> dict:
+    """
+    Deterministic (seeded) geometry from card data.
+    Only used for Creatures (but you can reuse for others).
+    Returns:
+      {
+        'top':    {'rays': [ {'pts':[(x,y),...]}, ... ], 'links': [ {'a':(x,y),'b':(x,y)}, ... ]},
+        'bottom': {...},
+        'left':   {...},
+        'right':  {...}
+      }
+    """
+    tier = int(card_dict.get("Tier", 1))
+    # Create a stable seed so the same card always draws the same web
+    seed_src = f"web::{card_dict.get('Type')}::{card_dict.get('Name')}::{card_dict.get('Faction','')}::{card_dict.get('Background','')}::{tier}"
+    rng = _rng_from_seed(seed_src)
+
+    geom = {}
+    for side in ("top", "bottom", "left", "right"):
+        rays = _gen_spider_side(side, tier, rng)
+        links = _gen_cross_links(side, rays, rng)
+        geom[side] = {"rays": rays, "links": links}
+    return geom
 
 def load_schema(project_root: Path, rel_path: str) -> dict:
     with open(project_root / rel_path, "r", encoding="utf-8") as f:
@@ -277,7 +389,8 @@ def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: s
 
     # 3) Transform context (adds RoadsSet, runs inline replacements, etc.)
     ctx = transform_context(enriched, detected_type)
-
+    if detected_type in ("creature", "hero"):
+        ctx["Spiderweb"] = generate_spiderweb_geometry(ctx)
     base_href = project_root.as_uri() + "/"
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
     template = env.get_template(template_filename)

@@ -19,9 +19,10 @@
     - 9 cards around market card staple
     - may place or move marker on one card open in the market.
     - Prices of cards are related to the distance to your marker. eG 0 distance = 0 cost, 1 distance = 1 cost ...
-- Is Slot Icon size correct(can it be bigger?)
-- Treasure Card implementation
-- Overlord,Creature Card implementation
-- Food Icon
-- Mana Icon Rework
-- What is Level Bonus for creatures?
+
+
+
+-----------------------------
+Add to Cardgenerator:
+- Optional Food Cost for every card type
+- Treasure Level ? work out how treasures are gonna work before that.

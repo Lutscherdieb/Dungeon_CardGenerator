@@ -1,7 +1,7 @@
 {
     "Type":"Overlord",
     "Name":"Worldbreaker",
-    "Description":"",
+    "Description":"Once per game: Destroy all Heroes in your dungeon. Gain 1 [Cards] for each [Hero] destroyed this way.",
     "Mana":3,
     "Cards":1,
     "Defence":2,

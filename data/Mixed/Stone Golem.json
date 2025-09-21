@@ -2,7 +2,7 @@
     "Type":"Creature",
     "Name":"Stone Golem",
     "Faction":"Magic",
-    "Tier":3,
+    "Tier":2,
     "Description":"+1 [Defence] when fighting alone",
     "Mana":3,
     "Cards":3,

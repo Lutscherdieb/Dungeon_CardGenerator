@@ -3,7 +3,7 @@
     "Name":"Jinn",
     "Faction":"Magic",
     "Tier":2,
-    "Description":"Activate [Magic] to add [Food]",
+    "Description":"Activate this creature to add [Food]",
     "Mana":4,
     "Cards":2,
     "Defence":3,

@@ -22,7 +22,8 @@
     1. Pay Building Cost
         - See Rules->Costs
 ?6. Buy: Buy Cards and add them to Deck
-?7. Recruit: Buy Creatures 
+?7. Recruit: Buy Creatures until you don't want anymore
+    1. 
 ?8. Fight: Any number of [Creature] within a room with a hero fight that hero
     1. Fight
     2. The Hero plunders the room if no [Creature] are left in the room.

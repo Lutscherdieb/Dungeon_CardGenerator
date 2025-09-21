@@ -6,7 +6,7 @@
   "properties": {
     "Type":      { "const": "Hero" },
     "Name":      { "type": "string" },
-    "Tier": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "Tier": { "type": "integer", "minimum": 1, "maximum": 4 },
     "Description": { "type": "string" },
     "Mana":      { "type": "integer" },
     "Cards":     { "type": "integer" },

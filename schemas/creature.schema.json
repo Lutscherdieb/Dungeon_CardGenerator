@@ -13,7 +13,7 @@
     "Defence":    { "type": "integer" },
     "Movement":   { "type": "integer" },
     "Health":     { "type": "integer" },
-    "Tier":       { "type": "integer", "enum": [1,2,3] },
+    "Tier":       { "type": "integer", "enum": [1,2,3,4] },
     "Background": { "type": "string" }
   },
   "additionalProperties": false

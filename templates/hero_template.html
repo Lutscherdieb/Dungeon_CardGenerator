@@ -21,9 +21,12 @@
     }
   </style>
 </head>
-<body data-type="{{ Type|lower }}">
+<body data-type="{{ Type|lower }}" data-tier="{{ Tier|default(1) }}">
   {% include 'filters_defs.html' %}
-  <div class="safe-zone">
+      <!-- Decorative filaments: drawn in the bleed around the safe-zone -->
+      <div class="safe-zone">
+        {% include '_spiderweb.html' %}
+
     {% include '_costs_box.html' %}
 
     <!-- NAME HEADER -->
@@ -57,7 +60,7 @@
       <img src="assets/hero.png" alt="Hero" class="faction-icon icon-glow">
       {% if Tier %}
         <span class="tier-mark">
-          {% if Tier == 1 %}I{% elif Tier == 2 %}II{% elif Tier == 3 %}III{% endif %}
+          {% if Tier == 1 %}I{% elif Tier == 2 %}II{% elif Tier == 3 %}III{% elif Tier == 4 %}★{% endif %}
         </span>
       {% endif %}
     </div>

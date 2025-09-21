@@ -1,0 +1,44 @@
+{# templates/_spiderweb.html #}
+{% if Spiderweb %}
+<svg class="tier-filaments" viewBox="0 0 1125 1125" width="1125" height="1125" aria-hidden="true">
+  <!-- TOP -->
+  <g class="side top">
+    {% for ray in Spiderweb.top.rays %}
+      <path class="webline" d="M {{ ray.pts[0][0] }} {{ ray.pts[0][1] }}{% for p in ray.pts[1:] %} L {{ p[0] }} {{ p[1] }}{% endfor %}"/>
+    {% endfor %}
+    {% for seg in Spiderweb.top.links %}
+      <path class="webline web-cross" d="M {{ seg.a[0] }} {{ seg.a[1] }} L {{ seg.b[0] }} {{ seg.b[1] }}"/>
+    {% endfor %}
+  </g>
+
+  <!-- BOTTOM -->
+  <g class="side bottom">
+    {% for ray in Spiderweb.bottom.rays %}
+      <path class="webline" d="M {{ ray.pts[0][0] }} {{ ray.pts[0][1] }}{% for p in ray.pts[1:] %} L {{ p[0] }} {{ p[1] }}{% endfor %}"/>
+    {% endfor %}
+    {% for seg in Spiderweb.bottom.links %}
+      <path class="webline web-cross" d="M {{ seg.a[0] }} {{ seg.a[1] }} L {{ seg.b[0] }} {{ seg.b[1] }}"/>
+    {% endfor %}
+  </g>
+
+  <!-- LEFT -->
+  <g class="side left">
+    {% for ray in Spiderweb.left.rays %}
+      <path class="webline" d="M {{ ray.pts[0][0] }} {{ ray.pts[0][1] }}{% for p in ray.pts[1:] %} L {{ p[0] }} {{ p[1] }}{% endfor %}"/>
+    {% endfor %}
+    {% for seg in Spiderweb.left.links %}
+      <path class="webline web-cross" d="M {{ seg.a[0] }} {{ seg.a[1] }} L {{ seg.b[0] }} {{ seg.b[1] }}"/>
+    {% endfor %}
+  </g>
+
+  <!-- RIGHT -->
+  <g class="side right">
+    {% for ray in Spiderweb.right.rays %}
+      <path class="webline" d="M {{ ray.pts[0][0] }} {{ ray.pts[0][1] }}{% for p in ray.pts[1:] %} L {{ p[0] }} {{ p[1] }}{% endfor %}"/>
+    {% endfor %}
+    {% for seg in Spiderweb.right.links %}
+      <path class="webline web-cross" d="M {{ seg.a[0] }} {{ seg.a[1] }} L {{ seg.b[0] }} {{ seg.b[1] }}"/>
+    {% endfor %}
+  </g>
+</svg>
+{% endif %}

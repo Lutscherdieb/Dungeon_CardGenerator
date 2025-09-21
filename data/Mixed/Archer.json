@@ -5,7 +5,7 @@
     "Description":"Cannot be damage in combat while other [Hero] are in the same room.",
     "Mana":1,
     "Cards":1,
-    "Defence":4,
+    "Defence":3,
     "Movement":2,
     "Health":3,
     "Background": "./backgrounds/Archer.png"
