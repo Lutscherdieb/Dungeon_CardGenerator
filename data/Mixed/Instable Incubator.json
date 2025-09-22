@@ -1,7 +1,8 @@
 {
     "Type":"Trap",
     "Name":"Instable Incubator",
-    "Description":"On activation: target [Hero] in this room is dealt 2 damage, all other [Hero] are dealt 1 damage",
+    "Tier":2,
+    "Description":"On activation: Gain [Cards][Cards].",
     "Mana":0,
     "Cards":1,
     "Background": "./backgrounds/Instable_Incubator.png"

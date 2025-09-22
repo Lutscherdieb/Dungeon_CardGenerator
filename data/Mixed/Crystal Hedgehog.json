@@ -3,11 +3,11 @@
     "Name":"Crystal Hedgehog",
     "Faction":"Wild",
     "Tier":1,
-    "Description":"Whenever a [Hero] deals damage to this, you may deal an equal amount of damage to any [Hero] in this room. ",
+    "Description":"Whenever this creature takes any amount of damage, it deals 1 damage to all [Hero] in the room.",
     "Mana":1,
     "Cards":2,
-    "Defence":2,
-    "Movement":1,
+    "Defence":1,
+    "Movement":2,
     "Health":4,
     "Background": "./backgrounds/Crystal_Hedgehog.png"
 }

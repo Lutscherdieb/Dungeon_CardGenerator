@@ -1,6 +1,7 @@
 {
     "Type":"Spell",
     "Name":"Summoning Circle",
+    "Tier":2,
     "Description":"Draw 3 token from your Domain at once, ignore any Effect of [Chaos] being drawn for these. Then you may place and move any number of [All] drawn this way. Return all other token drawn this way to your domain.",
     "Mana":1,
     "Cards":1,

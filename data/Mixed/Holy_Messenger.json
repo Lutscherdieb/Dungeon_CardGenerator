@@ -2,7 +2,7 @@
     "Type":"Hero",
     "Name":"Holy Messenger",
     "Tier":3,
-    "Description":"+1 [Defence] for each other Hero in its party.<br>Reduce the Damage any Hero in the same room would receive by 1",
+    "Description":"+1 [Defence] for each other Hero in its party.<br>Reduce the Damage any Hero in the same room would receive by 1.",
     "Mana":3,
     "Cards":3,
     "Defence":5,

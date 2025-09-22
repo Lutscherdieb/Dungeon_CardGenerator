@@ -1,6 +1,7 @@
 {
     "Type":"Research",
     "Name":"Mana Extractor",
+    "Tier":2,
     "Description":"When you draw [Chaos] from your Domain, gain 1 [Mana]",
     "Mana":0,
     "Cards":3,

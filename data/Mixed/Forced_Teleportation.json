@@ -1,8 +1,9 @@
 {
     "Type":"Spell",
     "Name":"Forced Teleportation",
+    "Tier":2,
     "Description":"Place any one [All] or [Hero] from a room into another room.",
     "Mana":1,
-    "Cards":1,
+    "Cards":0,
     "Background": "./backgrounds/Forced_Teleportation.png"
 }

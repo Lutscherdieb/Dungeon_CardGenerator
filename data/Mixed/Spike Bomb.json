@@ -1,6 +1,7 @@
 {
     "Type":"Trap",
     "Name":"Spike Bomb",
+    "Tier":1,
     "Description":"On activation: Deal 4 Damage to each [All] and [Hero] in the room.",
     "Mana":0,
     "Cards":1,

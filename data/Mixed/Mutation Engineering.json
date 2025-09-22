@@ -1,7 +1,8 @@
 {
     "Type":"Research",
     "Name":"Mutation Engineering",
-    "Description":"When you replace a creature type with another you pay 1 [Mana] less",
+    "Tier":1,
+    "Description":"When you play a creature type you may pay [Food] less",
     "Mana":0,
     "Cards":1,
     "Background": "./backgrounds/Mutation_Engineering.png"

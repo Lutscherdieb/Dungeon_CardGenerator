@@ -360,7 +360,7 @@ def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: s
 
     # 3) Transform context (adds RoadsSet, runs inline replacements, etc.)
     ctx = transform_context(enriched, detected_type)
-    if detected_type in ("creature", "hero","treasure"):
+    if detected_type in ("creature", "hero","treasure","research", "spell", "trap"):
         ctx["Spiderweb"] = generate_spiderweb_geometry(ctx)
     base_href = project_root.as_uri() + "/"
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))

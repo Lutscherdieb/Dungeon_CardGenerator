@@ -1,6 +1,7 @@
 {
     "Type":"Trap",
     "Name":"Living Trap",
+    "Tier":1,
     "Description":"On activation: Takes part in combat this turn with [Defence] 2 and [Health] 2",
     "Mana":0,
     "Cards":1,

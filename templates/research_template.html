@@ -21,9 +21,10 @@
     }
   </style>
 </head>
-<body data-type="{{ Type|lower }}">
+<body data-type="{{ Type|lower }}" data-tier="{{ Tier|default(1) }}">
   {% include 'filters_defs.html' %}
   <div class="safe-zone">
+    {% include '_spiderweb.html' %}
     {% include '_costs_box.html' %}
 
     <!-- NAME HEADER -->
@@ -49,8 +50,12 @@
       </div>
     {% endif %}
     <div class="faction-badge">
-      <img src="assets/research.png" alt="research" class="faction-icon icon-glow">
+      <img src="assets/research.png" alt="Research" class="faction-icon icon-glow">
+      {% set _t = Tier|default(0)|int %}
+      {% set _roman = 'I' if _t == 1 else ('II' if _t == 2 else ('III' if _t == 3 else ('IV' if _t == 4 else ''))) %}
+      {% if _roman %}<span class="tier-mark">{{ _roman }}</span>{% endif %}
     </div>
+
 
   </div>
 </body>

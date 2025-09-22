@@ -1,6 +1,7 @@
 {
     "Type":"Trap",
     "Name":"Lava Trap",
+    "Tier":1,
     "Description":"On activation: the activating [Hero] and his party take 2 damage",
     "Mana":0,
     "Cards":1,

@@ -21,9 +21,11 @@
     }
   </style>
 </head>
-<body data-type="{{ Type|lower }}">
+<body data-type="{{ Type|lower }}" data-tier="{{ Tier|default(1) }}">
   {% include 'filters_defs.html' %}
   <div class="safe-zone">
+    {% include '_spiderweb.html' %}
+
     {% include '_costs_box.html' %}
 
     <!-- NAME HEADER -->

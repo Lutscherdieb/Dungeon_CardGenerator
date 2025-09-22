@@ -1,7 +1,8 @@
 {
     "Type":"Trap",
     "Name":"Hunter Trap",
-    "Description":"On activation: the activating Hero cannot attack this combat",
+    "Tier":1,
+    "Description":"On activation: the activating party has their total [Defence] halved this combat.",
     "Mana":0,
     "Cards":1,
     "Background": "./backgrounds/Hunter_Trap.png"

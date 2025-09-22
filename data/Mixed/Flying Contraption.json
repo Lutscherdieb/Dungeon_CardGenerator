@@ -1,6 +1,7 @@
 {
     "Type":"Trap",
     "Name":"Flying Contraption",
+    "Tier":1,
     "Description":"On activation: a [All] from an adjacent room may participate in combat in this room this turn.",
     "Mana":0,
     "Cards":1,

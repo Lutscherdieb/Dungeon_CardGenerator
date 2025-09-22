@@ -1,7 +1,8 @@
 {
     "Type":"Research",
     "Name":"Soul Creation",
-    "Description":"[Mana] & Sacrifice [Wild]: Add 1 [Undead] to your Domain",
+    "Tier":1,
+    "Description":"[All] cost 1 less [Mana] to recruit.<br><i>(this cannot reduce the cost below 1).</i>",
     "Mana":3,
     "Cards":1,
     "Background": "./backgrounds/Soul_Creation.png"
