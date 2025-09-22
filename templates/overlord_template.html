@@ -24,7 +24,7 @@
 <body data-type="{{ Type|lower }}">
   {% include 'filters_defs.html' %}
   <div class="safe-zone">
-
+    {% include '_costs_box.html' %}
     <!-- NAME HEADER -->
     <div class="name-header">
       <span class="title">{{ Name }}</span>
@@ -39,8 +39,6 @@
       <div class="slots"><!-- intentionally empty for Spell --></div>
 
       <div class="stats">
-        <div class="stat-item"><img src="assets/mana.png" alt="Mana" class="icon-glow"><span>{{ Mana }}</span></div>
-        <div class="stat-item"><img src="assets/cards.png" alt="Cards" class="icon-glow"><span>{{ Cards }}</span></div>
         <div class="stat-item"><img src="assets/defence.png" alt="Defence" class="icon-glow"><span>{{ Defence }}</span></div>
         <div class="stat-item"><img src="assets/health.png" alt="Health" class="icon-glow"><span>{{ Health }}</span></div>
         <div class="stat-item"><img src="assets/movement.png" alt="Movement" class="icon-glow"><span>{{ Movement }}</span></div>

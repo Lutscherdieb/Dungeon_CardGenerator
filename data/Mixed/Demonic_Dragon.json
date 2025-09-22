@@ -3,7 +3,7 @@
     "Name":"Demonic Dragon",
     "Faction":"Demon",
     "Tier":3,
-    "Description":"You may sacrifica a [Demon] in the same room instead of using [Food] to unexhaust this creature",
+    "Description":"You may sacrifica a [All] in the same room instead of using [Food] to unexhaust this creature",
     "Mana":3,
     "Cards":5,
     "Defence":5,
