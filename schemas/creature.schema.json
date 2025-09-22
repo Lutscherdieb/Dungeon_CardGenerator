@@ -9,6 +9,7 @@
     "Faction":    { "type": "string", "enum": ["Demon","Magic","Wild","Undead","All"] },
     "Description":{"type": "string" },
     "Mana":       { "type": "integer" },
+    "Food":       { "type": "integer" },
     "Cards":      { "type": "integer" },
     "Defence":    { "type": "integer" },
     "Movement":   { "type": "integer" },

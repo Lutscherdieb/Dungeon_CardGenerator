@@ -10,6 +10,7 @@
     "Description": { "type": "string" },
     "Mana":      { "type": "integer" },
     "Cards":     { "type": "integer" },
+    "Food":       { "type": "integer" },
     "Defence":   { "type": "integer" },
     "Movement":  { "type": "integer" },
     "Health":    { "type": "integer" },

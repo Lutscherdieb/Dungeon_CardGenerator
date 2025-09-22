@@ -9,6 +9,7 @@
     "Rules": { "type": "string" },
     "Mana": { "type": "integer" },
     "Cards": { "type": "integer" },
+    "Food":       { "type": "integer" },
     "Defence": { "type": "integer" },
     "Treasure": { "type": "integer" },
     "Subtype": { "type": "string", "enum": ["Hearth","Basic"] },

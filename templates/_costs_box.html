@@ -1,16 +1,25 @@
-{# Show only if any cost > 0 #}
-{% set m = Mana|default(0) %}
-{% set c = Cards|default(0) %}
-{% if m > 0 or c > 0 %}
+{% set costs = [] %}
+{% if Food and Food > 0 %}
+  {% for i in range(Food) %}
+    {% set _ = costs.append("food") %}
+  {% endfor %}
+{% endif %}
+{% if Mana and Mana > 0 %}
+  {% for i in range(Mana) %}
+    {% set _ = costs.append("mana") %}
+  {% endfor %}
+{% endif %}
+{% if Cards and Cards > 0 %}
+  {% for i in range(Cards) %}
+    {% set _ = costs.append("cards") %}
+  {% endfor %}
+{% endif %}
+
+{% if costs %}
 <div class="costs-box">
   <div class="costs-strip">
-    {# Mana icons #}
-    {% for _ in range(m) %}
-      <img class="inline-symbol icon-glow" src="assets/mana.png" alt="Mana">
-    {% endfor %}
-    {# Cards icons #}
-    {% for _ in range(c) %}
-      <img class="inline-symbol icon-glow" src="assets/cards.png" alt="Cards">
+    {% for c in costs %}
+      <img src="assets/{{ c }}.png" alt="{{ c }}" class="inline-symbol icon-glow">
     {% endfor %}
   </div>
 </div>
