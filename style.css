@@ -351,10 +351,8 @@ body.road-e .safe-border.safe-right {
   pointer-events: none;
 }
 
-
-
 /* Angular spiderweb lines */
-.tier-filaments .webline {
+.tier-filaments .ray {
   stroke: var(--frame-border-color);
   fill: none;
   stroke-linecap: butt;
@@ -378,10 +376,10 @@ body[data-tier="1"] .tier-filaments .t3 { display: none; }
 body[data-tier="2"] .tier-filaments .t3 { display: none; }
 
 /* Optional per-tier width tweaks */
-body[data-tier="1"] .tier-filaments .webline { stroke-width: 2.5; opacity: .55; }
-body[data-tier="2"] .tier-filaments .webline { stroke-width: 3; opacity: .65; }
-body[data-tier="3"] .tier-filaments .webline { stroke-width: 3.5; opacity: .75; }
-body[data-tier="4"] .tier-filaments .webline { stroke-width: 4; opacity: .85; }
+body[data-tier="1"] .tier-filaments .ray { stroke-width: 2.5; opacity: .55; }
+body[data-tier="2"] .tier-filaments .ray { stroke-width: 3; opacity: .65; }
+body[data-tier="3"] .tier-filaments .ray { stroke-width: 3.5; opacity: .75; }
+body[data-tier="4"] .tier-filaments .ray { stroke-width: 4; opacity: .85; }
 
 
 

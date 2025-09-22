@@ -1,0 +1,41 @@
+{
+  "Type": "Room",
+  "Subtype": "Basic",
+  "Name": "Acid Chamber",
+  "Mana": 0,
+  "Cards": 2,
+  "Food": 0,
+  "Defence": 1,
+  "Treasure": 3,
+  "Roads": [
+    "N",
+    "S"
+  ],
+  "Slots": [
+    {
+      "1": [
+        [
+          "All",
+          0
+        ]
+      ]
+    },
+    {
+      "2": [
+        [
+          "Magic",
+          0
+        ],
+        [
+          "Demon",
+          0
+        ]
+      ]
+    },
+    {
+      "3": []
+    }
+  ],
+  "Rules": "",
+  "Background": "./backgrounds/Acid_Chamber.png"
+}

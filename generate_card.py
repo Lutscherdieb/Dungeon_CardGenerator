@@ -5,14 +5,21 @@ import base64
 import re
 import argparse
 import time
+import datetime
 import hashlib, random
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 from playwright.sync_api import sync_playwright
 from PIL import Image  # pip install pillow
 from jsonschema import validate as js_validate, ValidationError
-
+# --- spiderweb generation (prefer shared service) ---
+try:
+    from api.services.spiderweb import generate_spiderweb_geometry
+except Exception:
+    # Fallback: no web if service not available (CLI-only runs will still render)
+    def generate_spiderweb_geometry(_card_dict): 
+        return {}
 
 # =========================
 # Size profiles (300 DPI)
@@ -123,6 +130,150 @@ def replace_symbols_in_rules(text: str) -> str:
         print(f"[Rules] No tokens found in: {preview!r}")
     return new_text
 
+# If these dicts already exist in your file, reuse them and delete these lines.
+
+TEMPLATES_DIR = Path("templates")
+OUTPUTS_DIR   = Path("outputs")
+PROJECT_ROOT  = Path(".").resolve()
+
+_env = Environment(
+    loader=FileSystemLoader(str(TEMPLATES_DIR)),
+    autoescape=select_autoescape(["html", "xml"]),
+    trim_blocks=True,
+    lstrip_blocks=True,
+)
+
+def _ensure_dir(p: Path):
+    p.parent.mkdir(parents=True, exist_ok=True)
+
+def _lower_set(seq):
+    out = set()
+    for x in (seq or []):
+        s = str(x).strip().lower()
+        # allow "north", "n", etc → keep first letter
+        if s in ("north","east","south","west"):
+            s = s[0]
+        out.add(s)
+    return out
+
+def _inline_rules_tokens(text: str) -> str:
+    """
+    Very conservative inline replacement for [Token] → <img …>.
+    If you already have a richer replacer elsewhere, call that instead.
+    """
+    if not text:
+        return ""
+    tok_map = {
+        "undead":   "assets/undead.png",
+        "demon":    "assets/demon.png",
+        "wild":     "assets/wild.png",
+        "magic":    "assets/magic.png",
+        "all":      "assets/all.png",
+        "mana":     "assets/mana.png",
+        "treasure": "assets/treasure.png",
+        "cards":    "assets/cards.png",
+        "defence":  "assets/defence.png",
+        "health": "assets/health.png",
+        "hero": "assets/hero.png",
+        "spell": "assets/spell.png",
+        "trap": "assets/trap.png",
+        "research": "assets/research.png",
+        "movement": "assets/movement.png",
+        "food": "assets/food.png",
+        "chaos": "assets/chaos.png"
+        # add more as you need
+    }
+    out = text
+    for key, src in tok_map.items():
+        out = out.replace(f"[{key.capitalize()}]", f'<img class="inline-symbol icon-glow" src="{src}" alt="{key}">')
+        out = out.replace(f"[{key.upper()}]",      f'<img class="inline-symbol icon-glow" src="{src}" alt="{key}">')
+        out = out.replace(f"[{key}]",              f'<img class="inline-symbol icon-glow" src="{src}" alt="{key}">')
+    return out
+
+def _choose_template_filename(card_type: str) -> str:
+    return TYPE_TO_TEMPLATE_FILE.get((card_type or "").lower(), "room_template.html")
+
+
+def render_card_png_for_db(card) -> str:
+    """
+    Render a DB Card row to PNG files (full + safe + trim) using templates/<type>_template.html.
+    Returns a project-relative path (e.g. './outputs/api/card_12/Zombie_safe.png') to the preferred preview image.
+    """
+    # 0) Resolve template & size
+    ctype = (card.type or "").strip().lower()
+    if ctype not in TYPE_TO_TEMPLATE_FILE:
+        raise ValueError(f"Unknown card type: {card.type!r}")
+    template_filename = TYPE_TO_TEMPLATE_FILE[ctype]
+    if ctype == "room" and (card.subtype or "").strip().lower() == "hearth":
+        template_filename = "room_hearth_template.html"
+    size_key = TYPE_TO_SIZE[ctype]
+
+    # 1) Build context from DB fields
+    data = {
+        "Type": (card.type or "").title(),
+        "Subtype": card.subtype or "",
+        "Name": card.name or "",
+        "Faction": card.faction or "",
+        "Tier": card.tier or 0,
+        "Mana": card.mana or 0,
+        "Cards": card.cards or 0,
+        "Food": card.food or 0,
+        "Defence": card.defence or 0,
+        "Health": card.health or 0,
+        "Movement": card.movement or 0,
+        "Treasure": card.treasure or 0,
+        "Roads": card.roads or [],
+        "Slots": card.slots or [],
+        "Rules": card.rules or "",
+        "Description": card.description or "",
+        "Background": card.background or "",
+        "Source": card.source_json_path or "",
+    }
+
+    # 2) Embed background if file exists (optional)
+    bg_path = data.get("Background")
+    if bg_path and os.path.exists(bg_path):
+        with open(bg_path, "rb") as img_file:
+            data["background_b64"] = base64.b64encode(img_file.read()).decode("utf-8")
+    else:
+        data["background_b64"] = None
+
+    # 3) Transform context (roads set, inline [Tokens] → icons, etc.)
+    ctx = transform_context(data, ctype)
+    if ctype in ("creature", "hero", "treasure", "research", "spell", "trap"):
+        ctx["Spiderweb"] = generate_spiderweb_geometry(ctx)
+
+    # 4) Render template to a temp folder under outputs/api/card_{id}
+    project_root = Path(".").resolve()
+    out_dir = project_root / "outputs" / "api" / f"card_{card.id}"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    base_href = project_root.as_uri() + "/"
+    env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
+    template = env.get_template(template_filename)
+
+    rendered_html = template.render(**ctx, base_href=base_href)
+
+    safe_name = re.sub(r"[^A-Za-z0-9_-]", "_", ctx.get("Name", f"{ctype}_{card.id}") or f"{ctype}_{card.id}")
+    html_path = out_dir / f"{safe_name}.html"
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(rendered_html)
+
+    # 5) Screenshot → full PNG
+    full_png_path = generate_png_from_html(str(html_path), str(out_dir), safe_name, size_key)
+
+    # 6) Derive cropped variants (safe is what the feed prefers)
+    safe_png_path = generate_safezone_png(full_png_path, str(out_dir), safe_name, size_key)
+    # optional: also produce trim
+    try:
+        _ = generate_trim_png(full_png_path, str(out_dir), safe_name, size_key)
+    except Exception:
+        pass
+
+    # 7) Return a project-relative path for the feed to load
+    rel = "./" + os.path.relpath(safe_png_path, ".").replace("\\", "/")
+    return rel
+
 
 # =========================
 # Validation helpers
@@ -162,88 +313,6 @@ def validate_assets(project_root: Path):
         print("\nPlease add the missing files to your project before running again.")
         sys.exit(1)
 
-def _rng_from_seed(seed: str) -> random.Random:
-    h = hashlib.sha256(seed.encode("utf-8")).digest()
-    seed_int = int.from_bytes(h[:8], "big")
-    return random.Random(seed_int)
-
-def _gen_spider_side(
-    side: str,
-    tier: int,
-    rng: random.Random,
-    canvas=1125,
-    bleed=75,
-    safe=975,
-    safe_border=8,  # <-- half of this is the outward shift
-    # rays per tier (min,max) – Tier 4 gets the most
-    rays_tier=((10, 12), (18, 22), (28, 32), (38, 42)),
-    # interior bends per ray per tier (min,max)
-    steps_tier=((4, 5), (5, 6), (6, 7), (7, 8)),
-    # random jitter
-    jitter_xy=(23, 25, 27, 29),  # grows a touch with tier
-):
-    """
-    Rays start at the center of the safe-zone border (shifted outward by safe_border/2)
-    and step out into the bleed with angular segments.
-    """
-    t = max(1, min(4, tier))
-    min_rays, max_rays = rays_tier[t - 1]
-    rays = rng.randint(min_rays, max_rays)
-    min_steps, max_steps = steps_tier[t - 1]
-    jitter = jitter_xy[t - 1]
-
-    safe_min = bleed
-    safe_max = bleed + safe
-    half_border = safe_border / 2.0
-
-    paths = []
-
-    if side in ("top", "bottom"):
-        # shift outward from the safe edge by half the border thickness
-        y_start = (safe_min - half_border) if side == "top" else (safe_max + half_border)
-        y_end   = 0 if side == "top" else canvas
-        slots = [safe_min + (i + 0.5) * (safe / float(rays)) for i in range(rays)]
-        for x0 in slots:
-            steps = rng.randint(min_steps, max_steps)
-            pts = [(x0, y_start)]
-            for s in range(steps):
-                tstep = (s + 1) / (steps + 1)
-                y = y_start + tstep * (y_end - y_start)
-                x = x0 + rng.randint(-jitter, jitter)
-                pts.append((x, y))
-            pts.append((x0 + rng.randint(-jitter, jitter), y_end))
-            paths.append({"pts": pts})
-    else:
-        x_start = (safe_min - half_border) if side == "left" else (safe_max + half_border)
-        x_end   = 0 if side == "left" else canvas
-        slots = [safe_min + (i + 0.5) * (safe / float(rays)) for i in range(rays)]
-        for y0 in slots:
-            steps = rng.randint(min_steps, max_steps)
-            pts = [(x_start, y0)]
-            for s in range(steps):
-                tstep = (s + 1) / (steps + 1)
-                x = x_start + tstep * (x_end - x_start)
-                y = y0 + rng.randint(-jitter, jitter)
-                pts.append((x, y))
-            pts.append((x_end, y0 + rng.randint(-jitter, jitter)))
-            paths.append({"pts": pts})
-
-    return paths
-
-
-def generate_spiderweb_geometry(card_dict: dict) -> dict:
-    """
-    Deterministic, tier-aware geometry for Creature/Hero.
-    """
-    tier = int(card_dict.get("Tier", 1))
-    seed_src = f"web::{card_dict.get('Type')}::{card_dict.get('Name')}::{card_dict.get('Faction','')}::{card_dict.get('Background','')}::{tier}"
-    rng = _rng_from_seed(seed_src)
-
-    geom = {}
-    for side in ("top", "bottom", "left", "right"):
-        rays = _gen_spider_side(side, tier, rng, safe_border=8)
-        geom[side] = {"rays": rays}
-    return geom
 
 def load_schema(project_root: Path, rel_path: str) -> dict:
     with open(project_root / rel_path, "r", encoding="utf-8") as f:
@@ -333,9 +402,13 @@ def transform_context(card_data: dict, card_type: str) -> dict:
 # =========================
 # Single-card pipeline
 # =========================
-def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: str):
-    with open(card_data_path, 'r', encoding='utf-8') as f:
-        raw = json.load(f)
+def generate_html(card_data_path: str = None, _templates_dir_unused: str = None, output_dir: str = ".", from_dict: dict = None):
+    if from_dict is None:
+        # file mode
+        with open(card_data_path, 'r', encoding='utf-8') as f:
+            raw = json.load(f)
+    else:
+        raw = dict(from_dict)
 
     project_root = Path(__file__).resolve().parent
     validate_assets(project_root)

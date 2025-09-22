@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Card Preview Feed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/preview/feed.css" />
+</head>
+<body>
+  <header>
+    <h1>Card Feed</h1>
+    <div class="actions">
+      <button class="btn" id="newCardBtn">New (manual)</button>
+      <button class="btn" id="uploadFilesBtn">Upload JSON(s)</button>
+      <button class="btn" id="uploadFolderBtn">Upload Folder</button>
+      <button class="btn" id="refresh">Refresh</button>
+    </div>
+  </header>
+
+  <main class="container" id="feed"></main>
+
+  <!-- Hidden file pickers -->
+  <input type="file" id="filePicker" accept=".json,application/json" multiple hidden />
+  <input type="file" id="folderPicker" accept=".json,application/json" webkitdirectory hidden />
+
+  <!-- JSON Edit Modal (existing card) -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <header><h2 id="modal-title">Edit Card</h2></header>
+      <div class="body"><textarea id="jsonEditor" spellcheck="false"></textarea></div>
+      <footer>
+        <label class="btn" for="bgFile">Upload Background</label>
+        <input type="file" id="bgFile" accept="image/*" hidden />
+        <button class="btn" id="cancelBtn">Close</button>
+        <button class="btn primary" id="saveBtn">Save</button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- NEW card modal (manual create) -->
+  <div class="modal-backdrop" id="newModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="new-title">
+      <header><h2 id="new-title">New Card (manual JSON)</h2></header>
+      <div class="body">
+        <textarea id="newJson" spellcheck="false" placeholder='{
+  "type":"room",
+  "name":"Untitled",
+  "mana":0,"cards":0,
+  "rules":"", "description":"", "background":"./assets/backgrounds/placeholder.png"
+}'></textarea>
+      </div>
+      <footer>
+        <button class="btn" id="newCancel">Cancel</button>
+        <button class="btn primary" id="newCreate">Create</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/preview/feed.js"></script>
+</body>
+</html>

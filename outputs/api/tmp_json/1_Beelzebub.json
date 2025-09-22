@@ -1,0 +1,22 @@
+{
+  "Type": "Overlord",
+  "Name": "Beelzebub",
+  "Mana": 2,
+  "Cards": 2,
+  "Food": 1,
+  "Defence": 0,
+  "Health": 0,
+  "Movement": 0,
+  "Description": "[Cards] : Reroll the combat dice, activate this ability only once each turn.",
+  "Background": "./backgrounds/Beelzebub.png",
+  "Creatures": [
+    "Demon",
+    "Demon",
+    "Demon",
+    "Demon",
+    "Wild",
+    "Wild",
+    "All",
+    "All"
+  ]
+}
