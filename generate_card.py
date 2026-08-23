@@ -13,19 +13,12 @@ from playwright.sync_api import sync_playwright
 from PIL import Image  # pip install pillow
 from jsonschema import validate as js_validate, ValidationError
 
+from cardgen.spec import assert_png, css_variables, profile_for_type
 
-# =========================
-# Size profiles (300 DPI)
-# =========================
-SIZE_PROFILES = {
-    # 3.5" x 3.5" (trim), 1/8" bleed each side -> 1125x1125 full; safe = trim - 1/8" margin each side
-    "SQUARE_3_5IN": {
-        "bleed": (1125, 1125),
-        "crop": (75, 75, 1050, 1050),  # left, top, right, bottom within full
-        "trim":  (38, 38, 1088, 1088),   # (left, top, right, bottom) -> 1050×1050
-    },
-    # add more profiles later (e.g., standard TCG)
-}
+
+# Print geometry lives in cardgen.spec.profiles and nowhere else. The table
+# that used to sit here disagreed with style.css, with the spiderweb template,
+# and with the published MakePlayingCards spec, all at once.
 
 
 # =========================
@@ -43,17 +36,6 @@ TYPE_TO_TEMPLATE_FILE = {
     "creature": "creature_template.html",
     "treasure": "treasure_template.html",
     "overlord": "overlord_template.html",
-}
-
-TYPE_TO_SIZE = {
-    "room":     "SQUARE_3_5IN",
-    "spell":    "SQUARE_3_5IN",
-    "research": "SQUARE_3_5IN",
-    "hero": "SQUARE_3_5IN",
-    "trap": "SQUARE_3_5IN",
-    "creature": "SQUARE_3_5IN",
-    "treasure": "SQUARE_3_5IN",
-    "overlord": "SQUARE_3_5IN",
 }
 
 SCHEMA_PATHS = {
@@ -171,9 +153,9 @@ def _gen_spider_side(
     side: str,
     tier: int,
     rng: random.Random,
-    canvas=1125,
-    bleed=75,
-    safe=975,
+    canvas,
+    inset,
+    safe,
     safe_border=8,  # <-- half of this is the outward shift
     # rays per tier (min,max) – Tier 4 gets the most
     rays_tier=((10, 12), (18, 22), (28, 32), (38, 42)),
@@ -192,8 +174,8 @@ def _gen_spider_side(
     min_steps, max_steps = steps_tier[t - 1]
     jitter = jitter_xy[t - 1]
 
-    safe_min = bleed
-    safe_max = bleed + safe
+    safe_min = inset
+    safe_max = inset + safe
     half_border = safe_border / 2.0
 
     paths = []
@@ -231,7 +213,7 @@ def _gen_spider_side(
     return paths
 
 
-def generate_spiderweb_geometry(card_dict: dict) -> dict:
+def generate_spiderweb_geometry(card_dict: dict, profile) -> dict:
     """
     Deterministic, tier-aware geometry for Creature/Hero.
     """
@@ -241,7 +223,13 @@ def generate_spiderweb_geometry(card_dict: dict) -> dict:
 
     geom = {}
     for side in ("top", "bottom", "left", "right"):
-        rays = _gen_spider_side(side, tier, rng, safe_border=8)
+        rays = _gen_spider_side(
+            side, tier, rng,
+            canvas=profile.canvas_w,
+            inset=profile.frame_inset,
+            safe=profile.safe_w,
+            safe_border=8,
+        )
         geom[side] = {"rays": rays}
     return geom
 
@@ -346,7 +334,7 @@ def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: s
     subtype = (raw.get("Subtype") or "").strip().lower()
     if detected_type == "room" and subtype == "hearth":
         template_filename = "room_hearth_template.html"
-    size_key = TYPE_TO_SIZE[detected_type]
+    profile = profile_for_type(detected_type)
 
     # 2) Now enrich AFTER validation
     #    Embed background if file path provided (optional)
@@ -361,11 +349,17 @@ def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: s
     # 3) Transform context (adds RoadsSet, runs inline replacements, etc.)
     ctx = transform_context(enriched, detected_type)
     if detected_type in ("creature", "hero","treasure","research", "spell", "trap"):
-        ctx["Spiderweb"] = generate_spiderweb_geometry(ctx)
+        ctx["Spiderweb"] = generate_spiderweb_geometry(ctx, profile)
     base_href = project_root.as_uri() + "/"
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
     template = env.get_template(template_filename)
-    rendered_html = template.render(**ctx, base_href=base_href)
+    rendered_html = template.render(
+        **ctx,
+        base_href=base_href,
+        css_vars=css_variables(profile),
+        canvas_w=profile.canvas_w,
+        canvas_h=profile.canvas_h,
+    )
 
     os.makedirs(output_dir, exist_ok=True)
     safe_name = re.sub(r'[^A-Za-z0-9_-]', '_', ctx.get('Name', 'card'))
@@ -374,13 +368,13 @@ def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: s
         f.write(rendered_html)
 
     print(f"[HTML] Generated: {html_path}")
-    return html_path, safe_name, size_key
+    return html_path, safe_name, profile
 
 
 
-def generate_png_from_html(html_path: str, output_dir: str, output_name: str, size_key: str):
-    """Generate full-bleed PNG from HTML using Playwright (Chromium)."""
-    width, height = SIZE_PROFILES[size_key]["bleed"]
+def generate_png_from_html(html_path: str, output_dir: str, output_name: str, profile):
+    """Generate the full-bleed PNG -- this is the file MakePlayingCards receives."""
+    width, height = profile.canvas
     os.makedirs(output_dir, exist_ok=True)
     png_path = os.path.join(output_dir, f"{output_name}.png")
 
@@ -395,13 +389,19 @@ def generate_png_from_html(html_path: str, output_dir: str, output_name: str, si
         page.screenshot(path=png_path, clip={"x": 0, "y": 0, "width": width, "height": height})
         browser.close()
 
+    # Playwright writes no DPI metadata, and MPC reads it -- stamp before checking.
+    with Image.open(png_path) as im:
+        im.load()
+        im.save(png_path, format="PNG", dpi=(profile.dpi, profile.dpi))
+
+    assert_png(png_path, profile, "canvas")
     print(f"[PNG] Full bleed generated: {png_path}")
     return png_path
 
 
-def generate_safezone_png(full_png_path: str, output_dir: str, output_name: str, size_key: str):
+def generate_safezone_png(full_png_path: str, output_dir: str, output_name: str, profile):
     """Crop the safe zone from a full-bleed PNG (saves as *_safe.png at 300 DPI)."""
-    left, top, right, bottom = SIZE_PROFILES[size_key]["crop"]
+    left, top, right, bottom = profile.safe_box.as_pil()
     os.makedirs(output_dir, exist_ok=True)
     safe_png_path = os.path.join(output_dir, f"{output_name}_safe.png")
 
@@ -409,21 +409,19 @@ def generate_safezone_png(full_png_path: str, output_dir: str, output_name: str,
         cropped = im.crop((left, top, right, bottom))
         if cropped.mode not in ("RGB", "RGBA"):
             cropped = cropped.convert("RGBA")
-        cropped.save(safe_png_path, format="PNG", dpi=(300, 300))
+        cropped.save(safe_png_path, format="PNG", dpi=(profile.dpi, profile.dpi))
 
+    assert_png(safe_png_path, profile, "safe")
     print(f"[PNG] Safe zone generated: {safe_png_path}")
     return safe_png_path
 
 
-def generate_trim_png(full_png_path: str, output_dir: str, output_name: str, size_key: str):
+def generate_trim_png(full_png_path: str, output_dir: str, output_name: str, profile):
     """
     Crop the TRIM area (no bleed; not the smaller safe-zone) from a full-bleed PNG.
     Saves as *_trim.png at 300 DPI.
     """
-    if "trim" not in SIZE_PROFILES[size_key]:
-        raise ValueError(f"No trim bounds defined for size profile '{size_key}'.")
-
-    left, top, right, bottom = SIZE_PROFILES[size_key]["trim"]
+    left, top, right, bottom = profile.trim_box.as_pil()
     os.makedirs(output_dir, exist_ok=True)
     trim_png_path = os.path.join(output_dir, f"{output_name}_trim.png")
 
@@ -431,8 +429,9 @@ def generate_trim_png(full_png_path: str, output_dir: str, output_name: str, siz
         trimmed = im.crop((left, top, right, bottom))
         if trimmed.mode not in ("RGB", "RGBA"):
             trimmed = trimmed.convert("RGBA")
-        trimmed.save(trim_png_path, format="PNG", dpi=(300, 300))
+        trimmed.save(trim_png_path, format="PNG", dpi=(profile.dpi, profile.dpi))
 
+    assert_png(trim_png_path, profile, "trim")
     print(f"[PNG] Trim area generated: {trim_png_path}")
     return trim_png_path
 # =========================
@@ -456,25 +455,25 @@ def process_single(json_path: str, _templates_dir_ignored: str, out_dir: str,
     html_path = None
     safe_name = None
     full_png_path = None
-    size_key = None
+    profile = None
 
     if want_html or want_png or want_safe or want_trim:
-        html_path, safe_name, size_key = generate_html(json_path, _templates_dir_ignored, out_dir)
+        html_path, safe_name, profile = generate_html(json_path, _templates_dir_ignored, out_dir)
 
     if want_png or want_safe or want_trim:
-        full_png_path = generate_png_from_html(html_path, out_dir, safe_name, size_key)
+        full_png_path = generate_png_from_html(html_path, out_dir, safe_name, profile)
 
     safe_png_path = None
     if want_safe:
         if not full_png_path:
             full_png_path = os.path.join(out_dir, f"{safe_name}.png")
-        safe_png_path = generate_safezone_png(full_png_path, out_dir, safe_name, size_key)
+        safe_png_path = generate_safezone_png(full_png_path, out_dir, safe_name, profile)
 
     trim_png_path = None
     if want_trim:
         if not full_png_path:
             full_png_path = os.path.join(out_dir, f"{safe_name}.png")
-        trim_png_path = generate_trim_png(full_png_path, out_dir, safe_name, size_key)
+        trim_png_path = generate_trim_png(full_png_path, out_dir, safe_name, profile)
 
     # labels
     try:
@@ -559,7 +558,7 @@ def main():
             raise SystemExit(f"No .json files found in folder: {args.input}")
 
         batch_dir = make_batch_dir(args.output_dir, len(json_files))
-        print(f"[BATCH] Processing {len(json_files)} file(s) → {batch_dir}")
+        print(f"[BATCH] Processing {len(json_files)} file(s) -> {batch_dir}")
 
         items = []
         for jp in json_files:

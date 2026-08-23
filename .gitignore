@@ -1,1 +1,39 @@
+# Machine-local state — never versioned (no personal data / machine paths in git; see CLAUDE.md)
+*.local.json
+*.local.md
+references.local.json
+
+# Claude Code local session state
+.claude/settings.local.json
+.claude/.session/
+
+# Rendered output. "output/" was the only entry here, but the code writes
+# "outputs/" — which is how ~10MB of PNGs and a SQLite file reached the
+# REST-CardGenerator branch. All three spellings are ignored deliberately.
 output/
+outputs/
+out/
+
+# Databases — the card store is rebuildable from the JSON content via the importer
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Test / tooling caches
+.pytest_cache/
+
+# OS cruft
+Thumbs.db
+Desktop.ini
+.DS_Store

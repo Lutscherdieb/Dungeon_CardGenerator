@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cardgen"
+version = "0.1.0.dev0"
+description = "Print-ready boardgame cards at exact MakePlayingCards measurements"
+requires-python = ">=3.10"
+dependencies = [
+    "jinja2>=3.0",
+    "jsonschema>=4.0",
+    "playwright>=1.40",
+    # Imported by the renderer since day one; the old requirements.txt never
+    # listed it, so a fresh clone failed at `from PIL import Image`.
+    "pillow>=10.0",
+    "pydantic>=2.6",
+    "SQLAlchemy>=2.0",
+    "CherryPy>=18.9",
+]
+
+[project.scripts]
+cardgen = "cardgen.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

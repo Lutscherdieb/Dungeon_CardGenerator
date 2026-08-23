@@ -1,9 +1,44 @@
 @font-face {
   font-family: 'Cinzel';
-  src: url('assets/fonts/Cinzel-Bold.ttf') format('ttf');
+  src: url('assets/fonts/Cinzel-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cinzel';
+  src: url('assets/fonts/Cinzel-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cinzel';
+  src: url('assets/fonts/Cinzel-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cinzel';
+  src: url('assets/fonts/Cinzel-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap; /* renders immediately, swaps when loaded */
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cinzel';
+  src: url('assets/fonts/Cinzel-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cinzel';
+  src: url('assets/fonts/Cinzel-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
 }
 :root {
   --title-min-width: 400px;
@@ -19,7 +54,6 @@
   --road-overlap: 2px;  /* ONLY used where the frame meets the road-band */
   --safe-border-radius: 10px; /* tweak per taste */
 
-  --bleed-size: 75px;     /* distance from safe-zone to canvas edge on all sides */
   --road-width: 214px;     /* visual width of the road channel */
 
   --frame-border-width: 2px;
@@ -298,7 +332,7 @@ body.road-e .safe-border.safe-right {
   left: 50%;
   transform: translateX(-50%);
   width: var(--road-width);
-  height: var(--bleed-size);
+  height: var(--frame-inset);
   border-bottom: none;          /* inner edge = the one touching safe-zone */
   border-top:none;
 }
@@ -309,7 +343,7 @@ body.road-e .safe-border.safe-right {
   left: 50%;
   transform: translateX(-50%);
   width: var(--road-width);
-  height: var(--bleed-size);
+  height: var(--frame-inset);
   border-top: none;
   border-bottom: none;
 }
@@ -319,7 +353,7 @@ body.road-e .safe-border.safe-right {
   right: 100%;
   top: 50%;
   transform: translateY(-50%);
-  width: var(--bleed-size);
+  width: var(--frame-inset);
   height: var(--road-width);
   border-right: none;
   border-left: none;
@@ -330,7 +364,7 @@ body.road-e .safe-border.safe-right {
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
-  width: var(--bleed-size);
+  width: var(--frame-inset);
   height: var(--road-width);
   border-left: none;
   border-right: none;
@@ -342,11 +376,11 @@ body.road-e .safe-border.safe-right {
 /* ===== Creature Tier Filaments (SVG overlay) ===== */
 .safe-zone > svg.tier-filaments {
   position: absolute;                 /* override the generic relative */
-  /* Expand out into the bleed around the safe-zone (975 + 75*2 = 1125) */
-  top:  calc(-1 * var(--bleed-size));
-  left: calc(-1 * var(--bleed-size));
-  width: 1125px;
-  height: 1125px;
+  /* Cover the whole canvas: safe zone plus the frame inset on all sides. */
+  top:  calc(-1 * var(--frame-inset));
+  left: calc(-1 * var(--frame-inset));
+  width: var(--canvas-w);
+  height: var(--canvas-h);
   z-index: 8;                         /* below borders/content (30/40) */
   pointer-events: none;
 }
@@ -390,16 +424,16 @@ body {
   margin: 0;
   padding: 0;
   background-color: black;     /* bleed + trim area */
-  width: 1125px;
-  height: 1125px;
+  width: var(--canvas-w);
+  height: var(--canvas-h);
   font-family: Arial, sans-serif;
 }
 
 .safe-zone {
   position: relative;
-  width: 975px;
-  height: 975px;
-  margin: 75px;                /* centers inside bleed area */
+  width: var(--safe-w);
+  height: var(--safe-h);
+  margin: var(--frame-inset);  /* centers inside the canvas */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

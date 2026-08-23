@@ -1,6 +1,7 @@
 {# templates/_spiderweb.html #}
 {% if Spiderweb %}
-<svg class="tier-filaments" viewBox="0 0 1125 1125" width="1125" height="1125" aria-hidden="true">
+<svg class="tier-filaments" viewBox="0 0 {{ canvas_w }} {{ canvas_h }}"
+     aria-hidden="true">{# sized by CSS var(--canvas-w/h); viewBox must match the coordinates cardgen.spec fed the generator #}
   <!-- TOP -->
   <g class="side top">
     {% for ray in Spiderweb.top.rays %}
