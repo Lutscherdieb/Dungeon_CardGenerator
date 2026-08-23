@@ -42,13 +42,17 @@ A batch run creates `out/<unix-timestamp>_<count>/` containing, per card, `<Name
 ### The gallery
 
 ```bash
-cardgen import          # load data/Mixed into the store (skips names already there)
-cardgen serve           # http://127.0.0.1:8765
+python -m cardgen.cli import     # load data/Mixed into the store (skips names already there)
+python -m cardgen.cli serve      # http://127.0.0.1:8765
 ```
 
 Browse, edit, upload artwork, re-render. Every save re-renders in the background.
-`cardgen render` renders every stored card; `cardgen export` writes the store back
-out as card JSON, byte-for-byte matching what `data/Mixed` already holds.
+`render` renders every stored card; `export` writes the store back out as card JSON,
+byte-for-byte matching what `data/Mixed` already holds.
+
+`pip install -e .` also installs a shorter `cardgen` command, but on this machine its
+Scripts directory is not on `PATH`, so `python -m cardgen.cli` is the form that always
+works. Add that directory to `PATH` if you would rather type `cardgen serve`.
 
 Verify a change with: `python tests/run_tests.py > tests/last-run.txt 2>&1`
 
