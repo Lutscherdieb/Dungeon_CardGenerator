@@ -56,6 +56,16 @@ SQLite behind the model. The validated card is stored **whole**, as JSON, in its
 
 `import_json_files` skips a card whose `Name` is already stored, so re-running an import cannot silently duplicate the deck. `export_json_files` writes back to the filename a card was imported from, and the round trip is byte-exact across all 137 cards — which makes "export over `data/Mixed` and `git diff`" a real integrity check.
 
+### `src/cardgen/render/` and `src/cardgen/web/` — the gallery
+
+`render/service.py` resolves paths and updates the store; every pixel is delegated to `generate_card`. `generate_html` accepts a dict as well as a file path, which is what lets the gallery share the CLI's pipeline instead of growing one beside it. Renders land in `out/gallery/<card_id>/`, one directory per card, so a re-render replaces its predecessor rather than accumulating timestamped copies.
+
+`web/` is a CherryPy app plus a single background render thread. One worker is deliberate — rendering launches Chromium, so it cannot happen inside a request, and a second concurrent browser buys nothing on one machine.
+
+The `/api` mount turns CherryPy's `trailing_slash` tool **off**. CherryPy treats a class with an `index` method as a directory and 301s `/api/cards` to `/api/cards/`; harmless for a GET, but a redirected POST is not guaranteed to keep its method or body.
+
+The gallery's edit form is generated from the card type's JSON Schema, so a new field on the model appears in the form with no frontend change. The schema carries `x-key-order` — the same order `to_json_dict` writes — so the form and the exported file agree without JavaScript restating the list. A field whose shape the builder does not recognise falls back to a JSON box rather than disappearing: a field you cannot see is a field you cannot fix.
+
 ### `templates/` and `style.css`
 
 Nine per-type templates over shared partials (`_costs_box`, `_spiderweb`, `filters_defs`). Theming is data-attribute driven: `body[data-type]`, `body[data-subtype]`, `body[data-faction]` and `body[data-tier]` select CSS custom-property blocks, so a card's colours follow from its data rather than from template branching.
