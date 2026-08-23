@@ -6,6 +6,7 @@
     "Description": "+1 [Mana] when this dies",
     "Mana": 3,
     "Cards": 1,
+    "Food": 0,
     "Defence": 2,
     "Movement": 3,
     "Health": 2,

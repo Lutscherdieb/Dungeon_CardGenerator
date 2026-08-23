@@ -5,5 +5,6 @@
     "Description": "Deal 2 damage to any Hero in your dungeon.",
     "Mana": 1,
     "Cards": 1,
+    "Food": 0,
     "Background": "./backgrounds/Fireball.png"
 }

@@ -5,6 +5,7 @@
     "Description": "",
     "Mana": 0,
     "Cards": 0,
+    "Food": 0,
     "Defence": 2,
     "Treasure": 3,
     "Roads": [

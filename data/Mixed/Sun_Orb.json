@@ -5,5 +5,6 @@
     "Description": "Start of Replenish: All [Hero] are dealt 1 damage.",
     "Mana": 2,
     "Cards": 1,
+    "Food": 0,
     "Background": "./backgrounds/Sun_Orb.png"
 }

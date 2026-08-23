@@ -4,9 +4,10 @@
     "Description": "Once per game: Destroy all Heroes in your dungeon. Gain 1 [Cards] for each [Hero] destroyed this way.",
     "Mana": 3,
     "Cards": 1,
+    "Food": 0,
     "Defence": 2,
-    "Health": 0,
     "Movement": 0,
+    "Health": 0,
     "Creatures": [
         "Demon",
         "Demon",

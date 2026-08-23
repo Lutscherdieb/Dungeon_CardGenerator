@@ -6,6 +6,7 @@
     "Description": "You may sacrifica a [All] in the same room instead of using [Food] to unexhaust this creature",
     "Mana": 3,
     "Cards": 5,
+    "Food": 0,
     "Defence": 5,
     "Movement": 2,
     "Health": 5,

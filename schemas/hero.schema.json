@@ -35,14 +35,14 @@
       "title": "Defence",
       "type": "integer"
     },
-    "Health": {
-      "minimum": 0,
-      "title": "Health",
-      "type": "integer"
-    },
     "Movement": {
       "minimum": 0,
       "title": "Movement",
+      "type": "integer"
+    },
+    "Health": {
+      "minimum": 0,
+      "title": "Health",
       "type": "integer"
     },
     "Type": {
@@ -63,8 +63,8 @@
     "Cards",
     "Background",
     "Defence",
-    "Health",
     "Movement",
+    "Health",
     "Type",
     "Tier"
   ],

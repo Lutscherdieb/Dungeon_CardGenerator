@@ -5,5 +5,6 @@
     "Description": "You may stationan additional [All] in rooms with at least one [Treasure] or [Research]",
     "Mana": 0,
     "Cards": 1,
+    "Food": 0,
     "Background": "./backgrounds/Mutation_Engineering.png"
 }

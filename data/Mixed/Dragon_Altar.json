@@ -5,6 +5,7 @@
     "Description": "If a [Wild] with Level 1 would die, return it to your Domain instead",
     "Mana": 1,
     "Cards": 3,
+    "Food": 0,
     "Defence": 1,
     "Treasure": 2,
     "Roads": [

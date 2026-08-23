@@ -6,6 +6,7 @@
     "Description": "Counts as [Demon][Demon] when activating abilities",
     "Mana": 3,
     "Cards": 3,
+    "Food": 0,
     "Defence": 3,
     "Movement": 4,
     "Health": 2,

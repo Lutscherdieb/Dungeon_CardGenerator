@@ -5,6 +5,7 @@
     "Description": "[All] with Base [Defence] <= 2 in the same room count as having base [Defence] 0.",
     "Mana": 3,
     "Cards": 2,
+    "Food": 0,
     "Defence": 4,
     "Movement": 2,
     "Health": 12,

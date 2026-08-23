@@ -5,6 +5,7 @@
     "Description": "+1 [Defence] for each [Demon] in the room.",
     "Mana": 1,
     "Cards": 1,
+    "Food": 0,
     "Defence": 4,
     "Movement": 2,
     "Health": 10,

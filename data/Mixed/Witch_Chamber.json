@@ -5,6 +5,7 @@
     "Description": "[Magic][Cards]: Gain 1 [Cards].<br>[Wild][Magic]: Gain 2 [Cards].",
     "Mana": 0,
     "Cards": 2,
+    "Food": 0,
     "Defence": 1,
     "Treasure": 3,
     "Roads": [

@@ -5,5 +5,6 @@
     "Description": "When you draw your first [Chaos] in a turn, you may put it back into your domain",
     "Mana": 2,
     "Cards": 1,
+    "Food": 0,
     "Background": "./backgrounds/Runic_Quill.png"
 }

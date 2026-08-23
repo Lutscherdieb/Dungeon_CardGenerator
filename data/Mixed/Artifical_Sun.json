@@ -5,5 +5,6 @@
     "Description": "On activation: Kill all [All] and [Hero] in this room.",
     "Mana": 3,
     "Cards": 2,
+    "Food": 0,
     "Background": "./backgrounds/Artifical_Sun.png"
 }

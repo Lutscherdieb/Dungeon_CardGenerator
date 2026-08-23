@@ -6,6 +6,7 @@
     "Description": "At the start of combat: For each Succubus, one target Hero in this room cannot fight this combat.",
     "Mana": 5,
     "Cards": 2,
+    "Food": 0,
     "Defence": 1,
     "Movement": 2,
     "Health": 2,

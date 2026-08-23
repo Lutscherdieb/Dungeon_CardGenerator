@@ -5,6 +5,7 @@
     "Description": "On the first combat this [Hero] fights in a room: +2 [Defence]",
     "Mana": 0,
     "Cards": 2,
+    "Food": 0,
     "Defence": 2,
     "Movement": 3,
     "Health": 4,

@@ -4,9 +4,10 @@
     "Description": "[All] can move through walls",
     "Mana": 1,
     "Cards": 1,
+    "Food": 0,
     "Defence": 0,
-    "Health": 0,
     "Movement": 0,
+    "Health": 0,
     "Creatures": [
         "Demon",
         "Magic",

@@ -6,6 +6,7 @@
     "Description": "When this creature would die, return it to your domain instead.",
     "Mana": 1,
     "Cards": 1,
+    "Food": 0,
     "Defence": 3,
     "Movement": 1,
     "Health": 3,

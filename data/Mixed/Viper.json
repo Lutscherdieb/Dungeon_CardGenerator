@@ -6,6 +6,7 @@
     "Description": "For each [Wild] in a room: If damage would be dealt to an enemy [Hero] in this room, deal that much + 1 more damage instead",
     "Mana": 3,
     "Cards": 3,
+    "Food": 0,
     "Defence": 3,
     "Movement": 2,
     "Health": 4,

@@ -51,7 +51,8 @@ Artwork supplied by the user is validated separately and advisorily: `cardgen.sp
 ## Open direction notes
 
 - **Rebuild the web gallery.** The `REST-CardGenerator` branch is a non-working sketch (`Card.as_dict` reads three columns that do not exist, so every list request 500s). Rebuild on CherryPy + SQLAlchemy + SQLite with the card data as one pydantic model; harvest ideas from that branch, then delete it.
-- **SQLite becomes the source of truth**, with JSON import for the 137 existing cards and export back out so game content stays diffable in git.
+- **Build the gallery** on the store: list, view, create, edit, upload artwork, render. CherryPy, localhost, no auth.
+- **Four card files have drifted from their card's name** — `Magic_Sentry.json` holds "Battledroid", `Timeless_Horror.json` holds "Chaos Overseer", `Monster_in_a_Bottle.json` holds "Bottled Monster", and `Chaos_Imprisionment.json` holds "Chaos Imprisonment" (the filename carries the typo). Export follows the file, not the name, so nothing breaks — but the files are worth renaming, and their `Background` still points at the old artwork name. Author's call.
 - **Ask the author what the second number in a `Slots` spot means.** It is 0 on 64 of 66 spots and 2 on the two `Sacred_Hain` spots, whose text mentions "[Wild] with Level 1". `Rules/Ideas.txt` lists slot requirements as an idea, so it is not safe to name the field from that alone.
 - `Food` is declared on every card type and used by one card. Kept deliberately — cards for it are not designed yet.
 - **Collapse the nine card templates onto one base template.** They are 658 lines of the same skeleton; `room` and `room_hearth` are near-identical 96-line copies.

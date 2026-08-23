@@ -6,6 +6,7 @@
     "Description": "+1 [Defence] for each other [Magic] in the room.",
     "Mana": 1,
     "Cards": 0,
+    "Food": 0,
     "Defence": 0,
     "Movement": 2,
     "Health": 1,

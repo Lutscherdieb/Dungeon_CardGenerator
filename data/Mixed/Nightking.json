@@ -4,9 +4,10 @@
     "Description": "",
     "Mana": 2,
     "Cards": 2,
+    "Food": 0,
     "Defence": 1,
-    "Health": 0,
     "Movement": 1,
+    "Health": 0,
     "Creatures": [
         "Demon",
         "Magic",

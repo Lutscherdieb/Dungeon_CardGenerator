@@ -6,6 +6,7 @@
     "Description": "May ignore Paths when moving",
     "Mana": 2,
     "Cards": 0,
+    "Food": 0,
     "Defence": 1,
     "Movement": 2,
     "Health": 1,

@@ -6,6 +6,7 @@
     "Description": "",
     "Mana": 5,
     "Cards": 5,
+    "Food": 0,
     "Defence": 5,
     "Movement": 2,
     "Health": 6,

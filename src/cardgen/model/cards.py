@@ -117,8 +117,8 @@ class _Fighter(CardBase):
     """Shared stat block for the types that occupy the board and fight."""
 
     defence: Defence
-    health: int = Field(ge=0)
     movement: int = Field(ge=0)
+    health: int = Field(ge=0)
 
 
 class Creature(_Fighter):
@@ -206,6 +206,27 @@ def parse_card(data: dict):
     return model.model_validate(data)
 
 
+#: Key order for exported JSON. Not cosmetic: cards are hand-edited, and the
+#: order below is the one the author already writes -- measured across the deck,
+#: where 46 of 47 Creatures, 13 of 13 Heroes and 23 of 23 Rooms agree. Matching
+#: it keeps `export the store over data/Mixed && git diff` a usable integrity
+#: check instead of a wall of reordering. A key missing from this tuple is not
+#: dropped, it sorts to the end.
+_JSON_KEY_ORDER = (
+    "Type", "Subtype", "Name", "Faction", "Tier",
+    "Description",
+    "Mana", "Cards", "Food",
+    "Defence", "Treasure", "Movement", "Health",
+    "Creatures", "Roads", "Slots",
+    "Background",
+)
+_ORDER_INDEX = {key: i for i, key in enumerate(_JSON_KEY_ORDER)}
+
+
 def to_json_dict(card: BaseModel) -> dict:
     """The card as the JSON files and the Jinja templates spell it."""
-    return card.model_dump(by_alias=True, mode="json")
+    dumped = card.model_dump(by_alias=True, mode="json")
+    return {
+        key: dumped[key]
+        for key in sorted(dumped, key=lambda k: (_ORDER_INDEX.get(k, len(_ORDER_INDEX)), k))
+    }

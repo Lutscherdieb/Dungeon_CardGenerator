@@ -5,6 +5,7 @@
     "Description": "+3 [Defence] when fighting alone",
     "Mana": 1,
     "Cards": 1,
+    "Food": 0,
     "Defence": 5,
     "Movement": 2,
     "Health": 8,

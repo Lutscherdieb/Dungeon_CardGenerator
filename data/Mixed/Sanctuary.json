@@ -5,6 +5,7 @@
     "Description": "[Undead][Undead]: Put one Power 2 [Undead] into your Domain",
     "Mana": 0,
     "Cards": 2,
+    "Food": 0,
     "Defence": 1,
     "Treasure": 2,
     "Roads": [

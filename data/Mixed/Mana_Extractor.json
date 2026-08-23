@@ -5,5 +5,6 @@
     "Description": "When you draw [Chaos] from your Domain, gain 1 [Mana]",
     "Mana": 0,
     "Cards": 3,
+    "Food": 0,
     "Background": "./backgrounds/Mana_Extractor.png"
 }

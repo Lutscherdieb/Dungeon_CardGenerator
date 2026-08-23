@@ -6,6 +6,7 @@
     "Description": "Also counts as [Magic]",
     "Mana": 4,
     "Cards": 1,
+    "Food": 0,
     "Defence": 2,
     "Movement": 2,
     "Health": 2,

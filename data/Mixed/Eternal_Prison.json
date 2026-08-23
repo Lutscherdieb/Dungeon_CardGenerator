@@ -5,6 +5,7 @@
     "Description": "You may place drawn creatures in this room.<br>Creatures in this room cannot be returned to your domain.",
     "Mana": 1,
     "Cards": 2,
+    "Food": 0,
     "Defence": 2,
     "Treasure": 0,
     "Roads": [],

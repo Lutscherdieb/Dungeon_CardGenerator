@@ -6,6 +6,7 @@
     "Description": "Whenever this creature takes any amount of damage, it deals 1 damage to all [Hero] in the room.",
     "Mana": 1,
     "Cards": 2,
+    "Food": 0,
     "Defence": 1,
     "Movement": 2,
     "Health": 4,

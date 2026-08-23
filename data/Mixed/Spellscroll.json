@@ -6,6 +6,7 @@
     "Description": "When you activate [Magic], Add [Mana]",
     "Mana": 1,
     "Cards": 1,
+    "Food": 0,
     "Defence": 0,
     "Movement": 1,
     "Health": 1,

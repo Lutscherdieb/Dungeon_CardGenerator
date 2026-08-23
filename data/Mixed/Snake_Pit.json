@@ -5,6 +5,7 @@
     "Description": "When a hero enters this Room, it is dealt 1 damage",
     "Mana": 0,
     "Cards": 1,
+    "Food": 0,
     "Defence": 0,
     "Treasure": 1,
     "Roads": [

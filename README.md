@@ -8,7 +8,7 @@ Mid-restructure, on branch `v2`.
 
 **Done:** print geometry is derived from a single MPC-backed profile and asserted on every written PNG — the canvas is now MPC's actual 1122 x 1122 (it had drifted to 1125), the safe zone 978 (was 975). One pydantic model owns the card shape and generates the JSON Schemas; all 137 cards validate against it. The CLI renders all eight card types.
 
-**Next:** SQLite behind that model, JSON import for the existing cards, then the web gallery. The `REST-CardGenerator` branch is a non-working sketch kept only for reference — see the direction notes in [PROJECT.md](PROJECT.md).
+**Next:** the web gallery on top of the store. SQLite, JSON import and byte-exact export are in place; all 137 cards are loaded. The `REST-CardGenerator` branch is a non-working sketch kept only for reference — see the direction notes in [PROJECT.md](PROJECT.md).
 
 ## What this is
 
@@ -57,6 +57,7 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 |---|---|
 | `src/cardgen/spec/` | Print geometry — the single source of truth for every pixel size |
 | `src/cardgen/model/` | The card definition — one pydantic model, from which the schemas derive |
+| `src/cardgen/store/` | SQLite behind the model: import, edit, export, render state |
 | `generate_card.py` | The CLI renderer; being folded into `src/cardgen/` |
 | `templates/` | Jinja card templates, one per type plus shared partials |
 | `style.css` | Card styling. Declares no geometry — it reads the profile's CSS variables |

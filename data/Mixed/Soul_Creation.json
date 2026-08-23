@@ -5,5 +5,6 @@
     "Description": "[All] cost 1 less [Mana] to recruit.<br><i>(this cannot reduce the cost below 1).</i>",
     "Mana": 3,
     "Cards": 1,
+    "Food": 0,
     "Background": "./backgrounds/Soul_Creation.png"
 }

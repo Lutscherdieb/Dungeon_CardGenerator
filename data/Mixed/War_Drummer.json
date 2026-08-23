@@ -5,6 +5,7 @@
     "Description": " Each hero in the party has +5 [Health]",
     "Mana": 1,
     "Cards": 2,
+    "Food": 0,
     "Defence": 2,
     "Movement": 1,
     "Health": 5,

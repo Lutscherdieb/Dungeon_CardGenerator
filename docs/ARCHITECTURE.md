@@ -44,6 +44,18 @@ Currently a single top-level module; being folded into `src/cardgen/render/`. It
 4. **Render** — Jinja to HTML with the artwork inlined as base64, then Chromium to PNG at the profile's canvas size, stamped to 300 DPI and asserted.
 5. **Crop** — safe and trim PNGs from the profile's boxes, each asserted.
 
+### `src/cardgen/store/` — the card store
+
+SQLite behind the model. The validated card is stored **whole**, as JSON, in its JSON key spelling; the scalar columns beside it (`type`, `name`, `subtype`, `faction`, `tier`) exist only so the gallery can list and filter without parsing every row, and are derived on write by `index_fields` rather than passed in — so they cannot disagree with the JSON they came from. Adding a field to the model therefore needs no schema change here at all.
+
+| Module | Role |
+|---|---|
+| `db.py` | Engine, session, `init_db`. `CARDGEN_DB_URL` overrides the default `data/cards.db` |
+| `models.py` | `CardRow`. Every key `as_dict()` returns is backed by a real column or by `data` |
+| `repo.py` | The only way in or out. Validates through the model before writing, and re-derives the index columns on every update |
+
+`import_json_files` skips a card whose `Name` is already stored, so re-running an import cannot silently duplicate the deck. `export_json_files` writes back to the filename a card was imported from, and the round trip is byte-exact across all 137 cards — which makes "export over `data/Mixed` and `git diff`" a real integrity check.
+
 ### `templates/` and `style.css`
 
 Nine per-type templates over shared partials (`_costs_box`, `_spiderweb`, `filters_defs`). Theming is data-attribute driven: `body[data-type]`, `body[data-subtype]`, `body[data-faction]` and `body[data-tier]` select CSS custom-property blocks, so a card's colours follow from its data rather than from template branching.
@@ -85,6 +97,16 @@ One JSON Schema per card type, used both to validate and to *identify* a card. *
 
 - Rooms stored their text in `Rules` and the other seven types in `Description`. Unified on `Description` — the game's own word, per `Rules/Rules.txt:34`, "Costs are defined in front of a ':' within the description of a card."
 - `Slots` was a list of single-key objects whose `"1"`/`"2"`/`"3"` keys were always the 1-based index and were never read — `room_template.html` iterated `slot.values()`. Now a plain list of lists. The inner `[type, number]` spots are untouched: the number is 0 on 64 of 66 spots and 2 on the two `Sacred_Hain` spots, and `Rules/Ideas.txt` lists slot requirements as an idea rather than a rule, so what it means is a question for the author.
+
+### The store holds the card as JSON, not as columns (2026-08-24)
+
+**Why:** giving SQL a second opinion about the card shape is precisely how the earlier REST sketch broke. `Card.as_dict` read `self.png_full`, `self.png_safe` and `self.png_trim` — three attributes that were never columns on the model — so every request that listed cards raised `AttributeError` and returned 500. The gallery on that branch could never have loaded.
+
+**Consequence:** the model owns the shape, SQL stores and indexes. `CardRow.as_dict` can only return keys backed by a real column or by `data`, and the index columns are computed by one function on write.
+
+### Export writes back to the filename a card came from (2026-08-24)
+
+Four cards have been renamed without their file being renamed: `Magic_Sentry.json` holds "Battledroid", `Timeless_Horror.json` holds "Chaos Overseer", `Monster_in_a_Bottle.json` holds "Bottled Monster", and `Chaos_Imprisionment.json` holds "Chaos Imprisonment" (the filename has the typo, not the card). Deriving the export filename from `Name` would write a second file beside each of those instead of updating it, so `export_filename` prefers the recorded `source_path`.
 
 ### Do not bound a numeric field on intuition
 

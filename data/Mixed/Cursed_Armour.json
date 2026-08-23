@@ -6,6 +6,7 @@
     "Description": "+1 [Defence] for each [Mana] you have stored in rooms up to a maximum of +5.",
     "Mana": 4,
     "Cards": 0,
+    "Food": 0,
     "Defence": 0,
     "Movement": 2,
     "Health": 2,

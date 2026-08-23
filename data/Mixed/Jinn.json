@@ -6,6 +6,7 @@
     "Description": "Activate this creature to add [Food]",
     "Mana": 4,
     "Cards": 2,
+    "Food": 0,
     "Defence": 3,
     "Movement": 4,
     "Health": 3,

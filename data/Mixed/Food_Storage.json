@@ -5,6 +5,7 @@
     "Description": "Can store up to 3 [Food]",
     "Mana": 0,
     "Cards": 1,
+    "Food": 0,
     "Defence": 0,
     "Treasure": 1,
     "Roads": [

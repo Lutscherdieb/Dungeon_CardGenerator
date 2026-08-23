@@ -5,6 +5,7 @@
     "Description": "Before combat: You may pay 1 [Cards] to give all your Units in this Room +1 [Defence]",
     "Mana": 0,
     "Cards": 3,
+    "Food": 0,
     "Defence": 3,
     "Treasure": 4,
     "Roads": [
