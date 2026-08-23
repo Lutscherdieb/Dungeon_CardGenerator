@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Lich",
-    "Faction":"Undead",
-    "Tier":2,
-    "Description":"",
-    "Mana":6,
-    "Cards":2,
-    "Defence":4,
-    "Movement":3,
-    "Health":6,
+    "Type": "Creature",
+    "Name": "Lich",
+    "Faction": "Undead",
+    "Tier": 2,
+    "Description": "",
+    "Mana": 6,
+    "Cards": 2,
+    "Defence": 4,
+    "Movement": 3,
+    "Health": 6,
     "Background": "./backgrounds/Lich.png"
 }

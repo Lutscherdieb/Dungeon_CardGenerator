@@ -1,9 +1,9 @@
 {
-    "Type":"Trap",
-    "Name":"Cursed Mirror",
-    "Tier":2,
-    "Description":"On activation: Create a copy of one creature of your choice in this room only for this combat, it has 1 [Health]",
-    "Mana":0,
-    "Cards":1,
+    "Type": "Trap",
+    "Name": "Cursed Mirror",
+    "Tier": 2,
+    "Description": "On activation: Create a copy of one creature of your choice in this room only for this combat, it has 1 [Health]",
+    "Mana": 0,
+    "Cards": 1,
     "Background": "./backgrounds/Cursed_Mirror.png"
 }

@@ -1,17 +1,47 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Dining Room",
-    "Rules":"",
-    "Mana":0,
-    "Cards":1,
-    "Defence":0,
-    "Treasure":1,
-    "Roads":["S"],
+    "Name": "Dining Room",
+    "Rules": "",
+    "Mana": 0,
+    "Cards": 1,
+    "Defence": 0,
+    "Treasure": 1,
+    "Roads": [
+        "S"
+    ],
     "Slots": [
-        { "1": [ ["All", 0],["All", 0], ["All", 0] ] },
-        { "2": [ ["All", 0], ["All", 0] ] },
-        { "3": [] }
-        ],
+        {
+            "1": [
+                [
+                    "All",
+                    0
+                ],
+                [
+                    "All",
+                    0
+                ],
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "All",
+                    0
+                ],
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": []
+        }
+    ],
     "Background": "./backgrounds/Dining_Room.png"
 }

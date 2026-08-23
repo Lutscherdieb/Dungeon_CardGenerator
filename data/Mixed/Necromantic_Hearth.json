@@ -1,17 +1,39 @@
 {
-  "Type": "Room",
-  "Subtype": "Hearth",
-  "Name": "Necromantic Hearth",
-  "Rules": "",
-  "Mana": 0,
-  "Cards": 0,
-  "Defence": 2,
-  "Treasure": 3,
-  "Roads": ["S"],
-  "Slots": [
-        { "1": [ ["Undead", 0], ["Undead", 0] ] },
-        { "2": [ ["All",0] ] },
-        { "3": [] }
-        ],
-  "Background": "./backgrounds/Necromantic_Hearth.png"
+    "Type": "Room",
+    "Subtype": "Hearth",
+    "Name": "Necromantic Hearth",
+    "Rules": "",
+    "Mana": 0,
+    "Cards": 0,
+    "Defence": 2,
+    "Treasure": 3,
+    "Roads": [
+        "S"
+    ],
+    "Slots": [
+        {
+            "1": [
+                [
+                    "Undead",
+                    0
+                ],
+                [
+                    "Undead",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": []
+        }
+    ],
+    "Background": "./backgrounds/Necromantic_Hearth.png"
 }

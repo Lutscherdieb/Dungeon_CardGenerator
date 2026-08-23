@@ -1,12 +1,21 @@
 {
-    "Type":"Overlord",
-    "Name":"Nightking",
-    "Description":"",
-    "Mana":2,
-    "Cards":2,
-    "Defence":1,
-    "Health":0,
-    "Movement":1,
-    "Creatures":["Demon","Magic","Magic","Undead","Undead","Undead","Undead","Undead"],
+    "Type": "Overlord",
+    "Name": "Nightking",
+    "Description": "",
+    "Mana": 2,
+    "Cards": 2,
+    "Defence": 1,
+    "Health": 0,
+    "Movement": 1,
+    "Creatures": [
+        "Demon",
+        "Magic",
+        "Magic",
+        "Undead",
+        "Undead",
+        "Undead",
+        "Undead",
+        "Undead"
+    ],
     "Background": "./backgrounds/Nightking.png"
 }

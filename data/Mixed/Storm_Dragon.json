@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Storm Dragon",
-    "Faction":"Magic",
-    "Tier":3,
-    "Description":"",
-    "Mana":4,
-    "Cards":4,
-    "Defence":5,
-    "Movement":3,
-    "Health":4,
+    "Type": "Creature",
+    "Name": "Storm Dragon",
+    "Faction": "Magic",
+    "Tier": 3,
+    "Description": "",
+    "Mana": 4,
+    "Cards": 4,
+    "Defence": 5,
+    "Movement": 3,
+    "Health": 4,
     "Background": "./backgrounds/Storm_Dragon.png"
 }

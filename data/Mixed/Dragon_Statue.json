@@ -1,9 +1,9 @@
 {
-    "Type":"Treasure",
-    "Name":"Dragon Statue",
-    "Tier":2,
-    "Description":"Whenever [All] with [Defence] > 4 enters your dungeon: Gain 1 [WinPoint]",
-    "Mana":0,
-    "Cards":3,
+    "Type": "Treasure",
+    "Name": "Dragon Statue",
+    "Tier": 2,
+    "Description": "Whenever [All] with [Defence] > 4 enters your dungeon: Gain 1 [WinPoint]",
+    "Mana": 0,
+    "Cards": 3,
     "Background": "./backgrounds/Dragon_Statue.png"
 }

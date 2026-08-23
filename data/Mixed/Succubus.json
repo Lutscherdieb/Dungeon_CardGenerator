@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Succubus",
-    "Faction":"Demon",
-    "Tier":2,
-    "Description":"At the start of combat: For each Succubus, one target Hero in this room cannot fight this combat.",
-    "Mana":5,
-    "Cards":2,
-    "Defence":1,
-    "Movement":2,
-    "Health":2,
+    "Type": "Creature",
+    "Name": "Succubus",
+    "Faction": "Demon",
+    "Tier": 2,
+    "Description": "At the start of combat: For each Succubus, one target Hero in this room cannot fight this combat.",
+    "Mana": 5,
+    "Cards": 2,
+    "Defence": 1,
+    "Movement": 2,
+    "Health": 2,
     "Background": "./backgrounds/Succubus.png"
 }

@@ -1,9 +1,9 @@
 {
-    "Type":"Research",
-    "Name":"Mana Extractor",
-    "Tier":2,
-    "Description":"When you draw [Chaos] from your Domain, gain 1 [Mana]",
-    "Mana":0,
-    "Cards":3,
+    "Type": "Research",
+    "Name": "Mana Extractor",
+    "Tier": 2,
+    "Description": "When you draw [Chaos] from your Domain, gain 1 [Mana]",
+    "Mana": 0,
+    "Cards": 3,
     "Background": "./backgrounds/Mana_Extractor.png"
 }

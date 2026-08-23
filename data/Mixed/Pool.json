@@ -1,17 +1,45 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Pool",
-    "Rules":"",
-    "Mana":0,
-    "Cards":1,
-    "Defence":0,
-    "Treasure":0,
-    "Roads":["N","E","W"],
+    "Name": "Pool",
+    "Rules": "",
+    "Mana": 0,
+    "Cards": 1,
+    "Defence": 0,
+    "Treasure": 0,
+    "Roads": [
+        "N",
+        "E",
+        "W"
+    ],
     "Slots": [
-        { "1": [ ["Wild", 0],["Wild", 0] ] },
-        { "2": [ ["Magic", 0], ["Demon", 0] ] },
-        { "3": [] }
-        ],
+        {
+            "1": [
+                [
+                    "Wild",
+                    0
+                ],
+                [
+                    "Wild",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "Magic",
+                    0
+                ],
+                [
+                    "Demon",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": []
+        }
+    ],
     "Background": "./backgrounds/Pool.png"
 }

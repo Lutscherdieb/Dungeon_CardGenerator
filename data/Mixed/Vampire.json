@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Vampire",
-    "Faction":"Undead",
-    "Tier":2,
-    "Description":"When a [Hero] is killed in the same room as one or more Vampires, add one [Undead] to your domain.",
-    "Mana":3,
-    "Cards":2,
-    "Defence":2,
-    "Movement":3,
-    "Health":3,
+    "Type": "Creature",
+    "Name": "Vampire",
+    "Faction": "Undead",
+    "Tier": 2,
+    "Description": "When a [Hero] is killed in the same room as one or more Vampires, add one [Undead] to your domain.",
+    "Mana": 3,
+    "Cards": 2,
+    "Defence": 2,
+    "Movement": 3,
+    "Health": 3,
     "Background": "./backgrounds/Vampire.png"
 }

@@ -1,9 +1,9 @@
 {
-    "Type":"Research",
-    "Name":"Portal Stabilizer",
-    "Tier":3,
-    "Description":"When drawing from your domain, you always draw 1 extra token. Choose which one to draw and return the other one to your domain.",
-    "Mana":3,
-    "Cards":3,
+    "Type": "Research",
+    "Name": "Portal Stabilizer",
+    "Tier": 3,
+    "Description": "When drawing from your domain, you always draw 1 extra token. Choose which one to draw and return the other one to your domain.",
+    "Mana": 3,
+    "Cards": 3,
     "Background": "./backgrounds/Portal_Stabilizer.png"
 }

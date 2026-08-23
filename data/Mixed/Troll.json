@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Troll",
-    "Faction":"Wild",
-    "Tier":2,
-    "Description":"",
-    "Mana":2,
-    "Cards":3,
-    "Defence":3,
-    "Movement":2,
-    "Health":5,
+    "Type": "Creature",
+    "Name": "Troll",
+    "Faction": "Wild",
+    "Tier": 2,
+    "Description": "",
+    "Mana": 2,
+    "Cards": 3,
+    "Defence": 3,
+    "Movement": 2,
+    "Health": 5,
     "Background": "./backgrounds/Troll.png"
 }

@@ -1,9 +1,9 @@
 {
-    "Type":"Treasure",
-    "Name":"Ethereal Compass",
-    "Tier":2,
-    "Description":"When a hero enters your dungeon, you choose the room it enters at.",
-    "Mana":2,
-    "Cards":1,
+    "Type": "Treasure",
+    "Name": "Ethereal Compass",
+    "Tier": 2,
+    "Description": "When a hero enters your dungeon, you choose the room it enters at.",
+    "Mana": 2,
+    "Cards": 1,
     "Background": "./backgrounds/Ethereal_Compass.png"
 }

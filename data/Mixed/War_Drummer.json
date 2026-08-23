@@ -1,12 +1,12 @@
 {
-    "Type":"Hero",
-    "Name":"War Drummer",
-    "Tier":1,
-    "Description":" Each hero in the party has +5 [Health]",
-    "Mana":1,
-    "Cards":2,
-    "Defence":2,
-    "Movement":1,
-    "Health":5,
+    "Type": "Hero",
+    "Name": "War Drummer",
+    "Tier": 1,
+    "Description": " Each hero in the party has +5 [Health]",
+    "Mana": 1,
+    "Cards": 2,
+    "Defence": 2,
+    "Movement": 1,
+    "Health": 5,
     "Background": "./backgrounds/War_Drummer.png"
 }

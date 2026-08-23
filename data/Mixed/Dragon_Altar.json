@@ -1,17 +1,54 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Dragon Altar",
-    "Rules":"If a [Wild] with Level 1 would die, return it to your Domain instead",
-    "Mana":1,
-    "Cards":3,
-    "Defence":1,
-    "Treasure":2,
-    "Roads":["E","S","W"],
-    "Slots":[
-        {"1":[ ["Wild", 0], ["Wild", 0]]},
-        {"2":[["Demon",0],["Demon",0]]},
-        {"3":[["Magic",0],["Magic",0]]}
+    "Name": "Dragon Altar",
+    "Rules": "If a [Wild] with Level 1 would die, return it to your Domain instead",
+    "Mana": 1,
+    "Cards": 3,
+    "Defence": 1,
+    "Treasure": 2,
+    "Roads": [
+        "E",
+        "S",
+        "W"
+    ],
+    "Slots": [
+        {
+            "1": [
+                [
+                    "Wild",
+                    0
+                ],
+                [
+                    "Wild",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "Demon",
+                    0
+                ],
+                [
+                    "Demon",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": [
+                [
+                    "Magic",
+                    0
+                ],
+                [
+                    "Magic",
+                    0
+                ]
+            ]
+        }
     ],
     "Background": "./backgrounds/Dragon_Altar.png"
 }

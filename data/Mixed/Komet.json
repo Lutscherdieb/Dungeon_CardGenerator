@@ -1,9 +1,9 @@
 {
-    "Type":"Spell",
-    "Name":"Komet",
-    "Tier":2,
-    "Description":"Deal 4 damage to each Creature and Hero in target room.",
-    "Mana":2,
-    "Cards":2,
+    "Type": "Spell",
+    "Name": "Komet",
+    "Tier": 2,
+    "Description": "Deal 4 damage to each Creature and Hero in target room.",
+    "Mana": 2,
+    "Cards": 2,
     "Background": "./backgrounds/Komet.png"
 }

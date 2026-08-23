@@ -1,9 +1,9 @@
 {
-    "Type":"Research",
-    "Name":"Mutation Engineering",
-    "Tier":1,
-    "Description":"You may stationan additional [All] in rooms with at least one [Treasure] or [Research]",
-    "Mana":0,
-    "Cards":1,
+    "Type": "Research",
+    "Name": "Mutation Engineering",
+    "Tier": 1,
+    "Description": "You may stationan additional [All] in rooms with at least one [Treasure] or [Research]",
+    "Mana": 0,
+    "Cards": 1,
     "Background": "./backgrounds/Mutation_Engineering.png"
 }

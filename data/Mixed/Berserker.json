@@ -1,12 +1,12 @@
 {
-    "Type":"Hero",
-    "Name":"Berserker",
-    "Tier":2,
-    "Description":"+3 [Defence] when fighting alone",
-    "Mana":1,
-    "Cards":1,
-    "Defence":5,
-    "Movement":2,
-    "Health":8,
+    "Type": "Hero",
+    "Name": "Berserker",
+    "Tier": 2,
+    "Description": "+3 [Defence] when fighting alone",
+    "Mana": 1,
+    "Cards": 1,
+    "Defence": 5,
+    "Movement": 2,
+    "Health": 8,
     "Background": "./backgrounds/Berserker.png"
 }

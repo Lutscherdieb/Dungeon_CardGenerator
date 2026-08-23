@@ -1,9 +1,9 @@
 {
-    "Type":"Trap",
-    "Name":"Instable Incubator",
-    "Tier":2,
-    "Description":"On activation: Gain [Cards][Cards].",
-    "Mana":0,
-    "Cards":1,
+    "Type": "Trap",
+    "Name": "Instable Incubator",
+    "Tier": 2,
+    "Description": "On activation: Gain [Cards][Cards].",
+    "Mana": 0,
+    "Cards": 1,
     "Background": "./backgrounds/Instable_Incubator.png"
 }

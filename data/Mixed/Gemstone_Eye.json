@@ -1,9 +1,9 @@
 {
-    "Type":"Treasure",
-    "Name":"Gemstone Eye",
-    "Tier":1,
-    "Description":"When buying cards from the market, the maximum extra cost you have to pay is limited to 1",
-    "Mana":2,
-    "Cards":2,
+    "Type": "Treasure",
+    "Name": "Gemstone Eye",
+    "Tier": 1,
+    "Description": "When buying cards from the market, the maximum extra cost you have to pay is limited to 1",
+    "Mana": 2,
+    "Cards": 2,
     "Background": "./backgrounds/Gemstone_Eye.png"
 }

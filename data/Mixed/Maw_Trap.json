@@ -1,9 +1,9 @@
 {
-    "Type":"Trap",
-    "Name":"Maw Trap",
-    "Tier":1,
-    "Description":"On activation: Deal 2 damage to the activating Hero",
-    "Mana":0,
-    "Cards":1,
+    "Type": "Trap",
+    "Name": "Maw Trap",
+    "Tier": 1,
+    "Description": "On activation: Deal 2 damage to the activating Hero",
+    "Mana": 0,
+    "Cards": 1,
     "Background": "./backgrounds/Maw_Trap.png"
 }

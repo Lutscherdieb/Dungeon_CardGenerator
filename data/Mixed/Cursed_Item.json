@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Cursed Item",
-    "Faction":"Demon",
-    "Tier":1,
-    "Description":"",
-    "Mana":3,
-    "Cards":1,
-    "Defence":2,
-    "Movement":1,
-    "Health":5,
+    "Type": "Creature",
+    "Name": "Cursed Item",
+    "Faction": "Demon",
+    "Tier": 1,
+    "Description": "",
+    "Mana": 3,
+    "Cards": 1,
+    "Defence": 2,
+    "Movement": 1,
+    "Health": 5,
     "Background": "./backgrounds/Cursed_Item.png"
 }

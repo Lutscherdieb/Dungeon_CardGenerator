@@ -1,12 +1,12 @@
 {
-    "Type":"Hero",
-    "Name":"Sorcerer",
-    "Tier":2,
-    "Description":"",
-    "Mana":3,
-    "Cards":0,
-    "Defence":5,
-    "Movement":2,
-    "Health":3,
+    "Type": "Hero",
+    "Name": "Sorcerer",
+    "Tier": 2,
+    "Description": "",
+    "Mana": 3,
+    "Cards": 0,
+    "Defence": 5,
+    "Movement": 2,
+    "Health": 3,
     "Background": "./backgrounds/Sorcerer.png"
 }

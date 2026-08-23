@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Stone Golem",
-    "Faction":"Magic",
-    "Tier":2,
-    "Description":"+1 [Defence] when fighting alone",
-    "Mana":3,
-    "Cards":3,
-    "Defence":4,
-    "Movement":2,
-    "Health":4,
+    "Type": "Creature",
+    "Name": "Stone Golem",
+    "Faction": "Magic",
+    "Tier": 2,
+    "Description": "+1 [Defence] when fighting alone",
+    "Mana": 3,
+    "Cards": 3,
+    "Defence": 4,
+    "Movement": 2,
+    "Health": 4,
     "Background": "./backgrounds/Golem.png"
 }

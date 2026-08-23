@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Jinn",
-    "Faction":"Magic",
-    "Tier":2,
-    "Description":"Activate this creature to add [Food]",
-    "Mana":4,
-    "Cards":2,
-    "Defence":3,
-    "Movement":4,
-    "Health":3,
+    "Type": "Creature",
+    "Name": "Jinn",
+    "Faction": "Magic",
+    "Tier": 2,
+    "Description": "Activate this creature to add [Food]",
+    "Mana": 4,
+    "Cards": 2,
+    "Defence": 3,
+    "Movement": 4,
+    "Health": 3,
     "Background": "./backgrounds/Jinn.png"
 }

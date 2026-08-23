@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Spirit",
-    "Faction":"Magic",
-    "Tier":1,
-    "Description":"May ignore Paths when moving",
-    "Mana":3,
-    "Cards":0,
-    "Defence":1,
-    "Movement":2,
-    "Health":1,
+    "Type": "Creature",
+    "Name": "Spirit",
+    "Faction": "Magic",
+    "Tier": 1,
+    "Description": "May ignore Paths when moving",
+    "Mana": 3,
+    "Cards": 0,
+    "Defence": 1,
+    "Movement": 2,
+    "Health": 1,
     "Background": "./backgrounds/Spirit.png"
 }

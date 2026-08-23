@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Slime",
-    "Faction":"Undead",
-    "Tier":1,
-    "Description":"",
-    "Mana":1,
-    "Cards":2,
-    "Defence":1,
-    "Movement":2,
-    "Health":5,
+    "Type": "Creature",
+    "Name": "Slime",
+    "Faction": "Undead",
+    "Tier": 1,
+    "Description": "",
+    "Mana": 1,
+    "Cards": 2,
+    "Defence": 1,
+    "Movement": 2,
+    "Health": 5,
     "Background": "./backgrounds/Slime.png"
 }

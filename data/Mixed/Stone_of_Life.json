@@ -1,9 +1,9 @@
 {
-    "Type":"Treasure",
-    "Name":"Stone of Life",
-    "Tier":3,
-    "Description":"When you place a [Wild] in a room, gain 1 [Cards]",
-    "Mana":2,
-    "Cards":3,
+    "Type": "Treasure",
+    "Name": "Stone of Life",
+    "Tier": 3,
+    "Description": "When you place a [Wild] in a room, gain 1 [Cards]",
+    "Mana": 2,
+    "Cards": 3,
     "Background": "./backgrounds/Stone_of_Life.png"
 }

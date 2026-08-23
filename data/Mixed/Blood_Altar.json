@@ -1,17 +1,40 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Blood Altar",
-    "Rules":"Whenever [All] or [Hero] dies in this room, gain 1 [Cards]",
-    "Mana":0,
-    "Cards":2,
-    "Defence":2,
-    "Treasure":0,
-    "Roads":["N","S"],
-    "Slots":[
-        {"1":[ ["All", 0],["All",0]]},
-        {"2":[["Demon", 0]]},
-        {"3":[]}
+    "Name": "Blood Altar",
+    "Rules": "Whenever [All] or [Hero] dies in this room, gain 1 [Cards]",
+    "Mana": 0,
+    "Cards": 2,
+    "Defence": 2,
+    "Treasure": 0,
+    "Roads": [
+        "N",
+        "S"
+    ],
+    "Slots": [
+        {
+            "1": [
+                [
+                    "All",
+                    0
+                ],
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "Demon",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": []
+        }
     ],
     "Background": "./backgrounds/Blood_Altar.png"
 }

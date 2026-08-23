@@ -1,9 +1,9 @@
 {
-    "Type":"Spell",
-    "Name":"Market Manipulation",
-    "Tier":1,
-    "Description":"You may discard all open cards in the market to the neutral discard pile, then fully restock the market.",
-    "Mana":1,
-    "Cards":0,
+    "Type": "Spell",
+    "Name": "Market Manipulation",
+    "Tier": 1,
+    "Description": "You may discard all open cards in the market to the neutral discard pile, then fully restock the market.",
+    "Mana": 1,
+    "Cards": 0,
     "Background": "./backgrounds/Market_Manipulation.png"
 }

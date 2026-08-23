@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Treant",
-    "Faction":"Wild",
-    "Tier":1,
-    "Description":"When this creature would die, return it to your domain instead.",
-    "Mana":1,
-    "Cards":1,
-    "Defence":3,
-    "Movement":1,
-    "Health":3,
+    "Type": "Creature",
+    "Name": "Treant",
+    "Faction": "Wild",
+    "Tier": 1,
+    "Description": "When this creature would die, return it to your domain instead.",
+    "Mana": 1,
+    "Cards": 1,
+    "Defence": 3,
+    "Movement": 1,
+    "Health": 3,
     "Background": "./backgrounds/Treant.png"
 }

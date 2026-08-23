@@ -1,9 +1,9 @@
 {
-    "Type":"Research",
-    "Name":"Enchanted Weaponry",
-    "Tier":2,
-    "Description":"[All] have +1 [Defence]",
-    "Mana":3,
-    "Cards":0,
+    "Type": "Research",
+    "Name": "Enchanted Weaponry",
+    "Tier": 2,
+    "Description": "[All] have +1 [Defence]",
+    "Mana": 3,
+    "Cards": 0,
     "Background": "./backgrounds/Enchanted_Weaponry.png"
 }

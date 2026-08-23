@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Skelett",
-    "Faction":"Undead",
-    "Tier":1,
-    "Description":"",
-    "Mana":0,
-    "Cards":1,
-    "Defence":1,
-    "Movement":2,
-    "Health":1,
+    "Type": "Creature",
+    "Name": "Skelett",
+    "Faction": "Undead",
+    "Tier": 1,
+    "Description": "",
+    "Mana": 0,
+    "Cards": 1,
+    "Defence": 1,
+    "Movement": 2,
+    "Health": 1,
     "Background": "./backgrounds/Skelett.png"
 }

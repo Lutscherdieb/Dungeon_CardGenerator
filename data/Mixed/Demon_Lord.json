@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Demon Lord",
-    "Faction":"Demon",
-    "Tier":3,
-    "Description":"",
-    "Mana":5,
-    "Cards":5,
-    "Defence":5,
-    "Movement":2,
-    "Health":6,
+    "Type": "Creature",
+    "Name": "Demon Lord",
+    "Faction": "Demon",
+    "Tier": 3,
+    "Description": "",
+    "Mana": 5,
+    "Cards": 5,
+    "Defence": 5,
+    "Movement": 2,
+    "Health": 6,
     "Background": "./backgrounds/Demon_Lord.png"
 }

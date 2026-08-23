@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Yokai",
-    "Faction":"Undead",
-    "Tier":2,
-    "Description":"+ 1 [Defence] when fighting at least one Hero with lower Base [Defence]",
-    "Mana":3,
-    "Cards":1,
-    "Defence":2,
-    "Movement":3,
-    "Health":3,
+    "Type": "Creature",
+    "Name": "Yokai",
+    "Faction": "Undead",
+    "Tier": 2,
+    "Description": "+ 1 [Defence] when fighting at least one Hero with lower Base [Defence]",
+    "Mana": 3,
+    "Cards": 1,
+    "Defence": 2,
+    "Movement": 3,
+    "Health": 3,
     "Background": "./backgrounds/Yokai.png"
 }

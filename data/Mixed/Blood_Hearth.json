@@ -1,17 +1,44 @@
 {
-  "Type": "Room",
-  "Subtype": "Hearth",
-  "Name": "Blood Hearth",
-  "Rules": "",
-  "Mana": 0,
-  "Cards": 0,
-  "Defence": 0,
-  "Treasure": 1,
-  "Roads": ["N","S"],
-  "Slots": [
-        { "1": [ ["Demon", 0], ["Demon", 0], ["Demon", 0] ] },
-        { "2": [["Magic",0]] },
-        { "3": [] }
-        ],
-  "Background": "./backgrounds/Blood_Hearth.png"
+    "Type": "Room",
+    "Subtype": "Hearth",
+    "Name": "Blood Hearth",
+    "Rules": "",
+    "Mana": 0,
+    "Cards": 0,
+    "Defence": 0,
+    "Treasure": 1,
+    "Roads": [
+        "N",
+        "S"
+    ],
+    "Slots": [
+        {
+            "1": [
+                [
+                    "Demon",
+                    0
+                ],
+                [
+                    "Demon",
+                    0
+                ],
+                [
+                    "Demon",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "Magic",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": []
+        }
+    ],
+    "Background": "./backgrounds/Blood_Hearth.png"
 }

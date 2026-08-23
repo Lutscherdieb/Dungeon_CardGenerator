@@ -1,12 +1,21 @@
 {
-    "Type":"Overlord",
-    "Name":"Chaos Overseer",
-    "Description":"You start with 1 [Chaos] less in your domain.",
-    "Mana":3,
-    "Cards":2,
-    "Defence":0,
-    "Health":0,
-    "Movement":0,
-    "Creatures":["Demon","Demon","Magic","Magic","Magic","Wild","Undead","Undead"],
+    "Type": "Overlord",
+    "Name": "Chaos Overseer",
+    "Description": "You start with 1 [Chaos] less in your domain.",
+    "Mana": 3,
+    "Cards": 2,
+    "Defence": 0,
+    "Health": 0,
+    "Movement": 0,
+    "Creatures": [
+        "Demon",
+        "Demon",
+        "Magic",
+        "Magic",
+        "Magic",
+        "Wild",
+        "Undead",
+        "Undead"
+    ],
     "Background": "./backgrounds/Timeless_Horror.png"
 }

@@ -1,9 +1,9 @@
 {
-    "Type":"Research",
-    "Name":"Titanforge",
-    "Tier":1,
-    "Description":"Can't be plundered <br>[All] with [Defence] >= 4 have +1 [Defence]",
-    "Mana":1,
-    "Cards":2,
+    "Type": "Research",
+    "Name": "Titanforge",
+    "Tier": 1,
+    "Description": "Can't be plundered <br>[All] with [Defence] >= 4 have +1 [Defence]",
+    "Mana": 1,
+    "Cards": 2,
     "Background": "./backgrounds/Titanforge.png"
 }

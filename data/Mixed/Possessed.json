@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Possessed",
-    "Faction":"Demon",
-    "Tier":2,
-    "Description":"",
-    "Mana":3,
-    "Cards":2,
-    "Defence":3,
-    "Movement":2,
-    "Health":3,
+    "Type": "Creature",
+    "Name": "Possessed",
+    "Faction": "Demon",
+    "Tier": 2,
+    "Description": "",
+    "Mana": 3,
+    "Cards": 2,
+    "Defence": 3,
+    "Movement": 2,
+    "Health": 3,
     "Background": "./backgrounds/Possessed.png"
 }

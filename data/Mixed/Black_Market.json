@@ -1,17 +1,41 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Black Market",
-    "Rules":"",
-    "Mana":0,
-    "Cards":0,
-    "Defence":0,
-    "Treasure":0,
-    "Roads":["E","S","W"],
+    "Name": "Black Market",
+    "Rules": "",
+    "Mana": 0,
+    "Cards": 0,
+    "Defence": 0,
+    "Treasure": 0,
+    "Roads": [
+        "E",
+        "S",
+        "W"
+    ],
     "Slots": [
-        { "1": [ ["All", 0],["All", 0] ] },
-        { "2": [ ["Demon", 0] ] },
-        { "3": [] }
-        ],
+        {
+            "1": [
+                [
+                    "All",
+                    0
+                ],
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "Demon",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": []
+        }
+    ],
     "Background": "./backgrounds/Black_Market.png"
 }

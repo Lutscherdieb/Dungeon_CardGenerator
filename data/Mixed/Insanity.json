@@ -1,9 +1,9 @@
 {
-    "Type":"Spell",
-    "Name":"Insanity",
-    "Tier":2,
-    "Description":"Roll a W6, on a 4+ target [Hero] fights for you this combat, otherwise it has [Defence] -2 this combat.",
-    "Mana":1,
-    "Cards":1,
+    "Type": "Spell",
+    "Name": "Insanity",
+    "Tier": 2,
+    "Description": "Roll a W6, on a 4+ target [Hero] fights for you this combat, otherwise it has [Defence] -2 this combat.",
+    "Mana": 1,
+    "Cards": 1,
     "Background": "./backgrounds/Whispers_of_Insanity.png"
 }

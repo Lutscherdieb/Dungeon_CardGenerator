@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Orc",
-    "Faction":"Wild",
-    "Tier":1,
-    "Description":"",
-    "Mana":2,
-    "Cards":1,
-    "Defence":2,
-    "Movement":3,
-    "Health":2,
+    "Type": "Creature",
+    "Name": "Orc",
+    "Faction": "Wild",
+    "Tier": 1,
+    "Description": "",
+    "Mana": 2,
+    "Cards": 1,
+    "Defence": 2,
+    "Movement": 3,
+    "Health": 2,
     "Background": "./backgrounds/Orc.png"
 }

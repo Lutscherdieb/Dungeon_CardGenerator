@@ -1,9 +1,9 @@
 {
-    "Type":"Trap",
-    "Name":"Artifical Sun",
-    "Tier":3,
-    "Description":"On activation: Kill all [All] and [Hero] in this room.",
-    "Mana":3,
-    "Cards":2,
+    "Type": "Trap",
+    "Name": "Artifical Sun",
+    "Tier": 3,
+    "Description": "On activation: Kill all [All] and [Hero] in this room.",
+    "Mana": 3,
+    "Cards": 2,
     "Background": "./backgrounds/Artifical_Sun.png"
 }

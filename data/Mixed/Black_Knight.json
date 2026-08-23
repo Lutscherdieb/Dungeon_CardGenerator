@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Black Knight",
-    "Faction":"Undead",
-    "Tier":2,
-    "Description":"",
-    "Mana":4,
-    "Cards":3,
-    "Defence":4,
-    "Movement":4,
-    "Health":4,
+    "Type": "Creature",
+    "Name": "Black Knight",
+    "Faction": "Undead",
+    "Tier": 2,
+    "Description": "",
+    "Mana": 4,
+    "Cards": 3,
+    "Defence": 4,
+    "Movement": 4,
+    "Health": 4,
     "Background": "./backgrounds/Black_Knight.png"
 }

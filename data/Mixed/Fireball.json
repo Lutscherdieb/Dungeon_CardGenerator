@@ -1,9 +1,9 @@
 {
-    "Type":"Spell",
-    "Name":"Fireball",
-    "Tier":1,
-    "Description":"Deal 2 damage to any Hero in your dungeon.",
-    "Mana":1,
-    "Cards":1,
+    "Type": "Spell",
+    "Name": "Fireball",
+    "Tier": 1,
+    "Description": "Deal 2 damage to any Hero in your dungeon.",
+    "Mana": 1,
+    "Cards": 1,
     "Background": "./backgrounds/Fireball.png"
 }

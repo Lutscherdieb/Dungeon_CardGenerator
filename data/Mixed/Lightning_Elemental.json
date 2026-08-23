@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Lightning Elemental",
-    "Faction":"Magic",
-    "Tier":1,
-    "Description":"",
-    "Mana":3,
-    "Cards":1,
-    "Defence":2,
-    "Movement":4,
-    "Health":1,
+    "Type": "Creature",
+    "Name": "Lightning Elemental",
+    "Faction": "Magic",
+    "Tier": 1,
+    "Description": "",
+    "Mana": 3,
+    "Cards": 1,
+    "Defence": 2,
+    "Movement": 4,
+    "Health": 1,
     "Background": "./backgrounds/Lightning_Elemental.png"
 }

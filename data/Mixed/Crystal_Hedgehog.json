@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Crystal Hedgehog",
-    "Faction":"Wild",
-    "Tier":1,
-    "Description":"Whenever this creature takes any amount of damage, it deals 1 damage to all [Hero] in the room.",
-    "Mana":1,
-    "Cards":2,
-    "Defence":1,
-    "Movement":2,
-    "Health":4,
+    "Type": "Creature",
+    "Name": "Crystal Hedgehog",
+    "Faction": "Wild",
+    "Tier": 1,
+    "Description": "Whenever this creature takes any amount of damage, it deals 1 damage to all [Hero] in the room.",
+    "Mana": 1,
+    "Cards": 2,
+    "Defence": 1,
+    "Movement": 2,
+    "Health": 4,
     "Background": "./backgrounds/Crystal_Hedgehog.png"
 }

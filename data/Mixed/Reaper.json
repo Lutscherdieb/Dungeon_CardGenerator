@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Reaper",
-    "Faction":"Undead",
-    "Tier":3,
-    "Description":"Damage from this creature will instantly kill Heroes",
-    "Mana":2,
-    "Cards":4,
-    "Defence":2,
-    "Movement":3,
-    "Health":4,
+    "Type": "Creature",
+    "Name": "Reaper",
+    "Faction": "Undead",
+    "Tier": 3,
+    "Description": "Damage from this creature will instantly kill Heroes",
+    "Mana": 2,
+    "Cards": 4,
+    "Defence": 2,
+    "Movement": 3,
+    "Health": 4,
     "Background": "./backgrounds/Reaper.png"
 }

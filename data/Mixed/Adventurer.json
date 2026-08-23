@@ -1,12 +1,12 @@
 {
-    "Type":"Hero",
-    "Name":"Adventurer",
-    "Tier":1,
-    "Description":"",
-    "Mana":1,
-    "Cards":0,
-    "Defence":2,
-    "Movement":2,
-    "Health":6,
+    "Type": "Hero",
+    "Name": "Adventurer",
+    "Tier": 1,
+    "Description": "",
+    "Mana": 1,
+    "Cards": 0,
+    "Defence": 2,
+    "Movement": 2,
+    "Health": 6,
     "Background": "./backgrounds/Lizard_Adventurer.png"
 }

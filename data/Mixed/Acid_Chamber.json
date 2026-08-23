@@ -1,17 +1,40 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Acid Chamber",
-    "Rules":"Damage dealt to [Hero] and [All] in this room is increased by 1.",
-    "Mana":0,
-    "Cards":2,
-    "Defence":1,
-    "Treasure":3,
-    "Roads":["N","S"],
+    "Name": "Acid Chamber",
+    "Rules": "Damage dealt to [Hero] and [All] in this room is increased by 1.",
+    "Mana": 0,
+    "Cards": 2,
+    "Defence": 1,
+    "Treasure": 3,
+    "Roads": [
+        "N",
+        "S"
+    ],
     "Slots": [
-        { "1": [ ["All", 0] ] },
-        { "2": [ ["Magic", 0], ["Demon", 0] ] },
-        { "3": [] }
-        ],
+        {
+            "1": [
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": [
+                [
+                    "Magic",
+                    0
+                ],
+                [
+                    "Demon",
+                    0
+                ]
+            ]
+        },
+        {
+            "3": []
+        }
+    ],
     "Background": "./backgrounds/Acid_Chamber.png"
 }

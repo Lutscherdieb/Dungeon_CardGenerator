@@ -1,17 +1,36 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Eternal Prison",
-    "Rules":"You may place drawn creatures in this room.<br>Creatures in this room cannot be returned to your domain.",
-    "Mana":1,
-    "Cards":2,
-    "Defence":2,
-    "Treasure":0,
-    "Roads":[],
-    "Slots":[
-        {"1":[["All",0],["All",0],["All",0]]},
-        {"2":[]},
-        {"3":[]}
+    "Name": "Eternal Prison",
+    "Rules": "You may place drawn creatures in this room.<br>Creatures in this room cannot be returned to your domain.",
+    "Mana": 1,
+    "Cards": 2,
+    "Defence": 2,
+    "Treasure": 0,
+    "Roads": [],
+    "Slots": [
+        {
+            "1": [
+                [
+                    "All",
+                    0
+                ],
+                [
+                    "All",
+                    0
+                ],
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": []
+        },
+        {
+            "3": []
+        }
     ],
     "Background": "./backgrounds/Eternal_Prison.png"
 }

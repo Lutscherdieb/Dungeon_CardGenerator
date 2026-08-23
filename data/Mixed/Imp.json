@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Imp",
-    "Faction":"Demon",
-    "Tier":1,
-    "Description":"Can move through rooms with [Hero] in them.",
-    "Mana":1,
-    "Cards":0,
-    "Defence":0,
-    "Movement":3,
-    "Health":1,
+    "Type": "Creature",
+    "Name": "Imp",
+    "Faction": "Demon",
+    "Tier": 1,
+    "Description": "Can move through rooms with [Hero] in them.",
+    "Mana": 1,
+    "Cards": 0,
+    "Defence": 0,
+    "Movement": 3,
+    "Health": 1,
     "Background": "./backgrounds/Imp.png"
 }

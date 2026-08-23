@@ -1,17 +1,30 @@
 {
-    "Type":"Room",
+    "Type": "Room",
     "Subtype": "Basic",
-    "Name":"Food Storage",
-    "Rules":"Can store up to 3 [Food]",
-    "Mana":0,
-    "Cards":1,
-    "Defence":0,
-    "Treasure":1,
-    "Roads":["N"],
+    "Name": "Food Storage",
+    "Rules": "Can store up to 3 [Food]",
+    "Mana": 0,
+    "Cards": 1,
+    "Defence": 0,
+    "Treasure": 1,
+    "Roads": [
+        "N"
+    ],
     "Slots": [
-        { "1": [ ["All", 0] ] },
-        { "2": [] },
-        { "3": [] }
-        ],
+        {
+            "1": [
+                [
+                    "All",
+                    0
+                ]
+            ]
+        },
+        {
+            "2": []
+        },
+        {
+            "3": []
+        }
+    ],
     "Background": "./backgrounds/Food_Storage.png"
 }

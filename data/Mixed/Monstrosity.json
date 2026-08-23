@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Monstrosity",
-    "Faction":"Undead",
-    "Tier":2,
-    "Description":"",
-    "Mana":1,
-    "Cards":3,
-    "Defence":3,
-    "Movement":2,
-    "Health":5,
+    "Type": "Creature",
+    "Name": "Monstrosity",
+    "Faction": "Undead",
+    "Tier": 2,
+    "Description": "",
+    "Mana": 1,
+    "Cards": 3,
+    "Defence": 3,
+    "Movement": 2,
+    "Health": 5,
     "Background": "./backgrounds/Monstrosity.png"
 }

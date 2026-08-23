@@ -1,13 +1,13 @@
 {
-    "Type":"Creature",
-    "Name":"Beholder",
-    "Faction":"Wild",
-    "Tier":2,
-    "Description":"Also counts as [Magic]",
-    "Mana":4,
-    "Cards":1,
-    "Defence":2,
-    "Movement":2,
-    "Health":2,
+    "Type": "Creature",
+    "Name": "Beholder",
+    "Faction": "Wild",
+    "Tier": 2,
+    "Description": "Also counts as [Magic]",
+    "Mana": 4,
+    "Cards": 1,
+    "Defence": 2,
+    "Movement": 2,
+    "Health": 2,
     "Background": "./backgrounds/Beholder.png"
 }
