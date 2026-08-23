@@ -52,8 +52,7 @@ Artwork supplied by the user is validated separately and advisorily: `cardgen.sp
 
 - **Rebuild the web gallery.** The `REST-CardGenerator` branch is a non-working sketch (`Card.as_dict` reads three columns that do not exist, so every list request 500s). Rebuild on CherryPy + SQLAlchemy + SQLite with the card data as one pydantic model; harvest ideas from that branch, then delete it.
 - **SQLite becomes the source of truth**, with JSON import for the 137 existing cards and export back out so game content stays diffable in git.
-- **Unify the card text field.** Rooms store card text in `Rules`, the other seven types in `Description`. One field, one migration, script kept.
-- **Flatten `Slots`.** It is a list of single-key dicts whose `"1"`/`"2"`/`"3"` keys are never read by any template.
-- `Food` is declared in all eight schemas and used by one card. Kept deliberately — cards for it are not designed yet.
+- **Ask the author what the second number in a `Slots` spot means.** It is 0 on 64 of 66 spots and 2 on the two `Sacred_Hain` spots, whose text mentions "[Wild] with Level 1". `Rules/Ideas.txt` lists slot requirements as an idea, so it is not safe to name the field from that alone.
+- `Food` is declared on every card type and used by one card. Kept deliberately — cards for it are not designed yet.
 - **Collapse the nine card templates onto one base template.** They are 658 lines of the same skeleton; `room` and `room_hearth` are near-identical 96-line copies.
 - **Reuse one Chromium instance across a batch.** The renderer currently launches a browser per card, which dominates the runtime of a 137-card run.

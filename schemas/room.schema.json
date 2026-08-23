@@ -1,45 +1,126 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Room Card",
-  "type": "object",
-  "required": ["Name", "Mana", "Cards", "Defence", "Treasure"],
+  "$defs": {
+    "CreatureType": {
+      "description": "The game's creature types, plus the wildcard.\n\nA closed set defined by the game itself (Rules/Rules.txt, \"Basic Creature\nType Boons\"), not by anything in this repo -- so it is enumerated here on\npurpose rather than derived from the asset directory, which also holds\nresource and stat icons.",
+      "enum": [
+        "Demon",
+        "Undead",
+        "Magic",
+        "Wild",
+        "All"
+      ],
+      "title": "CreatureType",
+      "type": "string"
+    },
+    "Direction": {
+      "description": "Room exits. Order matters for rendering; the data is already NESW-sorted.",
+      "enum": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "title": "Direction",
+      "type": "string"
+    },
+    "RoomSubtype": {
+      "enum": [
+        "Basic",
+        "Hearth"
+      ],
+      "title": "RoomSubtype",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
   "properties": {
-    "Type": { "const": "Room" },
-    "Name": { "type": "string", "minLength": 1 },
-    "Rules": { "type": "string" },
-    "Mana": { "type": "integer" },
-    "Cards": { "type": "integer" },
-    "Food":       { "type": "integer" },
-    "Defence": { "type": "integer" },
-    "Treasure": { "type": "integer" },
-    "Subtype": { "type": "string", "enum": ["Hearth","Basic"] },
+    "Name": {
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "Mana": {
+      "minimum": 0,
+      "title": "Mana",
+      "type": "integer"
+    },
+    "Cards": {
+      "minimum": 0,
+      "title": "Cards",
+      "type": "integer"
+    },
+    "Background": {
+      "title": "Background",
+      "type": "string"
+    },
+    "Food": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Food",
+      "type": "integer"
+    },
+    "Description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "Type": {
+      "const": "Room",
+      "title": "Type",
+      "type": "string"
+    },
+    "Subtype": {
+      "$ref": "#/$defs/RoomSubtype"
+    },
+    "Defence": {
+      "title": "Defence",
+      "type": "integer"
+    },
+    "Treasure": {
+      "minimum": 0,
+      "title": "Treasure",
+      "type": "integer"
+    },
     "Roads": {
-      "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "$ref": "#/$defs/Direction"
+      },
+      "title": "Roads",
+      "type": "array"
     },
     "Slots": {
-  "type": "array",
-  "items": {
-    "type": "object",
-    "patternProperties": {
-      "^[0-9]+$": {
-        "type": "array",
+      "items": {
         "items": {
-          "type": "array",
-          "prefixItems": [
-            { "type": "string", "enum": ["Demon", "Undead", "Magic", "Wild", "All"] },
-            { "type": "integer" }
-          ],
+          "maxItems": 2,
           "minItems": 2,
-          "maxItems": 2
-        }
-      }
-    },
-    "additionalProperties": false
-  }
-}
-,
-    "Background": { "type": "string" }
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/CreatureType"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "type": "array"
+        },
+        "type": "array"
+      },
+      "title": "Slots",
+      "type": "array"
+    }
   },
-  "additionalProperties": true
+  "required": [
+    "Name",
+    "Mana",
+    "Cards",
+    "Background",
+    "Type",
+    "Subtype",
+    "Defence",
+    "Treasure"
+  ],
+  "title": "Room Card",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "GENERATED from src/cardgen/model/cards.py by `python -m cardgen.model.schemas` -- do not hand-edit."
 }

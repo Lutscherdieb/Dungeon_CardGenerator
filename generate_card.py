@@ -99,10 +99,10 @@ def replace_symbols_in_rules(text: str) -> str:
         return f'<img src="assets/{filename}" alt="{key.title()}" class="inline-symbol icon-glow">'
 
     new_text, n = _symbol_pattern.subn(_sub, text)
-    print(f"[Rules] Replacements: {n}")
+    print(f"[Text] Icon replacements: {n}")
     if n == 0:
         preview = text[:120].replace("\n", " ")
-        print(f"[Rules] No tokens found in: {preview!r}")
+        print(f"[Text] No tokens found in: {preview!r}")
     return new_text
 
 
@@ -309,9 +309,8 @@ def transform_context(card_data: dict, card_type: str) -> dict:
     else:
         data["RoadsSet"] = set()
 
-    # Replace tokens with inline icons in Rules and Description (as applicable)
-    if isinstance(data.get("Rules"), str):
-        data["Rules"] = replace_symbols_in_rules(data["Rules"])
+    # Replace [Token] markers with inline icons in the card text. Rooms used
+    # to call this field "Rules"; every type now uses "Description".
     if isinstance(data.get("Description"), str):
         data["Description"] = replace_symbols_in_rules(data["Description"])
 

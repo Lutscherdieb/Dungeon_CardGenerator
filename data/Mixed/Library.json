@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Library",
-    "Rules": "[All]: Add [Knowledge][Knowledge].",
+    "Description": "[All]: Add [Knowledge][Knowledge].",
     "Mana": 0,
     "Cards": 2,
     "Defence": 0,
@@ -13,20 +13,14 @@
         "S"
     ],
     "Slots": [
-        {
-            "1": [
-                [
-                    "All",
-                    0
-                ]
+        [
+            [
+                "All",
+                0
             ]
-        },
-        {
-            "2": []
-        },
-        {
-            "3": []
-        }
+        ],
+        [],
+        []
     ],
     "Background": "./backgrounds/Library.png"
 }

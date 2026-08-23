@@ -2,22 +2,16 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Skull Pit",
-    "Rules": "Can store up to 2 [Mana]",
+    "Description": "Can store up to 2 [Mana]",
     "Mana": 2,
     "Cards": 1,
     "Defence": 0,
     "Treasure": 0,
     "Roads": [],
     "Slots": [
-        {
-            "1": []
-        },
-        {
-            "2": []
-        },
-        {
-            "3": []
-        }
+        [],
+        [],
+        []
     ],
     "Background": "./backgrounds/Skull_Pit.png"
 }

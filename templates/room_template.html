@@ -63,17 +63,17 @@
         #}
         {% for slot in Slots %}
   <div class="slot">
-    {% for value in slot.values() %}
-      {% for pair in value %}
-        {% set icon = pair[0] %}
-        {% set count = pair[1] %}
-        <div class="slot-icon-wrapper">
-          <img src="assets/{{ icon|lower }}.png" class="slot-icon icon-glow">
-          {% if count > 0 %}
-            <span class="slot-count">{{ count }}</span>
-          {% endif %}
-        </div>
-      {% endfor %}
+    {# Each slot is a plain list of [type, number] spots. It used to be a
+       single-key dict whose "1"/"2"/"3" key was never read. #}
+    {% for spot in slot %}
+      {% set icon = spot[0] %}
+      {% set count = spot[1] %}
+      <div class="slot-icon-wrapper">
+        <img src="assets/{{ icon|lower }}.png" class="slot-icon icon-glow">
+        {% if count > 0 %}
+          <span class="slot-count">{{ count }}</span>
+        {% endif %}
+      </div>
     {% endfor %}
   </div>
 {% endfor %}
@@ -89,9 +89,9 @@
     </div>
 
     <!-- RULES -->
-    {% if Rules and Rules.strip() %}
+    {% if Description and Description.strip() %}
       <div class="rules-box">
-        {{ Rules | safe }}
+        {{ Description | safe }}
       </div>
     {% endif %}
 

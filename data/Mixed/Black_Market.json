@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Black Market",
-    "Rules": "",
+    "Description": "",
     "Mana": 0,
     "Cards": 0,
     "Defence": 0,
@@ -13,29 +13,23 @@
         "W"
     ],
     "Slots": [
-        {
-            "1": [
-                [
-                    "All",
-                    0
-                ],
-                [
-                    "All",
-                    0
-                ]
+        [
+            [
+                "All",
+                0
+            ],
+            [
+                "All",
+                0
             ]
-        },
-        {
-            "2": [
-                [
-                    "Demon",
-                    0
-                ]
+        ],
+        [
+            [
+                "Demon",
+                0
             ]
-        },
-        {
-            "3": []
-        }
+        ],
+        []
     ],
     "Background": "./backgrounds/Black_Market.png"
 }

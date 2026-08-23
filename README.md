@@ -6,9 +6,9 @@ Generate print-ready boardgame card images at exact MakePlayingCards measurement
 
 Mid-restructure, on branch `v2`.
 
-**Done:** print geometry is derived from a single MPC-backed profile and asserted on every written PNG. The canvas is now MPC's actual 1122 x 1122 (it had drifted to 1125), the safe zone 978 (was 975). The CLI renders all eight card types.
+**Done:** print geometry is derived from a single MPC-backed profile and asserted on every written PNG — the canvas is now MPC's actual 1122 x 1122 (it had drifted to 1125), the safe zone 978 (was 975). One pydantic model owns the card shape and generates the JSON Schemas; all 137 cards validate against it. The CLI renders all eight card types.
 
-**Next:** rebuild the web gallery on a real card model with SQLite behind it. The `REST-CardGenerator` branch is a non-working sketch kept only for reference — see the direction notes in [PROJECT.md](PROJECT.md).
+**Next:** SQLite behind that model, JSON import for the existing cards, then the web gallery. The `REST-CardGenerator` branch is a non-working sketch kept only for reference — see the direction notes in [PROJECT.md](PROJECT.md).
 
 ## What this is
 
@@ -56,10 +56,12 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 | Path | What it is |
 |---|---|
 | `src/cardgen/spec/` | Print geometry — the single source of truth for every pixel size |
+| `src/cardgen/model/` | The card definition — one pydantic model, from which the schemas derive |
 | `generate_card.py` | The CLI renderer; being folded into `src/cardgen/` |
 | `templates/` | Jinja card templates, one per type plus shared partials |
 | `style.css` | Card styling. Declares no geometry — it reads the profile's CSS variables |
-| `schemas/` | Per-type JSON Schemas used to detect and validate a card's type |
+| `schemas/` | Per-type JSON Schemas. **Generated** — `python -m cardgen.model.schemas` |
+| `tools/` | One-off migrations and content maintenance scripts, kept for the record |
 | `data/Mixed/` | The 137 card definitions |
 | `backgrounds/` | Card artwork, 1024 x 1024 |
 | `assets/` | Icons and fonts used by the templates |

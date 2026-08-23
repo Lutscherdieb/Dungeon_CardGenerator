@@ -8,13 +8,15 @@ Exit code 0 means every check passed.  This is the command PROJECT.md names as
 the verify method, and ``tests/last-run.txt`` is the evidence artifact whose
 freshness the check-verify hook watches.
 
-Three checks, in increasing cost:
+Four checks, in increasing cost:
 
 1. ``check_profile_math``  -- the derivation reproduces MakePlayingCards' own
    published figures, including one for a size this project does not print.
 2. ``check_no_stray_geometry`` -- no pixel measurement has reappeared outside
    the spec module.
-3. ``check_renders`` -- one card of every type actually renders, and every
+3. ``check_card_data`` -- every card validates against the model, and the
+   committed schemas are what the model currently generates.
+4. ``check_renders`` -- one card of every type actually renders, and every
    written PNG satisfies its profile.  Covers all nine templates.
 """
 
@@ -36,6 +38,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 sys.path.insert(0, str(REPO_ROOT))  # generate_card.py still lives at the repo root
 os.chdir(REPO_ROOT)  # generate_card resolves templates/ and assets/ relative to cwd
 
+from cardgen.model import CARD_TYPES  # noqa: E402
 from cardgen.spec import (  # noqa: E402
     MPC_BLEED_PX,
     MPC_SAFE_MARGIN_PX,
@@ -62,7 +65,7 @@ def _ok(message: str) -> None:
 
 def check_profile_math() -> None:
     """The derivation must match MakePlayingCards, including a size we never print."""
-    print("\n[1/3] profile derivation vs the MPC published spec")
+    print("\n[1/4] profile derivation vs the MPC published spec")
 
     # MPC states both figures as 36px per side at 300 DPI.  If these ever change
     # upstream, REFERENCES.md's comparison procedure says how to re-read them.
@@ -121,7 +124,7 @@ _EXEMPT_DIR = os.path.join("src", "cardgen", "spec")
 
 def check_no_stray_geometry() -> None:
     """No pixel measurement may live outside cardgen.spec."""
-    print("\n[2/3] no geometry literals outside cardgen.spec")
+    print("\n[2/4] no geometry literals outside cardgen.spec")
 
     hits = []
     for target in _SCANNED:
@@ -186,9 +189,52 @@ def _one_card_per_type() -> "OrderedDict[str, str]":
     return chosen
 
 
+def check_card_data() -> None:
+    """Every card validates, and schemas/ is what the model generates today."""
+    print("\n[3/4] card data vs the model, schemas vs the model")
+
+    from cardgen.model import parse_card
+    from cardgen.model.schemas import schema_for
+
+    paths = sorted(glob.glob(os.path.join("data", "Mixed", "*.json")))
+    if not paths:
+        _fail("data", "no card data found under data/Mixed/")
+        return
+
+    bad = 0
+    for path in paths:
+        try:
+            parse_card(json.load(open(path, encoding="utf-8")))
+        except Exception as exc:
+            detail = " | ".join(l.strip() for l in str(exc).splitlines()[1:3])
+            _fail("data", "{}: {}".format(os.path.basename(path), detail))
+            bad += 1
+    if not bad:
+        _ok("all {} cards validate against the model".format(len(paths)))
+
+    # schemas/ is a build product. A stale file here means someone changed the
+    # model and did not regenerate -- exactly the drift the model exists to stop.
+    stale = []
+    for card_type in sorted(CARD_TYPES):
+        path = os.path.join("schemas", "{}.schema.json".format(card_type))
+        if not os.path.exists(path):
+            stale.append("{} is missing".format(path))
+            continue
+        if json.load(open(path, encoding="utf-8")) != schema_for(card_type):
+            stale.append("{} is stale".format(path))
+    if stale:
+        for item in stale:
+            _fail("schemas", "{} -- run `python -m cardgen.model.schemas`".format(item))
+    else:
+        _ok("all {} committed schemas match the model".format(len(CARD_TYPES)))
+
+
+# ---------------------------------------------------------------------------
+
+
 def check_renders() -> None:
     """Render one card of every type; every written PNG must satisfy its profile."""
-    print("\n[3/3] render one card per type, assert every PNG")
+    print("\n[4/4] render one card per type, assert every PNG")
 
     import generate_card  # imported late: pulls in playwright
 
@@ -229,6 +275,7 @@ def main() -> int:
 
     check_profile_math()
     check_no_stray_geometry()
+    check_card_data()
     check_renders()
 
     print("\n" + "=" * 72)

@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Witch Chamber",
-    "Rules": "[Magic][Cards]: Gain 1 [Cards].<br>[Wild][Magic]: Gain 2 [Cards].",
+    "Description": "[Magic][Cards]: Gain 1 [Cards].<br>[Wild][Magic]: Gain 2 [Cards].",
     "Mana": 0,
     "Cards": 2,
     "Defence": 1,
@@ -11,25 +11,19 @@
         "N"
     ],
     "Slots": [
-        {
-            "1": [
-                [
-                    "Wild",
-                    0
-                ]
+        [
+            [
+                "Wild",
+                0
             ]
-        },
-        {
-            "2": [
-                [
-                    "Magic",
-                    0
-                ]
+        ],
+        [
+            [
+                "Magic",
+                0
             ]
-        },
-        {
-            "3": []
-        }
+        ],
+        []
     ],
     "Background": "./backgrounds/Witch_Chamber.png"
 }

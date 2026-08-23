@@ -48,9 +48,16 @@ Currently a single top-level module; being folded into `src/cardgen/render/`. It
 
 Nine per-type templates over shared partials (`_costs_box`, `_spiderweb`, `filters_defs`). Theming is data-attribute driven: `body[data-type]`, `body[data-subtype]`, `body[data-faction]` and `body[data-tier]` select CSS custom-property blocks, so a card's colours follow from its data rather than from template branching.
 
+### `src/cardgen/model/` — the card definition
+
+| Module | Role |
+|---|---|
+| `cards.py` | One pydantic discriminated union over `Type`. Python attributes are snake_case; every field carries a generated capitalised alias, so `model_dump(by_alias=True)` is exactly the dict the templates and the JSON files use |
+| `schemas.py` | Emits `schemas/*.schema.json` from the union — `python -m cardgen.model.schemas` |
+
 ### `schemas/`
 
-One JSON Schema per card type, used both to validate and to *identify* a card. They are hand-maintained and have drifted from each other — see the decisions below.
+One JSON Schema per card type, used both to validate and to *identify* a card. **Generated** from `model/cards.py`; the files stay committed so editors can use them and so a diff signals a model change. The verify gate fails if they are stale.
 
 ## Decisions & reversals
 
@@ -68,9 +75,20 @@ One JSON Schema per card type, used both to validate and to *identify* a card. T
 
 `<Name>.png` at the canvas size is what MakePlayingCards receives. `_trim` and `_safe` are inspection aids. Playwright writes no DPI metadata, so the full-bleed file is re-saved through Pillow to stamp 300 DPI before it is asserted.
 
-### Not yet done: one card model
+### One card model, and the schemas are build products (2026-08-24)
 
-The card shape is currently defined three times — eight hand-written JSON Schemas, the Jinja context each template expects, and (on the abandoned REST branch) a SQLAlchemy model. They already disagree: `Type` is required by five schemas and optional in three, `additionalProperties` is `false` in four and `true` in four, and the two splits do not line up. A single pydantic discriminated union should generate the schemas and the DB columns. Tracked in PROJECT.md's direction notes.
+**Why:** the card shape was defined three times — eight hand-written JSON Schemas, the Jinja context each template expects, and a SQLAlchemy model on the abandoned REST branch. They had already disagreed: `Type` was required by five schemas and optional in three, `additionalProperties` was `false` in four and `true` in four, and the two splits did not line up. `Food` was declared in all eight and used by one card.
+
+**Consequence:** `model/cards.py` owns the shape and `schemas/` is generated from it. All 137 cards validate against the model and round-trip through it losslessly, which is how the model was proved to match reality rather than an idea of it.
+
+**Two field changes shipped with it,** migrated by `tools/migrate_20260824_unify_text_flatten_slots.py` (kept, idempotent, refuses to write unless every migrated card validates):
+
+- Rooms stored their text in `Rules` and the other seven types in `Description`. Unified on `Description` — the game's own word, per `Rules/Rules.txt:34`, "Costs are defined in front of a ':' within the description of a card."
+- `Slots` was a list of single-key objects whose `"1"`/`"2"`/`"3"` keys were always the 1-based index and were never read — `room_template.html` iterated `slot.values()`. Now a plain list of lists. The inner `[type, number]` spots are untouched: the number is 0 on 64 of 66 spots and 2 on the two `Sacred_Hain` spots, and `Rules/Ideas.txt` lists slot requirements as an idea rather than a rule, so what it means is a question for the author.
+
+### Do not bound a numeric field on intuition
+
+`defence` carries no lower bound. A `ge=0` guess rejected `Shark_Tank`, a Room with `Defence: -1` — defence reads as a modifier as well as a stat. Bound a field only where the data shows the bound, or where a negative is meaningless (health, movement, tier, and the cost fields).
 
 ### Reversed: "Overlord and Creature print at TCG size"
 

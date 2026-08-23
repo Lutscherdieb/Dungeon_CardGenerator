@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Ancient Throne Room",
-    "Rules": "Before combat: You may pay 1 [Cards] to give all your Units in this Room +1 [Defence]",
+    "Description": "Before combat: You may pay 1 [Cards] to give all your Units in this Room +1 [Defence]",
     "Mana": 0,
     "Cards": 3,
     "Defence": 3,
@@ -11,28 +11,22 @@
         "S"
     ],
     "Slots": [
-        {
-            "1": [
-                [
-                    "All",
-                    0
-                ],
-                [
-                    "All",
-                    0
-                ],
-                [
-                    "All",
-                    0
-                ]
+        [
+            [
+                "All",
+                0
+            ],
+            [
+                "All",
+                0
+            ],
+            [
+                "All",
+                0
             ]
-        },
-        {
-            "2": []
-        },
-        {
-            "3": []
-        }
+        ],
+        [],
+        []
     ],
     "Background": "./backgrounds/Ancient_Throne_Room.png"
 }

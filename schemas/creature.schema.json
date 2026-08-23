@@ -1,21 +1,93 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Creature Card Schema",
-  "type": "object",
-  "required": ["Type", "Name", "Description", "Mana", "Cards", "Defence", "Movement", "Health", "Background", "Faction", "Tier"],
-  "properties": {
-    "Type":       { "const": "Creature" },
-    "Name":       { "type": "string" },
-    "Faction":    { "type": "string", "enum": ["Demon","Magic","Wild","Undead","All"] },
-    "Description":{"type": "string" },
-    "Mana":       { "type": "integer" },
-    "Food":       { "type": "integer" },
-    "Cards":      { "type": "integer" },
-    "Defence":    { "type": "integer" },
-    "Movement":   { "type": "integer" },
-    "Health":     { "type": "integer" },
-    "Tier":       { "type": "integer", "enum": [1,2,3,4] },
-    "Background": { "type": "string" }
+  "$defs": {
+    "CreatureType": {
+      "description": "The game's creature types, plus the wildcard.\n\nA closed set defined by the game itself (Rules/Rules.txt, \"Basic Creature\nType Boons\"), not by anything in this repo -- so it is enumerated here on\npurpose rather than derived from the asset directory, which also holds\nresource and stat icons.",
+      "enum": [
+        "Demon",
+        "Undead",
+        "Magic",
+        "Wild",
+        "All"
+      ],
+      "title": "CreatureType",
+      "type": "string"
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "properties": {
+    "Name": {
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "Mana": {
+      "minimum": 0,
+      "title": "Mana",
+      "type": "integer"
+    },
+    "Cards": {
+      "minimum": 0,
+      "title": "Cards",
+      "type": "integer"
+    },
+    "Background": {
+      "title": "Background",
+      "type": "string"
+    },
+    "Food": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Food",
+      "type": "integer"
+    },
+    "Description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "Defence": {
+      "title": "Defence",
+      "type": "integer"
+    },
+    "Health": {
+      "minimum": 0,
+      "title": "Health",
+      "type": "integer"
+    },
+    "Movement": {
+      "minimum": 0,
+      "title": "Movement",
+      "type": "integer"
+    },
+    "Type": {
+      "const": "Creature",
+      "title": "Type",
+      "type": "string"
+    },
+    "Faction": {
+      "$ref": "#/$defs/CreatureType"
+    },
+    "Tier": {
+      "maximum": 4,
+      "minimum": 1,
+      "title": "Tier",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "Name",
+    "Mana",
+    "Cards",
+    "Background",
+    "Defence",
+    "Health",
+    "Movement",
+    "Type",
+    "Faction",
+    "Tier"
+  ],
+  "title": "Creature Card",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "GENERATED from src/cardgen/model/cards.py by `python -m cardgen.model.schemas` -- do not hand-edit."
 }

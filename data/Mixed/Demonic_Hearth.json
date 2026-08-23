@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Hearth",
     "Name": "Demonic Hearth",
-    "Rules": "",
+    "Description": "",
     "Mana": 0,
     "Cards": 0,
     "Defence": 1,
@@ -14,29 +14,23 @@
         "W"
     ],
     "Slots": [
-        {
-            "1": [
-                [
-                    "Demon",
-                    0
-                ],
-                [
-                    "Demon",
-                    0
-                ]
+        [
+            [
+                "Demon",
+                0
+            ],
+            [
+                "Demon",
+                0
             ]
-        },
-        {
-            "2": [
-                [
-                    "All",
-                    0
-                ]
+        ],
+        [
+            [
+                "All",
+                0
             ]
-        },
-        {
-            "3": []
-        }
+        ],
+        []
     ],
     "Background": "./backgrounds/Demon_Hearth.png"
 }

@@ -40,3 +40,19 @@ this example from being scanned as a real candidate by `/base:promote`):
 - home: REFERENCES.md#game-rules-and-design-notes (known blind spots)
 - evidence: `Rules/Cardtypes.txt` lists Overlord and Creature under "tcg format". Read as a spec, that produced a confident report that 59 of 137 cards (43%) were rendered at the wrong physical size. It was an intention left open — every card type is square. The user's correction: "the cards should all be square cards it was just left open for later to implement other format cards."
 - applications: 2026-08-24
+
+## 2026-08-24 — bound-numeric-fields-from-data-not-intuition
+- scope: generic
+- status: candidate
+- rule: When modelling authored data, put a bound on a numeric field only where the existing data shows the bound or a negative is meaningless; validate the whole corpus against the model before committing it, and treat every rejection as a candidate model bug rather than a data bug.
+- home: src/cardgen/model/cards.py (the `Defence` alias and its comment), docs/ARCHITECTURE.md#do-not-bound-a-numeric-field-on-intuition
+- evidence: `defence: int = Field(ge=0)` looked obviously right and rejected Shark_Tank, a Room with `"Defence": -1` — defence reads as a modifier as well as a stat. Caught only because all 137 cards were validated against the model before the migration: 136/137, one failure, `Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-1]`.
+- applications: 2026-08-24
+
+## 2026-08-24 — split-a-reformat-from-a-content-migration
+- scope: generic
+- status: candidate
+- rule: When a data migration also changes file formatting, land the reformat as its own commit first and prove it semantically identical to the previous revision; the migration's own diff is then reviewable.
+- home: tools/normalize_card_json.py (which refuses to write when reparsing would not reproduce the original object)
+- evidence: reformatting 137 card files produced 1987 insertions / 1369 deletions. The field migration that followed touched 23 files and its diff reads as exactly one rename plus one unwrapping per file. Combined, the real change would have been invisible.
+- applications: 2026-08-24

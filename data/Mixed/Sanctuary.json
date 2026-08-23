@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Sanctuary",
-    "Rules": "[Undead][Undead]: Put one Power 2 [Undead] into your Domain",
+    "Description": "[Undead][Undead]: Put one Power 2 [Undead] into your Domain",
     "Mana": 0,
     "Cards": 2,
     "Defence": 1,
@@ -12,29 +12,23 @@
         "S"
     ],
     "Slots": [
-        {
-            "1": [
-                [
-                    "All",
-                    0
-                ],
-                [
-                    "All",
-                    0
-                ]
+        [
+            [
+                "All",
+                0
+            ],
+            [
+                "All",
+                0
             ]
-        },
-        {
-            "2": [
-                [
-                    "Undead",
-                    0
-                ]
+        ],
+        [
+            [
+                "Undead",
+                0
             ]
-        },
-        {
-            "3": []
-        }
+        ],
+        []
     ],
     "Background": "./backgrounds/Sanctuary.png"
 }

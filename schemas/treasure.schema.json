@@ -1,17 +1,58 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "Name": {
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "Mana": {
+      "minimum": 0,
+      "title": "Mana",
+      "type": "integer"
+    },
+    "Cards": {
+      "minimum": 0,
+      "title": "Cards",
+      "type": "integer"
+    },
+    "Background": {
+      "title": "Background",
+      "type": "string"
+    },
+    "Food": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Food",
+      "type": "integer"
+    },
+    "Description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "Tier": {
+      "maximum": 4,
+      "minimum": 1,
+      "title": "Tier",
+      "type": "integer"
+    },
+    "Type": {
+      "const": "Treasure",
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "Name",
+    "Mana",
+    "Cards",
+    "Background",
+    "Tier",
+    "Type"
+  ],
   "title": "Treasure Card",
   "type": "object",
-  "required": ["Type","Name", "Description", "Mana", "Cards"],
-  "properties": {
-    "Type": { "const": "Treasure" },
-    "Name": { "type": "string", "minLength": 1 },
-    "Description": { "type": "string" },
-    "Mana": { "type": "integer" },
-    "Cards": { "type": "integer" },
-    "Food":       { "type": "integer" },
-    "Tier":        { "type": "integer", "enum": [1,2,3,4] },
-    "Background": { "type": "string" }
-  },
-  "additionalProperties": true
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "GENERATED from src/cardgen/model/cards.py by `python -m cardgen.model.schemas` -- do not hand-edit."
 }
