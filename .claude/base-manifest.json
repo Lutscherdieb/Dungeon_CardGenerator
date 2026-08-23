@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "project": "CardGenerator",
+  "created": "2026-08-24",
+  "base_version_at_creation": "adopted-at-v0.0.3",
+  "last_synced_version": "0.0.3",
+  "profile": "web",
+  "toolchain": {
+    "language": "python",
+    "min_version": "3.10",
+    "package_manager": "pip",
+    "install": "pip install -e .",
+    "key_libraries": [
+      "playwright",
+      "jinja2",
+      "pillow",
+      "jsonschema",
+      "pydantic",
+      "SQLAlchemy",
+      "CherryPy"
+    ],
+    "external_tools": [
+      "chromium (via playwright install)"
+    ]
+  },
+  "modules": {
+    "docs": true,
+    "verify": true,
+    "references": true,
+    "harvest": true,
+    "audit": true
+  },
+  "interview": {
+    "mode": "adoption retrofit (docs/ADOPTION.md), derive-then-confirm",
+    "q1_name_and_goal": {
+      "name": "CardGenerator",
+      "repo": "Dungeon_CardGenerator",
+      "goal": "Generate print-ready boardgame card images at exact MakePlayingCards measurements from card data plus artwork."
+    },
+    "q2_description_nongoals_users": {
+      "description": "Local tool for one custom dungeon-building boardgame. Card data plus artwork in, full-bleed PNG at MPC upload spec out. Eight card types share one HTML/CSS template family rendered through headless Chromium.",
+      "non_goals": [
+        "not a game engine or rules simulator",
+        "not internet-facing - localhost, single user, no accounts",
+        "not a general-purpose card designer for other games",
+        "not an art tool - artwork is authored elsewhere"
+      ],
+      "users": "Just me, on this machine."
+    },
+    "q3_profile": "web",
+    "q4_toolchain_and_run": {
+      "build": "pip install -e . && python -m playwright install chromium",
+      "run": "python generate_card.py --input data/Mixed --output-dir out"
+    },
+    "q5_verify": {
+      "method": "render one card of every type, assert every written PNG against its print profile, and cross-check the derivation against MPC's published figures",
+      "command": "python tests/run_tests.py > tests/last-run.txt 2>&1",
+      "evidence": "tests/last-run.txt",
+      "user_answer_verbatim": "I would have the user only be able to input the card data and upload an image for it from which we generate the correct card image in the back with sub routine or similar. The uploaded user image does only need to be rectangular and maybe we will give a warning if its resolution is too low that is all for verifying it",
+      "note": "The user's answer defines runtime validation of uploaded artwork (cardgen.spec.check_artwork, advisory warnings only). The command above is the development-time gate, which the answer did not cover; geometry correctness is additionally enforced as a pipeline invariant so it cannot be skipped."
+    },
+    "q6_references": [
+      "mpc-print-spec",
+      "game-rules"
+    ],
+    "q7_doc_contract": [
+      "README.md",
+      "docs/ARCHITECTURE.md"
+    ],
+    "q9_gate_strictness": "preview-and-approve on",
+    "q10_git_mode": "existing GitHub remote (Lutscherdieb/Dungeon_CardGenerator), work on branch v2",
+    "q11_generators": "none yet",
+    "decisions_2026_08_24": {
+      "card_formats": "Everything stays square. Rules/Cardtypes.txt mentioning 'tcg format' for Overlord/Creature was an intention left open, not a spec.",
+      "canvas_size": "Fix to MPC's published 1122x1122 (was 1125x1125); safe zone 978 (was 975).",
+      "gallery_reach": "localhost only, SQLite, no auth.",
+      "web_stack": "Keep CherryPy - switch to FastAPI only if performance demands it, which it does not; Playwright browser launches dominate render time, not the server.",
+      "source_of_truth": "SQL primary, with JSON import for the 137 existing cards.",
+      "json_migration": "Unify Rules/Description and flatten Slots. Keep Food - it is unused only because cards for it are not designed yet."
+    }
+  },
+  "doc_map": [
+    {
+      "sources": [
+        "src/**",
+        "generate_card.py",
+        "templates/**",
+        "style.css",
+        "schemas/**"
+      ],
+      "doc": "docs/ARCHITECTURE.md"
+    },
+    {
+      "sources": [
+        "pyproject.toml",
+        "tests/**"
+      ],
+      "doc": "README.md"
+    }
+  ],
+  "source_globs": [
+    "src/**",
+    "generate_card.py",
+    "templates/**",
+    "style.css",
+    "schemas/**",
+    "tests/**",
+    "pyproject.toml"
+  ],
+  "verify": {
+    "command": "python tests/run_tests.py > tests/last-run.txt 2>&1",
+    "evidence": "tests/last-run.txt",
+    "exempt_patterns": [
+      "**/*.md",
+      "Rules/**",
+      "data/**"
+    ]
+  },
+  "readonly_refs": [
+    {
+      "id": "mpc-print-spec",
+      "committed_path": null,
+      "local": false
+    },
+    {
+      "id": "game-rules",
+      "committed_path": "Rules",
+      "local": false
+    }
+  ],
+  "generators": [],
+  "region_state": {
+    "CLAUDE.md#doctrine-header": {
+      "rev": 1,
+      "hash": "sha256:e9d3f44cc03f64bd79438e9c25627c215cba11429dab32c2c9c44097028246c4"
+    },
+    "CLAUDE.md#doctrine-references": {
+      "rev": 1,
+      "hash": "sha256:a84d39f620d7b019ad7f0d14f3262562ed541aec93482afee303b6802460effe"
+    },
+    "CLAUDE.md#doctrine-writeback": {
+      "rev": 1,
+      "hash": "sha256:8d77f59a95b60cdf7d11c2c348176f7a5a790f99e74d4280107c4212ebf659c7"
+    },
+    "CLAUDE.md#doctrine-docs": {
+      "rev": 2,
+      "hash": "sha256:e2041e3904f39c2c4920eadf02afee3cef18c4e338de55d6fd462bdb5030afe0"
+    },
+    "CLAUDE.md#doctrine-verify": {
+      "rev": 1,
+      "hash": "sha256:12f090329fe6761527d0eeb771e9de4b261044b92d2366d2fca39b885f0ae4a3"
+    },
+    "README.md#readme-footer": {
+      "rev": 1,
+      "hash": "sha256:e3fb8bf7642b628e56a959dbd9b325017f591f023cacc50ce368a45b21fc5849"
+    }
+  },
+  "divergences": [
+    {
+      "id": "adopted-not-scaffolded",
+      "what": "Repository predates ClaudeBase. Its git history and content tree (data/, backgrounds/, Rules/, templates/, assets/, schemas/) were not laid out by the seed, and README.md carries the project's own sections around the seeded footer region.",
+      "why": "Adopted via docs/ADOPTION.md rather than /base:new-project. The seed prescribes no source layout, so this is context for later sessions rather than a sync exception.",
+      "recorded": "2026-08-24"
+    },
+    {
+      "id": "references-guard-partially-dormant",
+      "what": "mpc-print-spec is a live website with no local path, so protect-references has nothing to block for it. Only game-rules (committed_path: Rules) is actually guarded.",
+      "why": "The reference is genuinely remote. Recorded so /base:doctor reporting the guard as partly dormant reads as expected, not as breakage.",
+      "recorded": "2026-08-24"
+    }
+  ]
+}

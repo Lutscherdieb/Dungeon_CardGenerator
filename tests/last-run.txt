@@ -1,0 +1,87 @@
+CardGenerator verify gate
+repo: E:\Boardgame\CardGenerator
+SQUARE_3_5IN: 3.5in x 3.5in square (MPC "Large Square") @ 300dpi -- canvas 1122x1122, trim 1050x1050, safe 978x978 (bleed 36px, safe margin 36px, both per side)
+
+[1/3] profile derivation vs the MPC published spec
+  ok    MPC constants: 36px bleed, 36px safe margin, per side
+  ok    poker cross-check: 2.5x3.5in -> 822x1122, matches MPC's published figure
+  ok    canvas region 1122x1122
+  ok    trim region 1050x1050
+  ok    safe region 978x978
+  ok    trim and safe boxes are centred in the canvas
+  ok    all 8 card types resolve to a profile
+
+[2/3] no geometry literals outside cardgen.spec
+  ok    no geometry literals in style.css, templates, src, generate_card.py
+
+[3/3] render one card per type, assert every PNG
+[TYPE] Detected via field: room
+[Rules] Replacements: 2
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Acid_Chamber.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Acid_Chamber.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Acid_Chamber_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Acid_Chamber_trim.png
+  ok    Room - Basic       Acid_Chamber.json canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: research
+[Rules] Replacements: 2
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Advanced_Forging.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Advanced_Forging.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Advanced_Forging_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Advanced_Forging_trim.png
+  ok    Research           Advanced_Forging.json canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: hero
+[Rules] Replacements: 0
+[Rules] No tokens found in: ''
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Adventurer.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Adventurer.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Adventurer_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Adventurer_trim.png
+  ok    Hero               Adventurer.json  canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: overlord
+[Rules] Replacements: 2
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Ageless_Horror.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Ageless_Horror.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Ageless_Horror_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Ageless_Horror_trim.png
+  ok    Overlord           Ageless_Horror.json canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: trap
+[Rules] Replacements: 2
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Artifical_Sun.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Artifical_Sun.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Artifical_Sun_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Artifical_Sun_trim.png
+  ok    Trap               Artifical_Sun.json canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: creature
+[Rules] Replacements: 0
+[Rules] No tokens found in: ''
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Bear.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Bear.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Bear_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Bear_trim.png
+  ok    Creature           Bear.json        canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: room
+[Rules] Replacements: 0
+[Rules] No tokens found in: ''
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Blood_Hearth.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Blood_Hearth.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Blood_Hearth_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Blood_Hearth_trim.png
+  ok    Room - Hearth      Blood_Hearth.json canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: spell
+[Rules] Replacements: 1
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Chaos_Imprisonment.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Chaos_Imprisonment.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Chaos_Imprisonment_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Chaos_Imprisonment_trim.png
+  ok    Spell              Chaos_Imprisionment.json canvas/trim/safe all match SQUARE_3_5IN
+[TYPE] Detected via field: treasure
+[Rules] Replacements: 0
+[Rules] No tokens found in: 'Start of Replenish: Look at the top 3 cards of your library, you may put any number of them into your discard pile.'
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Crystal_Orb.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Crystal_Orb.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Crystal_Orb_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-gmgaik77\Crystal_Orb_trim.png
+  ok    Treasure           Crystal_Orb.json canvas/trim/safe all match SQUARE_3_5IN
+
+========================================================================
+PASSED -- all checks green
