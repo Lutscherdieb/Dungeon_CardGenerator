@@ -23,7 +23,7 @@ pip install -r requirements.txt
 python -m playwright install chromium
 
 # Generate cards from data/mixed
-python generate_card.py data/mixed
+python generate_card.py --input data/mixed
 ```
 Result: print-ready .png and .html files in outputs/<timestamp>_<count>/.
 ## Usage

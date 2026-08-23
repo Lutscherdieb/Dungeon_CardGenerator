@@ -2,7 +2,7 @@
     "Type":"Room",
     "Subtype": "Basic",
     "Name":"Acid Chamber",
-    "Rules":"",
+    "Rules":"Damage dealt to [Hero] and [All] in this room is increased by 1.",
     "Mana":0,
     "Cards":2,
     "Defence":1,

@@ -2,7 +2,7 @@
     "Type":"Research",
     "Name":"Mutation Engineering",
     "Tier":1,
-    "Description":"When you play a creature type you may pay [Food] less",
+    "Description":"You may stationan additional [All] in rooms with at least one [Treasure] or [Research]",
     "Mana":0,
     "Cards":1,
     "Background": "./backgrounds/Mutation_Engineering.png"

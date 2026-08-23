@@ -2,7 +2,7 @@
     "Type":"Room",
     "Subtype": "Basic",
     "Name":"Library",
-    "Rules":"",
+    "Rules":"[All]: Add [Knowledge][Knowledge].",
     "Mana":0,
     "Cards":2,
     "Defence":0,

@@ -2,15 +2,15 @@
     "Type":"Room",
     "Subtype": "Basic",
     "Name":"Laboratory",
-    "Rules":"",
+    "Rules":"Sacrifice [Wild]: Add one [Magic] to your domain.",
     "Mana":0,
     "Cards":2,
     "Defence":1,
     "Treasure":3,
     "Roads":["N"],
     "Slots": [
-        { "1": [ ["All", 0], ["Wild", 0] ] },
-        { "2": [ ["Magic", 0], ["Demon", 0] ] },
+        { "1": [ ["All", 0], ["All", 0] ] },
+        { "2": [ ["Magic", 0] ] },
         { "3": [] }
         ],
     "Background": "./backgrounds/Laboratory.png"

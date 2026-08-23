@@ -2,7 +2,7 @@
     "Type":"Trap",
     "Name":"Lava Trap",
     "Tier":1,
-    "Description":"On activation: the activating [Hero] and his party take 2 damage",
+    "Description":"On activation: Move each [Hero] in this room to an adjacent room.<br>The rooms may differ for each [Hero].",
     "Mana":0,
     "Cards":1,
     "Background": "./backgrounds/Lava_Trap.png"

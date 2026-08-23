@@ -2,14 +2,14 @@
     "Type":"Room",
     "Subtype": "Basic",
     "Name":"Lava Pool",
-    "Rules":"[Demon] & [Mana]: Add [Demon] to your Domain",
+    "Rules":"[Demon][Food][Mana]: Add [Demon] to your Domain.<br>Can store up to 2 [Mana].",
     "Mana":4,
     "Cards":0,
     "Defence":2,
     "Treasure":0,
     "Roads":["N","S"],
     "Slots":[
-        {"1":[ ["Demon", 2]]},
+        {"1":[ ["Demon", 0],["Demon",0]]},
         {"2":[]},
         {"3":[]}
     ],
