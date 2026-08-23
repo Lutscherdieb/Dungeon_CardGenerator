@@ -54,5 +54,15 @@
   "title": "Research Card",
   "type": "object",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "GENERATED from src/cardgen/model/cards.py by `python -m cardgen.model.schemas` -- do not hand-edit."
+  "$comment": "GENERATED from src/cardgen/model/cards.py by `python -m cardgen.model.schemas` -- do not hand-edit.",
+  "x-key-order": [
+    "Type",
+    "Name",
+    "Tier",
+    "Description",
+    "Mana",
+    "Cards",
+    "Food",
+    "Background"
+  ]
 }

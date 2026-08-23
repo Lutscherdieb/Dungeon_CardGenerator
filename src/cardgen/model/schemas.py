@@ -19,7 +19,7 @@ import json
 import sys
 from pathlib import Path
 
-from .cards import CARD_TYPES
+from .cards import CARD_TYPES, _JSON_KEY_ORDER
 
 BANNER = (
     "GENERATED from src/cardgen/model/cards.py by "
@@ -34,6 +34,11 @@ def schema_for(card_type: str) -> dict:
     schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
     schema["title"] = "{} Card".format(card_type.capitalize())
     schema["$comment"] = BANNER
+    # The order a human wants to read and edit these fields in -- the same order
+    # to_json_dict writes. The gallery's form builder reads it so the form and
+    # the file agree without JavaScript restating the list.
+    present = set(schema.get("properties", {}))
+    schema["x-key-order"] = [k for k in _JSON_KEY_ORDER if k in present]
     return schema
 
 

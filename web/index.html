@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CardGenerator gallery</title>
+  <link rel="stylesheet" href="/web/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>CardGenerator</h1>
+    <div class="spacer"></div>
+    <label class="field inline">
+      <span>Type</span>
+      <select id="filter-type"><option value="">all</option></select>
+    </label>
+    <button id="btn-new" class="btn primary">New card</button>
+    <button id="btn-refresh" class="btn">Refresh</button>
+  </header>
+
+  <p id="banner" class="banner" hidden></p>
+
+  <main id="grid" class="grid" aria-live="polite"></main>
+
+  <aside id="panel" class="panel" hidden>
+    <header class="panel-head">
+      <h2 id="panel-title">Card</h2>
+      <button id="btn-close" class="btn icon" title="Close">&times;</button>
+    </header>
+
+    <div class="panel-body">
+      <section class="preview">
+        <img id="preview-img" alt="" />
+        <p id="render-state" class="render-state"></p>
+        <p class="hint">
+          The full-bleed PNG is the file you upload to MakePlayingCards.
+          <a id="link-canvas" href="#" target="_blank" rel="noopener">full bleed</a> &middot;
+          <a id="link-trim" href="#" target="_blank" rel="noopener">trim</a> &middot;
+          <a id="link-safe" href="#" target="_blank" rel="noopener">safe</a>
+        </p>
+      </section>
+
+      <section class="artwork">
+        <h3>Artwork</h3>
+        <p class="hint" id="art-hint"></p>
+        <input type="file" id="art-file" accept="image/*" />
+        <button id="btn-art" class="btn">Upload artwork</button>
+        <p id="art-warning" class="warn" hidden></p>
+      </section>
+
+      <section class="form">
+        <h3>Card data</h3>
+        <div id="form-fields"></div>
+        <p id="form-error" class="err" hidden></p>
+      </section>
+    </div>
+
+    <footer class="panel-foot">
+      <button id="btn-delete" class="btn danger">Delete</button>
+      <div class="spacer"></div>
+      <button id="btn-render" class="btn">Re-render</button>
+      <button id="btn-save" class="btn primary">Save &amp; render</button>
+    </footer>
+  </aside>
+
+  <div id="scrim" class="scrim" hidden></div>
+
+  <script src="/web/app.js"></script>
+</body>
+</html>

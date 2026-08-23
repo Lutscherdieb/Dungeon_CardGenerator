@@ -320,9 +320,19 @@ def transform_context(card_data: dict, card_type: str) -> dict:
 # =========================
 # Single-card pipeline
 # =========================
-def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: str):
-    with open(card_data_path, 'r', encoding='utf-8') as f:
-        raw = json.load(f)
+def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: str,
+                  card_data: dict = None):
+    """Render one card to HTML.
+
+    Accepts either a path to a card JSON file or an already-loaded dict, so the
+    gallery renders through this exact pipeline instead of growing a second
+    renderer beside it. Passing a dict is why ``card_data_path`` may be None.
+    """
+    if card_data is not None:
+        raw = dict(card_data)
+    else:
+        with open(card_data_path, 'r', encoding='utf-8') as f:
+            raw = json.load(f)
 
     project_root = Path(__file__).resolve().parent
     validate_assets(project_root)

@@ -8,7 +8,9 @@ Mid-restructure, on branch `v2`.
 
 **Done:** print geometry is derived from a single MPC-backed profile and asserted on every written PNG — the canvas is now MPC's actual 1122 x 1122 (it had drifted to 1125), the safe zone 978 (was 975). One pydantic model owns the card shape and generates the JSON Schemas; all 137 cards validate against it. The CLI renders all eight card types.
 
-**Next:** the web gallery on top of the store. SQLite, JSON import and byte-exact export are in place; all 137 cards are loaded. The `REST-CardGenerator` branch is a non-working sketch kept only for reference — see the direction notes in [PROJECT.md](PROJECT.md).
+The gallery runs: browse all 137 cards, edit them in a form generated from the model, upload artwork, and get a print-ready PNG back.
+
+**Next:** collapse the nine card templates onto one base template, and reuse a single Chromium across a batch. The `REST-CardGenerator` branch is a non-working sketch kept only for reference — see the direction notes in [PROJECT.md](PROJECT.md).
 
 ## What this is
 
@@ -37,6 +39,17 @@ python generate_card.py --input data/Mixed/Bear.json --output-dir out
 
 A batch run creates `out/<unix-timestamp>_<count>/` containing, per card, `<Name>.html`, `<Name>.png` (full bleed — **this is the file you upload to MPC**), `<Name>_trim.png` (the cut card) and `<Name>_safe.png` (the safe area), plus a `preview.html` grid of everything in the batch. Flags `--html`, `--png`, `--safe`, `--trim` narrow the output; the default is all four.
 
+### The gallery
+
+```bash
+cardgen import          # load data/Mixed into the store (skips names already there)
+cardgen serve           # http://127.0.0.1:8765
+```
+
+Browse, edit, upload artwork, re-render. Every save re-renders in the background.
+`cardgen render` renders every stored card; `cardgen export` writes the store back
+out as card JSON, byte-for-byte matching what `data/Mixed` already holds.
+
 Verify a change with: `python tests/run_tests.py > tests/last-run.txt 2>&1`
 
 ## Print geometry
@@ -58,6 +71,9 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 | `src/cardgen/spec/` | Print geometry — the single source of truth for every pixel size |
 | `src/cardgen/model/` | The card definition — one pydantic model, from which the schemas derive |
 | `src/cardgen/store/` | SQLite behind the model: import, edit, export, render state |
+| `src/cardgen/render/` | Card data in, print-ready PNGs out. The only rendering path |
+| `src/cardgen/web/` | The local gallery: CherryPy API plus a single render worker |
+| `web/` | The gallery frontend |
 | `generate_card.py` | The CLI renderer; being folded into `src/cardgen/` |
 | `templates/` | Jinja card templates, one per type plus shared partials |
 | `style.css` | Card styling. Declares no geometry — it reads the profile's CSS variables |
