@@ -92,7 +92,6 @@ class CardBase(BaseModel):
     name: str = Field(min_length=1)
     mana: int = Field(ge=0)
     cards: int = Field(ge=0)
-    background: str
 
     #: Kept deliberately although only one card uses it: cards that cost Food
     #: are not designed yet (confirmed 2026-08-24), and dropping it would mean
@@ -201,9 +200,31 @@ def model_for_type(card_type: str):
 
 
 def parse_card(data: dict):
-    """Validate a raw card dict (JSON key spelling) into its concrete model."""
-    model = model_for_type(data.get("Type") or data.get("type") or "")
-    return model.model_validate(data)
+    """Validate a raw card dict (JSON key spelling) into its concrete model.
+
+    Interchange-only keys are dropped first, so a card JSON file straight off
+    disk validates without the caller having to know which keys are transport.
+    """
+    card, _ = split_transport(data)
+    model = model_for_type(card.get("Type") or card.get("type") or "")
+    return model.model_validate(card)
+
+
+#: Keys that appear in card JSON files but are NOT part of the card.
+#:
+#: Artwork belongs to the card in the store, as bytes -- not as a path a human
+#: has to keep pointing at the right file. "Background" survives only as an
+#: interchange detail: import reads it to find the image to load, export writes
+#: the image out and emits it again, so the JSON files stay a complete,
+#: git-diffable copy of the deck. Nothing at render time consults it.
+TRANSPORT_KEYS = ("Background",)
+
+
+def split_transport(data: dict) -> "tuple[dict, dict]":
+    """Separate a card JSON file into (card fields, interchange-only fields)."""
+    transport = {k: data[k] for k in TRANSPORT_KEYS if k in data}
+    card = {k: v for k, v in data.items() if k not in transport}
+    return card, transport
 
 
 #: Key order for exported JSON. Not cosmetic: cards are hand-edited, and the

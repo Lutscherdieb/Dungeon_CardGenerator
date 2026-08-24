@@ -16,10 +16,6 @@
       "title": "Cards",
       "type": "integer"
     },
-    "Background": {
-      "title": "Background",
-      "type": "string"
-    },
     "Food": {
       "default": 0,
       "minimum": 0,
@@ -61,7 +57,6 @@
     "Name",
     "Mana",
     "Cards",
-    "Background",
     "Defence",
     "Movement",
     "Health",
@@ -82,7 +77,6 @@
     "Food",
     "Defence",
     "Movement",
-    "Health",
-    "Background"
+    "Health"
   ]
 }

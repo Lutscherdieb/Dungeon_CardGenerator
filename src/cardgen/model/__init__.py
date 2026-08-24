@@ -17,9 +17,11 @@ from .cards import (
     Tier,
     Trap,
     Treasure,
+    TRANSPORT_KEYS,
     card_type_names,
     model_for_type,
     parse_card,
+    split_transport,
     to_json_dict,
 )
 
@@ -36,6 +38,7 @@ __all__ = [
     "Room",
     "RoomSubtype",
     "SlotSpot",
+    "TRANSPORT_KEYS",
     "Spell",
     "Tier",
     "Trap",
@@ -43,5 +46,6 @@ __all__ = [
     "card_type_names",
     "model_for_type",
     "parse_card",
+    "split_transport",
     "to_json_dict",
 ]

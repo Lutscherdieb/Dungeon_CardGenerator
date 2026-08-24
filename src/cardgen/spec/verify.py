@@ -72,25 +72,33 @@ def assert_png(path: str, profile: Profile, region: str, *, require_dpi: bool = 
             )
 
 
-def check_artwork(path: str, profile: Profile) -> "list[str]":
-    """Warnings about a user-supplied background image.  Never raises.
+def artwork_warnings(width: int, height: int, profile: Profile) -> "list[str]":
+    """Warnings about artwork of the given size.  Never raises.
 
     Artwork fills the safe zone, so anything smaller on either axis gets
     upscaled and prints soft.  Returns a list of human-readable warnings --
     empty means the image is fine.  This is advisory by design: the user asked
     to be warned about low resolution, not blocked by it.
+
+    Takes dimensions rather than a path because artwork lives in the store as
+    bytes; the web upload has already measured it, and there is no file to
+    reopen.  This is the one place the wording lives.
     """
     warnings: "list[str]" = []
-    try:
-        with Image.open(path) as im:
-            w, h = im.size
-    except Exception as exc:  # unreadable, truncated, or not an image at all
-        return ["could not read image: {}".format(exc)]
-
     need_w, need_h = profile.safe_w, profile.safe_h
-    if w < need_w or h < need_h:
+    if width < need_w or height < need_h:
         warnings.append(
             "artwork is {}x{}px but the {} safe zone is {}x{}px -- it will be "
-            "upscaled and print soft".format(w, h, profile.id, need_w, need_h)
+            "upscaled and print soft".format(width, height, profile.id, need_w, need_h)
         )
     return warnings
+
+
+def check_artwork(path: str, profile: Profile) -> "list[str]":
+    """``artwork_warnings`` for an image on disk, for the file-based CLI."""
+    try:
+        with Image.open(path) as im:
+            width, height = im.size
+    except Exception as exc:  # unreadable, truncated, or not an image at all
+        return ["could not read image: {}".format(exc)]
+    return artwork_warnings(width, height, profile)

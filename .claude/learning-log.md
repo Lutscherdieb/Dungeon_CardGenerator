@@ -49,6 +49,14 @@ this example from being scanned as a real candidate by `/base:promote`):
 - evidence: `defence: int = Field(ge=0)` looked obviously right and rejected Shark_Tank, a Room with `"Defence": -1` — defence reads as a modifier as well as a stat. Caught only because all 137 cards were validated against the model before the migration: 136/137, one failure, `Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-1]`.
 - applications: 2026-08-24
 
+## 2026-08-24 — give-a-value-one-writer-or-it-will-be-silently-reverted
+- scope: generic
+- status: candidate
+- rule: When a value can be written from two places — a form field and a server-side action that rewrites the same field — remove one of them rather than trying to keep them in sync; if the two must coexist, write a test that performs both in the order a user would and asserts the second did not undo the first.
+- home: docs/ARCHITECTURE.md#artwork-belongs-to-the-card-not-to-a-path, tests/check_artwork.py
+- evidence: `Background` was an editable form field AND was rewritten server-side by the artwork upload. Uploading then pressing "Save & render" put the old path back, silently discarding the artwork just uploaded — reproduced in a browser before the fix: upload set `./backgrounds/Zzz_Artwork_Probe.jpg`, the stale form restored `./backgrounds/Fireball.png`. Syncing the field after upload fixed the symptom; removing the field entirely (artwork became bytes in the store) removed the class.
+- applications: 2026-08-24
+
 ## 2026-08-24 — measure-visual-jank-frame-by-frame-before-theorising
 - scope: generic
 - status: candidate

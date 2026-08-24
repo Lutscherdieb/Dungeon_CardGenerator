@@ -42,9 +42,15 @@
 
       <section class="artwork">
         <h3>Artwork</h3>
-        <p class="hint" id="art-hint"></p>
+        <div class="art-row">
+          <img id="art-current" alt="current artwork" hidden />
+          <div>
+            <p id="art-meta" class="art-meta"></p>
+            <p class="hint" id="art-hint"></p>
+          </div>
+        </div>
         <input type="file" id="art-file" accept="image/*" />
-        <button id="btn-art" class="btn">Upload artwork</button>
+        <button id="btn-art" class="btn">Replace artwork</button>
         <p id="art-warning" class="warn" hidden></p>
       </section>
 

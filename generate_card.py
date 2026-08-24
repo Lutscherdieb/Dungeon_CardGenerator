@@ -321,12 +321,17 @@ def transform_context(card_data: dict, card_type: str) -> dict:
 # Single-card pipeline
 # =========================
 def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: str,
-                  card_data: dict = None):
+                  card_data: dict = None, artwork: tuple = None):
     """Render one card to HTML.
 
     Accepts either a path to a card JSON file or an already-loaded dict, so the
     gallery renders through this exact pipeline instead of growing a second
     renderer beside it. Passing a dict is why ``card_data_path`` may be None.
+
+    ``artwork`` is ``(bytes, mime)`` and is how the store supplies the image:
+    artwork lives in the database, not on a path. Reading a "Background" path
+    off the card is the fallback for JSON files on disk, which still carry one
+    so that the deck stays a complete, git-diffable set of files.
     """
     if card_data is not None:
         raw = dict(card_data)
@@ -338,7 +343,8 @@ def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: s
     validate_assets(project_root)
 
     # 1) Detect & validate type on the RAW data (no extras yet!)
-    detected_type = detect_type(raw, project_root)
+    from cardgen.model import split_transport
+    detected_type = detect_type(split_transport(raw)[0], project_root)
     template_filename = TYPE_TO_TEMPLATE_FILE[detected_type]
     subtype = (raw.get("Subtype") or "").strip().lower()
     if detected_type == "room" and subtype == "hearth":
@@ -348,12 +354,18 @@ def generate_html(card_data_path: str, _templates_dir_unused: str, output_dir: s
     # 2) Now enrich AFTER validation
     #    Embed background if file path provided (optional)
     enriched = dict(raw)
-    bg_path = enriched.get("Background")
-    if bg_path and os.path.exists(bg_path):
-        with open(bg_path, 'rb') as img_file:
-            enriched['background_b64'] = base64.b64encode(img_file.read()).decode('utf-8')
+    enriched['background_mime'] = 'image/png'
+    if artwork is not None:
+        art_bytes, art_mime = artwork
+        enriched['background_b64'] = base64.b64encode(art_bytes).decode('utf-8')
+        enriched['background_mime'] = art_mime or 'image/png'
     else:
-        enriched['background_b64'] = None
+        bg_path = enriched.get("Background")
+        if bg_path and os.path.exists(bg_path):
+            with open(bg_path, 'rb') as img_file:
+                enriched['background_b64'] = base64.b64encode(img_file.read()).decode('utf-8')
+        else:
+            enriched['background_b64'] = None
 
     # 3) Transform context (adds RoadsSet, runs inline replacements, etc.)
     ctx = transform_context(enriched, detected_type)

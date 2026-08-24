@@ -47,8 +47,10 @@ python -m cardgen.cli serve      # http://127.0.0.1:8765
 ```
 
 Browse, edit, upload artwork, re-render. Every save re-renders in the background.
-`render` renders every stored card; `export` writes the store back out as card JSON,
-byte-for-byte matching what `data/Mixed` already holds.
+`render` renders every stored card; `export` writes the store back out as card JSON
+**and artwork**, byte-for-byte matching what `data/Mixed` and `backgrounds/` already
+hold. Artwork lives in the store as bytes, so export is the deliberate moment it is
+written back to disk for git — see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 `pip install -e .` also installs a shorter `cardgen` command, but on this machine its
 Scripts directory is not on `PATH`, so `python -m cardgen.cli` is the form that always
@@ -83,8 +85,8 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 | `style.css` | Card styling. Declares no geometry — it reads the profile's CSS variables |
 | `schemas/` | Per-type JSON Schemas. **Generated** — `python -m cardgen.model.schemas` |
 | `tools/` | One-off migrations and content maintenance scripts, kept for the record |
+| `backgrounds/` | The art library in git. The store holds its own copy of each card's artwork |
 | `data/Mixed/` | The 137 card definitions |
-| `backgrounds/` | Card artwork, 1024 x 1024 |
 | `assets/` | Icons and fonts used by the templates |
 | `Rules/` | The game's own design documents — a read-only reference, see REFERENCES.md |
 | `tests/` | The verify gate |

@@ -87,9 +87,9 @@ function imageUrl(view, size = 'thumb') {
     const url = view.render.urls[size] || view.render.urls.trim;
     return `${url}?v=${imageVersion(view)}`;
   }
-  const bg = view.card?.Background;
-  if (bg) return bg.replace(/^\.\//, '/');
-  return null;
+  // Not rendered yet: show the artwork the card owns. There is no path to fall
+  // back to any more -- the image lives in the store.
+  return view.artwork?.url || null;
 }
 
 function buildTile(view) {
@@ -97,9 +97,8 @@ function buildTile(view) {
   const img = el('img', { alt: view.name, loading: 'lazy' });
   if (url) img.src = url; else img.style.background = '#000';
   img.addEventListener('error', () => {
-    const bg = view.card?.Background;
-    const fallback = bg ? bg.replace(/^\.\//, '/') : null;
-    if (fallback && !img.src.includes(fallback)) img.src = fallback;
+    const fallback = view.artwork?.url;
+    if (fallback && !img.src.includes('/artwork')) img.src = fallback;
   });
 
   const status = view.render?.queue || view.render?.status || 'pending';
@@ -153,10 +152,11 @@ async function refreshCard(id) {
 function setDraft(key, value) { state.draft[key] = value; }
 
 function fieldWrap(label, control, hint) {
-  return el('label', { class: 'field' },
+  return el('label', { class: 'field', 'data-key': label },
     el('span', { text: label }), control,
     hint ? el('span', { class: 'hint', text: hint }) : null);
 }
+
 
 function buildEnumSelect(values, current, onChange, { allowBlank = false } = {}) {
   const sel = el('select', { onchange: (e) => onChange(e.target.value || null) });
@@ -312,6 +312,33 @@ async function schemaFor(type) {
   return state.schemas[key];
 }
 
+/** Human file size. A 23KB upload reading "0.0 MB" is not a size. */
+function fileSize(bytes) {
+  if (!bytes && bytes !== 0) return '?';
+  if (bytes >= 1024 * 1024) return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+  if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${bytes} B`;
+}
+
+/** What artwork the card currently holds, and what it should be. */
+function paintArtwork(view, profile) {
+  const art = view.artwork || {};
+  const img = $('#art-current');
+  if (art.present) {
+    img.src = art.url;
+    img.hidden = false;
+    $('#art-meta').textContent =
+      `${art.width}×${art.height} · ${art.mime?.replace('image/', '') || '?'} · ${fileSize(art.bytes)}`;
+  } else {
+    img.hidden = true;
+    $('#art-meta').textContent = 'no artwork yet';
+  }
+  $('#art-hint').textContent =
+    `Stored with the card. Fills the safe zone at ${profile.artwork_min[0]}×`
+    + `${profile.artwork_min[1]}px; smaller still works, you just get a warning. `
+    + 'Uploading replaces what is there.';
+}
+
 function paintRenderState(view) {
   const status = view.render?.queue || view.render?.status || 'pending';
   const node = $('#render-state');
@@ -341,10 +368,7 @@ async function openCard(id) {
   paintRenderState(view);
   buildForm(await schemaFor(view.type));
 
-  const profile = await profileFor(view.type);
-  $('#art-hint').textContent =
-    `Fills the safe zone at ${profile.artwork_min[0]}×${profile.artwork_min[1]}px. `
-    + 'Smaller art still works — you just get a warning that it will print soft.';
+  paintArtwork(view, await profileFor(view.type));
 
   openPanel();
   markSelected(view.id);
@@ -430,7 +454,16 @@ async function uploadArtwork() {
   try {
     const res = await api(`/api/cards/${state.current.id}/artwork`, { method: 'POST', body: form });
     if (res.warnings?.length) { warn.hidden = false; warn.textContent = res.warnings.join(' · '); }
+
+    // Artwork is a property of the card in the store, so nothing in the form
+    // refers to it and a later save cannot revert it. Just repaint the preview.
+    state.current.artwork = { ...res.artwork, present: true };
+    state.current.artwork.url =
+      `/api/cards/${state.current.id}/artwork?v=${res.artwork.width}x${res.artwork.height}-${res.artwork.bytes}`;
+    paintArtwork(state.current, await profileFor(state.current.type));
+
     banner('');
+    input.value = '';
     startPolling(state.current.id);
   } catch (err) {
     banner(String(err.message || err), 'error');
@@ -475,13 +508,12 @@ async function newCard() {
     }
   }
   card.Name = 'Untitled';
-  card.Background = './backgrounds/Untitled.png';
 
   try {
     const { id } = await sendJSON('/api/cards', 'POST', card);
     await reload();
     await openCard(id);
-    banner('Created. It will fail to render until you upload artwork.', 'warn');
+    banner('Created. Upload artwork for it — it will render on a black background until you do.', 'warn');
   } catch (err) {
     banner(String(err.message || err), 'error');
   }

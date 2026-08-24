@@ -206,6 +206,14 @@ body {
 .warn { color: var(--warn); font-size: 13px; }
 .err { color: var(--danger); font-size: 13px; white-space: pre-wrap; }
 
+.art-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+#art-current {
+  width: 92px; height: 92px; flex: none;
+  object-fit: cover; border-radius: 6px;
+  border: 1px solid var(--line); background: #000;
+}
+.art-meta { margin: 0; font-size: 13px; color: var(--text); }
+
 /* ---------- form ---------- */
 
 .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }

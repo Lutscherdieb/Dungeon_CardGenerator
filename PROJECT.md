@@ -34,7 +34,7 @@ Render one card of every type and assert every written PNG against its print pro
 - Evidence: `tests/last-run.txt`
 - Exempt: `["**/*.md", "Rules/**", "data/**"]`
 
-Artwork supplied by the user is validated separately and advisorily: `cardgen.spec.check_artwork` warns when an image is smaller than the safe zone and would print soft. That is a warning by design, never a block.
+Artwork supplied by the user is validated separately and advisorily: `cardgen.spec.artwork_warnings` warns when an image is smaller than the safe zone and would print soft. That is a warning by design, never a block. Artwork itself is stored in the database as bytes, not as a path — `tests/check_artwork.py` drives that end to end in a real browser.
 
 ## Documentation contract
 
@@ -50,9 +50,8 @@ Artwork supplied by the user is validated separately and advisorily: `cardgen.sp
 
 ## Open direction notes
 
-- **Rebuild the web gallery.** The `REST-CardGenerator` branch is a non-working sketch (`Card.as_dict` reads three columns that do not exist, so every list request 500s). Rebuild on CherryPy + SQLAlchemy + SQLite with the card data as one pydantic model; harvest ideas from that branch, then delete it.
-- **Build the gallery** on the store: list, view, create, edit, upload artwork, render. CherryPy, localhost, no auth.
-- **Four card files have drifted from their card's name** — `Magic_Sentry.json` holds "Battledroid", `Timeless_Horror.json` holds "Chaos Overseer", `Monster_in_a_Bottle.json` holds "Bottled Monster", and `Chaos_Imprisionment.json` holds "Chaos Imprisonment" (the filename carries the typo). Export follows the file, not the name, so nothing breaks — but the files are worth renaming, and their `Background` still points at the old artwork name. Author's call.
+- **Delete the `REST-CardGenerator` branch.** Everything worth keeping from it has been rebuilt; it survives only as a reference for how not to do it (`Card.as_dict` read three columns that did not exist, so every list request 500'd).
+- **Four card files have drifted from their card's name** — `Magic_Sentry.json` holds "Battledroid", `Timeless_Horror.json` holds "Chaos Overseer", `Monster_in_a_Bottle.json` holds "Bottled Monster", and `Chaos_Imprisionment.json` holds "Chaos Imprisonment" (the filename carries the typo). Nothing breaks — export follows the file it came from — but the files and their artwork are worth renaming. Author's call.
 - **Ask the author what the second number in a `Slots` spot means.** It is 0 on 64 of 66 spots and 2 on the two `Sacred_Hain` spots, whose text mentions "[Wild] with Level 1". `Rules/Ideas.txt` lists slot requirements as an idea, so it is not safe to name the field from that alone.
 - `Food` is declared on every card type and used by one card. Kept deliberately — cards for it are not designed yet.
 - **Collapse the nine card templates onto one base template.** They are 658 lines of the same skeleton; `room` and `room_hearth` are near-identical 96-line copies.

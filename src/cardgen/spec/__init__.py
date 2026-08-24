@@ -18,7 +18,7 @@ from .profiles import (
     profile_by_id,
     profile_for_type,
 )
-from .verify import GeometryError, assert_png, check_artwork
+from .verify import GeometryError, artwork_warnings, assert_png, check_artwork
 
 __all__ = [
     "Box",
@@ -30,6 +30,7 @@ __all__ = [
     "PROFILES",
     "Profile",
     "SQUARE_3_5IN",
+    "artwork_warnings",
     "assert_png",
     "check_artwork",
     "css_style_tag",

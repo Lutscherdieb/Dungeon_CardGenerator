@@ -30,7 +30,7 @@ The only place a card pixel size may come from.
 |---|---|
 | `profiles.py` | `Profile` derives canvas / trim / safe boxes from physical inches, DPI, and MakePlayingCards' per-side bleed and safe-margin figures. `profile_for_type()` maps a card type to its format |
 | `css.py` | Renders a `Profile` into the `:root` custom properties every card page needs. `style.css` declares no geometry of its own, so a missing block breaks the layout visibly rather than silently falling back |
-| `verify.py` | `assert_png()` refuses a written image whose size or DPI does not match its profile. `check_artwork()` warns (never blocks) when user-supplied art is smaller than the safe zone |
+| `verify.py` | `assert_png()` refuses a written image whose size or DPI does not match its profile. `artwork_warnings()` warns (never blocks) when user-supplied art is smaller than the safe zone — one home for that wording, used by both the upload and the file-based CLI |
 
 `_TYPE_TO_PROFILE` is deliberately empty: every card type is square, so every lookup falls through to `DEFAULT_PROFILE`. That empty dict *is* the answer to "which types print at which size", not a stub.
 
@@ -47,6 +47,8 @@ Currently a single top-level module; being folded into `src/cardgen/render/`. It
 ### `src/cardgen/store/` — the card store
 
 SQLite behind the model. The validated card is stored **whole**, as JSON, in its JSON key spelling; the scalar columns beside it (`type`, `name`, `subtype`, `faction`, `tier`) exist only so the gallery can list and filter without parsing every row, and are derived on write by `index_fields` rather than passed in — so they cannot disagree with the JSON they came from. Adding a field to the model therefore needs no schema change here at all.
+
+**Artwork is stored as bytes, in the row.** The `artwork` column is deferred, so listing 137 cards does not drag ~227 MB of image data along to draw their names; the image is fetched from `GET /api/cards/{id}/artwork`, which is the only endpoint that returns something other than JSON.
 
 | Module | Role |
 |---|---|
@@ -117,6 +119,16 @@ One JSON Schema per card type, used both to validate and to *identify* a card. *
 ### Export writes back to the filename a card came from (2026-08-24)
 
 Four cards have been renamed without their file being renamed: `Magic_Sentry.json` holds "Battledroid", `Timeless_Horror.json` holds "Chaos Overseer", `Monster_in_a_Bottle.json` holds "Bottled Monster", and `Chaos_Imprisionment.json` holds "Chaos Imprisonment" (the filename has the typo, not the card). Deriving the export filename from `Name` would write a second file beside each of those instead of updating it, so `export_filename` prefers the recorded `source_path`.
+
+### Artwork belongs to the card, not to a path (2026-08-24)
+
+**Why:** `Background` was a string field holding `./backgrounds/Something.png`. That made the user responsible for filenames, let the JSON and the file tree drift apart (four cards already pointed at files named after their *previous* name), left orphans behind on rename, and — worst — gave one concept two writers. The artwork upload rewrote `Background` server-side while the open form still held the old value, so the next **Save & render silently reverted the artwork that had just been uploaded**. Measured, not theorised: `tests/check_artwork.py` reproduced it before the fix.
+
+**Consequence:** `Background` is no longer a card field at all. The bytes live in the row; an upload simply replaces them; nothing in the form refers to artwork, so no save can revert it. The renderer wanted bytes anyway — it base64-inlines the image into the card HTML either way, so a path was an indirection that bought nothing.
+
+**`Background` survives as an interchange-only key** (`model.TRANSPORT_KEYS`). Import reads it to find the image to load; export writes the image back out and emits it again. That keeps `data/Mixed` plus `backgrounds/` a complete, git-diffable copy of the deck, which matters because the database is gitignored. `parse_card` strips transport keys, so a card JSON straight off disk still validates.
+
+**Export is the only thing that writes artwork to disk.** An upload touches the store alone, so the file tree cannot drift underneath it unnoticed; `cardgen export` is the deliberate moment the two are reconciled. Verified byte-exact: 137/137 JSON files and 137/137 images.
 
 ### Do not bound a numeric field on intuition
 

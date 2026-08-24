@@ -17,7 +17,7 @@
     /* Optional background image (either embedded base64 or file path) */
     .safe-zone {
       {% if background_b64 %}
-      background-image: url('data:image/png;base64,{{ background_b64 }}');
+      background-image: url('data:{{ background_mime|default('image/png') }};base64,{{ background_b64 }}');
       {% elif Background %}
       background-image: url('{{ Background }}');
       {% endif %}

@@ -44,8 +44,12 @@ def render_dir_for(card_id: int) -> Path:
     return GALLERY_OUT / str(card_id)
 
 
-def render_card(card_id: int, card: Dict, *, repo_root: Optional[Path] = None) -> Dict[str, str]:
+def render_card(card_id: int, card: Dict, *, artwork: "Optional[tuple]" = None,
+                repo_root: Optional[Path] = None) -> Dict[str, str]:
     """Render one card to PNG. Returns repo-relative paths keyed by region.
+
+    ``artwork`` is ``(bytes, mime)`` straight from the store -- the image is a
+    property of the card, not a path the renderer has to go looking for.
 
     Raises whatever the pipeline raises -- including ``GeometryError`` if any
     written image does not match its print profile. The caller records the
@@ -59,7 +63,7 @@ def render_card(card_id: int, card: Dict, *, repo_root: Optional[Path] = None) -
 
     stem = safe_stem(card.get("Name"))
     html_path, output_name, profile = generate_card.generate_html(
-        None, "", str(out_dir), card_data=card
+        None, "", str(out_dir), card_data=card, artwork=artwork
     )
     full = generate_card.generate_png_from_html(html_path, str(out_dir), output_name, profile)
     safe = generate_card.generate_safezone_png(full, str(out_dir), output_name, profile)
@@ -96,14 +100,15 @@ def render_and_record(db, card_id: int, *, repo_root: Optional[Path] = None) -> 
     Returns the repo-relative full-bleed PNG path, or None if the render failed
     (the failure is recorded on the row, not raised).
     """
-    from ..store import get_card, set_render_result
+    from ..store import get_artwork, get_card, set_render_result
 
     row = get_card(db, card_id)
     if row is None:
         raise LookupError("no card with id {}".format(card_id))
 
     try:
-        result = render_card(card_id, row.data, repo_root=repo_root)
+        result = render_card(card_id, row.data,
+                             artwork=get_artwork(db, card_id), repo_root=repo_root)
     except Exception as exc:
         set_render_result(db, card_id, error="{}: {}".format(type(exc).__name__, exc))
         db.commit()

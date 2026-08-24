@@ -20,7 +20,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
-from sqlalchemy import JSON, DateTime, Integer, String, Text, func
+from sqlalchemy import JSON, DateTime, Integer, LargeBinary, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .db import Base
@@ -46,6 +46,25 @@ class CardRow(Base):
 
     # --- the card itself, in the same key spelling as the JSON files ---
     data: Mapped[Dict[str, Any]] = mapped_column(JSON, nullable=False)
+
+    # --- artwork ---
+    #: The card's artwork, stored as bytes rather than as a path.
+    #:
+    #: A path made the user responsible for filenames, let the JSON and the file
+    #: tree drift apart, and left orphans behind on rename. Bytes in the row mean
+    #: the artwork moves with the card, an upload simply replaces it, and nothing
+    #: can point at a file that is not there. The renderer wants bytes anyway --
+    #: it base64-inlines the image into the card HTML either way.
+    #:
+    #: Deferred: the gallery lists 137 cards at a time and must not drag ~200MB
+    #: of image data along to draw their names.
+    artwork: Mapped[Optional[bytes]] = mapped_column(LargeBinary, deferred=True)
+    artwork_mime: Mapped[Optional[str]] = mapped_column(String(64))
+    #: The filename the image arrived with, so export can write it back out.
+    artwork_filename: Mapped[Optional[str]] = mapped_column(String(255))
+    artwork_width: Mapped[Optional[int]] = mapped_column(Integer)
+    artwork_height: Mapped[Optional[int]] = mapped_column(Integer)
+    artwork_bytes: Mapped[Optional[int]] = mapped_column(Integer)
 
     # --- provenance and render state ---
     #: Where this card was imported from, if it was. Null for cards authored
@@ -76,6 +95,14 @@ class CardRow(Base):
         return {
             "id": self.id,
             "card": self.data,
+            "artwork": {
+                "present": self.artwork_bytes is not None,
+                "mime": self.artwork_mime,
+                "filename": self.artwork_filename,
+                "width": self.artwork_width,
+                "height": self.artwork_height,
+                "bytes": self.artwork_bytes,
+            },
             "type": self.type,
             "name": self.name,
             "subtype": self.subtype,

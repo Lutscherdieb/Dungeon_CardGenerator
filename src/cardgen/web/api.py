@@ -9,31 +9,32 @@ no validation logic of their own.
 from __future__ import annotations
 
 import json
-import shutil
-from pathlib import Path
 from typing import Any, Callable, Dict
 
 import cherrypy
 
 from ..model import card_type_names
 from ..model.schemas import schema_for
-from ..render import ARTWORK_DIR, REPO_ROOT, render_dir_for, safe_stem
-from ..spec import check_artwork, profile_for_type
+from ..render import render_dir_for, safe_stem
+from ..spec import artwork_warnings, profile_for_type
 from ..store import (
+    ArtworkError,
     CardValidationError,
     SessionLocal,
     create_card,
     delete_card,
+    get_artwork,
     get_card,
     list_cards,
+    set_artwork,
     update_card,
 )
 from .queue import RENDER_QUEUE
 
-#: Image types the artwork upload accepts. Playwright renders whatever Chromium
-#: can display; this list is the intersection with what Pillow can measure for
-#: the resolution warning.
-ALLOWED_ART_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"}
+#: Refuse an upload larger than this outright. The whole image goes into the row
+#: and into every rendered page as base64, so an accidental 200MB file is a
+#: problem long before it is a rendering problem.
+MAX_ARTWORK_BYTES = 40 * 1024 * 1024
 
 
 def _body() -> Dict[str, Any]:
@@ -59,6 +60,12 @@ def _by_method(handlers: Dict[str, Callable[[], Any]]):
         cherrypy.response.headers["Allow"] = ", ".join(sorted(handlers))
         raise cherrypy.HTTPError(405, "method not allowed")
     return handler()
+
+
+def _json(payload):
+    """Serialise a handler's return value as JSON, setting the header."""
+    cherrypy.response.headers["Content-Type"] = "application/json; charset=utf-8"
+    return json.dumps(payload, ensure_ascii=False).encode("utf-8")
 
 
 def _card_id(raw: str) -> int:
@@ -105,24 +112,35 @@ class CardsAPI:
         return {"id": card_id}
 
     @cherrypy.expose
-    @cherrypy.tools.json_out()
     def default(self, card_id, *rest, **params):
+        """Everything under /api/cards/{id}.
+
+        json_out is applied per-branch rather than to the whole handler: the
+        artwork GET returns raw image bytes, and a JSON encoder in front of it
+        would corrupt them.
+        """
+        return self._default(card_id, *rest, **params)
+
+    def _default(self, card_id, *rest, **params):
         cid = _card_id(card_id)
         sub = rest[0] if rest else None
 
         if sub is None:
-            return _by_method({
+            return _json(_by_method({
                 "GET": lambda: self._get(cid),
                 "PUT": lambda: self._update(cid),
                 "DELETE": lambda: self._delete(cid),
-            })
+            }))
         if sub == "artwork":
-            return _by_method({"POST": lambda: self._artwork(cid)})
+            method = cherrypy.request.method.upper()
+            if method == "GET":
+                return self._artwork_get(cid)          # raw bytes, not JSON
+            return _json(_by_method({"POST": lambda: self._artwork_put(cid)}))
         if sub == "render":
-            return _by_method({
+            return _json(_by_method({
                 "POST": lambda: self._render(cid),
                 "GET": lambda: self._render_status(cid),
-            })
+            }))
         raise cherrypy.HTTPError(404, "unknown sub-resource {!r}".format(sub))
 
     # -- single card -------------------------------------------------------
@@ -134,6 +152,12 @@ class CardsAPI:
             view["render"]["queue"] = live
         directory = render_dir_for(row.id).as_posix()
         stem = safe_stem(row.name)
+        art = view.get("artwork") or {}
+        if art.get("present"):
+            # Version by size and dimensions: they change whenever the image does,
+            # and the bytes themselves are never sent with the listing.
+            art["url"] = "/api/cards/{}/artwork?v={}x{}-{}".format(
+                row.id, art.get("width"), art.get("height"), art.get("bytes"))
         view["render"]["urls"] = {
             "canvas": "/{}/{}.png".format(directory, stem),
             "trim": "/{}/{}_trim.png".format(directory, stem),
@@ -168,40 +192,54 @@ class CardsAPI:
 
     # -- artwork -----------------------------------------------------------
 
-    def _artwork(self, cid: int):
+    def _artwork_get(self, cid: int):
+        """Serve a card's artwork. Not JSON -- the raw image bytes."""
+        with SessionLocal() as db:
+            found = get_artwork(db, cid)
+            if found is None:
+                raise cherrypy.HTTPError(404, "card {} has no artwork".format(cid))
+            data, mime = found
+        cherrypy.response.headers["Content-Type"] = mime
+        # The bytes only change when the artwork is replaced, and the client
+        # busts the URL itself when that happens.
+        cherrypy.response.headers["Cache-Control"] = "public, max-age=31536000"
+        return data
+
+    def _artwork_put(self, cid: int):
+        """Replace a card's artwork. Uploading again overwrites what is there."""
         part = cherrypy.request.params.get("file")
         if part is None or not hasattr(part, "file"):
             raise cherrypy.HTTPError(400, "no file uploaded (field name must be 'file')")
 
-        suffix = Path(part.filename or "").suffix.lower()
-        if suffix not in ALLOWED_ART_SUFFIXES:
-            raise cherrypy.HTTPError(415, "unsupported image type {!r}; allowed: {}".format(
-                suffix or "(none)", ", ".join(sorted(ALLOWED_ART_SUFFIXES))))
+        data = part.file.read(MAX_ARTWORK_BYTES + 1)
+        if len(data) > MAX_ARTWORK_BYTES:
+            raise cherrypy.HTTPError(413, "artwork larger than {}MB".format(
+                MAX_ARTWORK_BYTES // (1024 * 1024)))
+        if not data:
+            raise cherrypy.HTTPError(400, "uploaded file is empty")
 
         with SessionLocal() as db:
             row = _require(get_card(db, cid), cid)
-            card = dict(row.data)
-            card_type = row.type
-
-            # Artwork is named after the card, matching the convention the
-            # hand-placed backgrounds already follow.
-            art_dir = REPO_ROOT / ARTWORK_DIR
-            art_dir.mkdir(parents=True, exist_ok=True)
-            target = art_dir / "{}{}".format(safe_stem(row.name), suffix)
-            with open(target, "wb") as out:
-                shutil.copyfileobj(part.file, out)
-
-            warnings = check_artwork(str(target), profile_for_type(card_type))
-
-            card["Background"] = "./{}/{}".format(ARTWORK_DIR.as_posix(), target.name)
             try:
-                update_card(db, cid, card)
-            except CardValidationError as exc:
-                raise cherrypy.HTTPError(422, str(exc))
+                row = set_artwork(db, cid, data, part.filename)
+            except ArtworkError as exc:
+                raise cherrypy.HTTPError(415, str(exc))
             db.commit()
+            info = {
+                "mime": row.artwork_mime,
+                "width": row.artwork_width,
+                "height": row.artwork_height,
+                "bytes": row.artwork_bytes,
+                "filename": row.artwork_filename,
+            }
+            profile = profile_for_type(row.type)
+
+        # Advisory only, exactly as asked: artwork below the safe zone still
+        # renders, it just prints soft. The wording lives in cardgen.spec.
+        warnings = artwork_warnings(info["width"], info["height"], profile)
 
         _enqueue(cid)
-        return {"ok": True, "background": card["Background"], "warnings": warnings}
+        return {"ok": True, "artwork": info, "warnings": warnings}
 
     # -- render ------------------------------------------------------------
 
