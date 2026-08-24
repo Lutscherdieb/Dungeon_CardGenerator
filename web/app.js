@@ -12,6 +12,7 @@ const $ = (sel) => document.querySelector(sel);
 const state = {
   cards: [],
   schemas: {},      // type (lowercase) -> schema
+  profiles: {},     // type (lowercase) -> print profile
   current: null,    // the open card view
   draft: null,      // edited copy of current.card
   poll: null,
@@ -67,18 +68,53 @@ function deref(schema, node) {
   return schema.$defs?.[name] || node;
 }
 
-function cacheBust(url) { return `${url}?t=${Date.now()}`; }
+/** A version token that changes only when the render did.
+ *
+ * This used to be Date.now(), which made every grid repaint a fresh URL for
+ * all 137 thumbnails -- so the browser re-downloaded the whole gallery any
+ * time anything redrew it. Keying on the render timestamp means a repaint
+ * reuses the cached images and only a genuinely re-rendered card refetches.
+ */
+function imageVersion(view) {
+  return encodeURIComponent(view.render?.at || view.updated_at || '0');
+}
 
 /* ---------- grid ---------- */
 
 /** Grid uses the small thumbnail; the detail panel uses the full trim image. */
 function imageUrl(view, size = 'thumb') {
   if (view.render?.status === 'done' && view.render?.urls) {
-    return cacheBust(view.render.urls[size] || view.render.urls.trim);
+    const url = view.render.urls[size] || view.render.urls.trim;
+    return `${url}?v=${imageVersion(view)}`;
   }
   const bg = view.card?.Background;
   if (bg) return bg.replace(/^\.\//, '/');
   return null;
+}
+
+function buildTile(view) {
+  const url = imageUrl(view, 'thumb');
+  const img = el('img', { alt: view.name, loading: 'lazy' });
+  if (url) img.src = url; else img.style.background = '#000';
+  img.addEventListener('error', () => {
+    const bg = view.card?.Background;
+    const fallback = bg ? bg.replace(/^\.\//, '/') : null;
+    if (fallback && !img.src.includes(fallback)) img.src = fallback;
+  });
+
+  const status = view.render?.queue || view.render?.status || 'pending';
+  const selected = state.current?.id === view.id ? ' selected' : '';
+  return el('article', {
+    class: `card${selected}`, tabindex: '0', role: 'button', 'data-id': view.id,
+    onclick: () => openCard(view.id),
+    onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(view.id); } },
+  },
+    img,
+    el('span', { class: `dot ${status}`, title: `render: ${status}` }),
+    el('div', { class: 'meta' },
+      el('strong', { text: view.name }),
+      el('span', { text: view.subtype ? `${view.type} · ${view.subtype}` : view.type })),
+  );
 }
 
 function renderGrid() {
@@ -88,32 +124,27 @@ function renderGrid() {
   const shown = state.cards.filter((c) => !filter || c.type === filter);
 
   if (!shown.length) {
-    grid.append(el('p', { class: 'hint', text: 'No cards. Use "New card", or run: cardgen import' }));
+    grid.append(el('p', { class: 'hint', text: 'No cards. Use "New card", or run: python -m cardgen.cli import' }));
     return;
   }
+  for (const view of shown) grid.append(buildTile(view));
+}
 
-  for (const view of shown) {
-    const url = imageUrl(view, 'thumb');
-    const img = el('img', { alt: view.name, loading: 'lazy' });
-    if (url) img.src = url; else img.style.background = '#000';
-    img.addEventListener('error', () => {
-      const bg = view.card?.Background;
-      const fallback = bg ? bg.replace(/^\.\//, '/') : null;
-      if (fallback && !img.src.includes(fallback)) img.src = fallback;
-    });
+/** Refetch ONE card and swap just its tile. Selecting a card must never
+ *  redraw the other 136 -- that is what made the whole gallery flicker. */
+async function refreshCard(id) {
+  const view = await getJSON(`/api/cards/${id}`).catch(() => null);
+  if (!view) return;
+  const i = state.cards.findIndex((c) => c.id === id);
+  if (i >= 0) state.cards[i] = view; else state.cards.push(view);
 
-    const status = view.render?.queue || view.render?.status || 'pending';
-    grid.append(el('article', {
-      class: 'card', tabindex: '0', role: 'button',
-      onclick: () => openCard(view.id),
-      onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(view.id); } },
-    },
-      img,
-      el('span', { class: `dot ${status}`, title: `render: ${status}` }),
-      el('div', { class: 'meta' },
-        el('strong', { text: view.name }),
-        el('span', { text: view.subtype ? `${view.type} · ${view.subtype}` : view.type })),
-    ));
+  const tile = $(`#grid [data-id="${id}"]`);
+  if (tile) tile.replaceWith(buildTile(view));
+
+  if (state.current?.id === id) {
+    state.current = view;
+    $('#panel-title').textContent = `#${view.id} — ${view.name}`;
+    paintRenderState(view);
   }
 }
 
@@ -269,6 +300,12 @@ function buildForm(schema) {
 
 /* ---------- panel ---------- */
 
+async function profileFor(type) {
+  const key = String(type || '').toLowerCase();
+  if (!state.profiles[key]) state.profiles[key] = await getJSON(`/api/meta/profile?card_type=${key}`);
+  return state.profiles[key];
+}
+
 async function schemaFor(type) {
   const key = String(type || '').toLowerCase();
   if (!state.schemas[key]) state.schemas[key] = await getJSON(`/api/meta/schema?card_type=${key}`);
@@ -304,22 +341,47 @@ async function openCard(id) {
   paintRenderState(view);
   buildForm(await schemaFor(view.type));
 
-  const profile = await getJSON(`/api/meta/profile?card_type=${view.type}`);
+  const profile = await profileFor(view.type);
   $('#art-hint').textContent =
     `Fills the safe zone at ${profile.artwork_min[0]}×${profile.artwork_min[1]}px. `
     + 'Smaller art still works — you just get a warning that it will print soft.';
 
-  $('#panel').hidden = false;
-  $('#scrim').hidden = false;
-  startPolling(id);
+  openPanel();
+  markSelected(view.id);
+  pollIfBusy(view);
+}
+
+function markSelected(id) {
+  for (const tile of document.querySelectorAll('#grid .card.selected')) {
+    tile.classList.remove('selected');
+  }
+  if (id !== null) $(`#grid [data-id="${id}"]`)?.classList.add('selected');
+}
+
+function openPanel() {
+  $('#panel').classList.add('open');
+  $('#panel').setAttribute('aria-hidden', 'false');
+  document.body.classList.add('panel-open');
 }
 
 function closePanel() {
   stopPolling();
+  markSelected(null);
   state.current = null;
   state.draft = null;
-  $('#panel').hidden = true;
-  $('#scrim').hidden = true;
+  $('#panel').classList.remove('open');
+  $('#panel').setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('panel-open');
+}
+
+/** Start polling only if this card has work in flight.
+ *
+ * Polling used to start on every open, so 1.2s after selecting any card the
+ * first tick found it idle and triggered a full gallery reload.
+ */
+function pollIfBusy(view) {
+  const status = view.render?.queue || view.render?.status;
+  if (status === 'queued' || status === 'rendering') startPolling(view.id);
 }
 
 function startPolling(id) {
@@ -331,7 +393,7 @@ function startPolling(id) {
     const busy = view.queue === 'queued' || view.queue === 'rendering';
     state.current.render = { ...state.current.render, ...view };
     paintRenderState(state.current);
-    if (!busy) { stopPolling(); await reload({ keepPanel: true }); }
+    if (!busy) { stopPolling(); await refreshCard(id); }
   }, 1200);
 }
 
@@ -353,12 +415,8 @@ async function save() {
     node.textContent = String(err.message || err);
     return;
   }
-  const view = await getJSON(`/api/cards/${id}`);
-  state.current = view;
-  $('#panel-title').textContent = `#${view.id} — ${view.name}`;
-  paintRenderState(view);
+  await refreshCard(id);
   startPolling(id);
-  await reload({ keepPanel: true });
 }
 
 async function uploadArtwork() {
@@ -450,7 +508,6 @@ function wire() {
   $('#btn-refresh').addEventListener('click', () => reload());
   $('#btn-new').addEventListener('click', newCard);
   $('#btn-close').addEventListener('click', closePanel);
-  $('#scrim').addEventListener('click', closePanel);
   $('#btn-save').addEventListener('click', save);
   $('#btn-render').addEventListener('click', rerender);
   $('#btn-delete').addEventListener('click', removeCard);
