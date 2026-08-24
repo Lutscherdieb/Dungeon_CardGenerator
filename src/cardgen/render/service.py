@@ -30,6 +30,10 @@ GALLERY_OUT = Path("out") / "gallery"
 #: two follow one convention.
 ARTWORK_DIR = Path("backgrounds")
 
+#: Grid thumbnail edge, in pixels. The gallery grid shows cards at ~190px; without
+#: this it would pull 137 full-size PNGs (~1.6MB each) to draw them.
+THUMB_PX = 420
+
 
 def safe_stem(name: str) -> str:
     """A filename-safe stem, matching the convention the existing files use."""
@@ -60,12 +64,30 @@ def render_card(card_id: int, card: Dict, *, repo_root: Optional[Path] = None) -
     full = generate_card.generate_png_from_html(html_path, str(out_dir), output_name, profile)
     safe = generate_card.generate_safezone_png(full, str(out_dir), output_name, profile)
     trim = generate_card.generate_trim_png(full, str(out_dir), output_name, profile)
+    thumb = _write_thumb(trim, out_dir, output_name)
+
+    # The intermediate HTML carries the artwork base64-inlined, so it runs about
+    # 2MB per card -- 270MB across the deck, for a file the renderer regenerates
+    # on demand. Drop it once the PNGs it produced have passed their assertions.
+    Path(html_path).unlink(missing_ok=True)
 
     def rel(path) -> str:
         return Path(path).resolve().relative_to(root).as_posix()
 
-    return {"stem": stem, "html": rel(html_path), "canvas": rel(full),
-            "safe": rel(safe), "trim": rel(trim)}
+    return {"stem": stem, "canvas": rel(full), "safe": rel(safe),
+            "trim": rel(trim), "thumb": rel(thumb)}
+
+
+def _write_thumb(source, out_dir: Path, output_name: str) -> Path:
+    """A small grid thumbnail beside the print files. Never used for print."""
+    from PIL import Image
+
+    target = out_dir / "{}_thumb.png".format(output_name)
+    with Image.open(source) as im:
+        im.load()
+        im.thumbnail((THUMB_PX, THUMB_PX), Image.LANCZOS)
+        im.save(target, format="PNG", optimize=True)
+    return target
 
 
 def render_and_record(db, card_id: int, *, repo_root: Optional[Path] = None) -> Optional[str]:

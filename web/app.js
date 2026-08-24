@@ -71,8 +71,11 @@ function cacheBust(url) { return `${url}?t=${Date.now()}`; }
 
 /* ---------- grid ---------- */
 
-function thumbUrl(view) {
-  if (view.render?.status === 'done' && view.render?.urls) return cacheBust(view.render.urls.trim);
+/** Grid uses the small thumbnail; the detail panel uses the full trim image. */
+function imageUrl(view, size = 'thumb') {
+  if (view.render?.status === 'done' && view.render?.urls) {
+    return cacheBust(view.render.urls[size] || view.render.urls.trim);
+  }
   const bg = view.card?.Background;
   if (bg) return bg.replace(/^\.\//, '/');
   return null;
@@ -90,7 +93,7 @@ function renderGrid() {
   }
 
   for (const view of shown) {
-    const url = thumbUrl(view);
+    const url = imageUrl(view, 'thumb');
     const img = el('img', { alt: view.name, loading: 'lazy' });
     if (url) img.src = url; else img.style.background = '#000';
     img.addEventListener('error', () => {
@@ -286,7 +289,7 @@ function paintRenderState(view) {
   $('#link-safe').href = urls.safe || '#';
 
   const img = $('#preview-img');
-  const url = thumbUrl(view);
+  const url = imageUrl(view, 'trim');
   if (url) img.src = url;
 }
 

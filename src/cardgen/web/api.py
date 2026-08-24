@@ -138,6 +138,7 @@ class CardsAPI:
             "canvas": "/{}/{}.png".format(directory, stem),
             "trim": "/{}/{}_trim.png".format(directory, stem),
             "safe": "/{}/{}_safe.png".format(directory, stem),
+            "thumb": "/{}/{}_thumb.png".format(directory, stem),
         }
         return view
 
