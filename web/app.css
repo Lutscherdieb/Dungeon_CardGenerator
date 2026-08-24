@@ -17,6 +17,10 @@
 
 * { box-sizing: border-box; }
 
+/* Reserve the scrollbar gutter always: a scrollbar appearing or vanishing
+   changes the viewport width, which is a reflow trigger of its own. */
+html { scrollbar-gutter: stable; }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -147,14 +151,21 @@ body {
 }
 
 /* Make room for the open drawer rather than covering the last column. Below
-   this width there is not enough grid left to push, so it overlays instead. */
-.grid { transition: padding-right .18s cubic-bezier(.4, 0, .2, 1); }
+   this width there is not enough grid left to push, so it overlays instead.
+
+   The padding change is deliberately NOT transitioned. Animating it looks like
+   the obvious thing to do and is actively wrong here: auto-fill recomputes the
+   column count at every intermediate width, so a 180ms padding animation walked
+   the grid through 6 -> 5 -> 4 columns, repositioning all 137 tiles each time.
+   The 5-column state lasted 16ms, which reads as a flicker rather than a
+   transition. One instant reflow, while the panel slides, is the smooth option.
+   Measured by tests/check_gallery.py, which fails if more than one occurs. */
 @media (min-width: 900px) {
   body.panel-open .grid { padding-right: calc(min(560px, 100vw) + 20px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panel, .grid { transition-duration: 0s; }
+  .panel { transition-duration: 0s; }
 }
 
 .panel-head, .panel-foot {

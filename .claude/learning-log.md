@@ -49,6 +49,22 @@ this example from being scanned as a real candidate by `/base:promote`):
 - evidence: `defence: int = Field(ge=0)` looked obviously right and rejected Shark_Tank, a Room with `"Defence": -1` — defence reads as a modifier as well as a stat. Caught only because all 137 cards were validated against the model before the migration: 136/137, one failure, `Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-1]`.
 - applications: 2026-08-24
 
+## 2026-08-24 — measure-visual-jank-frame-by-frame-before-theorising
+- scope: generic
+- status: candidate
+- rule: When a UI problem is reported as flicker, jank or "it moves twice", sample the relevant computed style every animation frame in a headless browser and count the distinct states before changing any code; report the measurement, not a theory.
+- home: tests/check_gallery.py (COLUMN_SAMPLER + column_states, kept as a regression guard), web/app.css comment above the panel-open rule
+- evidence: "the gallery resizes twice in short order to different sizes" was exactly right and unguessable from the CSS. Sampling `gridTemplateColumns` per frame showed 6 cols @0ms -> 5 @224ms -> 4 @240ms: animating `padding-right` for 180ms made `auto-fill` recompute the column count at every intermediate width, and the 5-column state lasted 16ms. Removing the transition gives 6 @0ms -> 4 @58ms.
+- applications: 2026-08-24
+
+## 2026-08-24 — measure-browser-geometry-never-predict-it
+- scope: generic
+- status: candidate
+- rule: In a browser check, assert an element against its own measured geometry rather than against a number derived from the viewport; record the reference position at runtime and compare movement to it.
+- home: tests/check_gallery.py (the "Geometry is measured, never predicted" block)
+- evidence: assertions built on `document.documentElement.clientWidth` failed three times in a row against correct application behaviour. It reported 1440 while the position:fixed panel's own right edge sat at 1425, because `html { scrollbar-gutter: stable }` reserves the gutter outside the fixed-position containing block.
+- applications: 2026-08-24
+
 ## 2026-08-24 — split-a-reformat-from-a-content-migration
 - scope: generic
 - status: candidate
