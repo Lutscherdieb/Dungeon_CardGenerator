@@ -77,3 +77,18 @@ Before changing any print measurement, WebFetch the MPC reference registered in 
 **Verification step:** before implementing anything sourced from `Rules/`, ask whether the line is a decided rule or a parked idea. `Rules/ToDo.txt` and `Rules/Ideas.txt` are explicitly open questions; `Rules/Cardtypes.txt` mixes both.
 
 *Evidence:* `Rules/Cardtypes.txt` lists Overlord and Creature under "tcg format", which reads as a spec and was reported as a 59-card sizing defect. It was a parked intention: every card type is square, confirmed 2026-08-24. Acting on it would have re-sized 43% of the deck wrongly.
+
+### The gallery server: `serve.bat` starts it, and nothing Claude starts outlives the turn
+
+The gallery you browse is **user-owned** and long-lived. Its one launcher is `serve.bat` at the repo root, run in the VS Code terminal panel: **Terminal → Run Task → `Gallery: serve`** (the default build task, so `Ctrl+Shift+B` runs it too). It stays in the foreground, so `Ctrl+C` in that panel stops it. It listens on **8765**.
+
+Claude may start and stop a server of its own for testing and verification — that is usually easier than asking, and it puts the server's log where Claude can read it. What is forbidden is not starting one, it is **leaving one behind**. Two rules make that unambiguous:
+
+1. **Probe 8765 first. If something answers, it is the user's — use it, never stop it.** Point the checks at it; both `tests/check_gallery.py` and `tests/check_artwork.py` honour `CARDGEN_URL`, so reusing a running server is the normal path, not a workaround.
+2. **A server Claude starts goes on 8766, and is stopped in the same turn.** `serve.bat 8766`, checks run with `CARDGEN_URL=http://127.0.0.1:8766`, `stop-server.bat 8766` before reporting done. The separate port is what makes the stop command incapable of killing the user's gallery.
+
+Both servers share `data/cards.db`, so do not run a check that triggers renders on 8766 while the user's gallery is also rendering on 8765 — set `CARDGEN_DB_URL` to a scratch database (and import into it) if a check needs to write.
+
+**Verification step:** probe before assuming, and account for the port after. Up: `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:<port>/api/meta/types` returns `200`. Before reporting a turn done that started a server: `netstat -ano | findstr :876` must show nothing beyond the listeners that were already there when the turn began. If one is stranded, `stop-server.bat [port]` kills it by PID.
+
+*Evidence:* a gallery started as a background process on the default port had no window to interrupt and had to be killed through Task Manager. `stop-server.bat` exists for that state; the port split exists so that recovering from it can never take the user's own server with it. Recorded 2026-08-24.

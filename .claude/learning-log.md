@@ -80,3 +80,12 @@ this example from being scanned as a real candidate by `/base:promote`):
 - home: tools/normalize_card_json.py (which refuses to write when reparsing would not reproduce the original object)
 - evidence: reformatting 137 card files produced 1987 insertions / 1369 deletions. The field migration that followed touched 23 files and its diff reads as exactly one rename plus one unwrapping per file. Combined, the real change would have been invisible.
 - applications: 2026-08-24
+
+## 2026-08-24 — hand-a-long-lived-process-to-a-terminal-the-human-owns
+- scope: generic
+- status: candidate
+- rule: Give every long-lived process a foreground launcher plus a stop script, reserve a separate port for the agent's own throwaway instance, and make closing it part of the definition of done: probe the user's port first and reuse whatever answers, never stop it; start your own on the reserved port; stop it before reporting the task done.
+- home: CLAUDE.md#the-gallery-server-servebat-starts-it-and-nothing-claude-starts-outlives-the-turn, PROJECT.md#quality-bars--definition-of-done, serve.bat, stop-server.bat, .vscode/tasks.json
+- evidence: a gallery started as a backgrounded process had no window to interrupt and had to be killed through Task Manager. Banning the agent from starting one at all was the wrong correction and the user reversed it the same day ("you may still start/end the server yourself as that is easier for you to also see the servers output", "but these have to be closed by you by the end of these tasks") — the invariant is the close-out, not the abstention, and a reserved port is what keeps the stop command from taking the user's server with it. The two browser checks already assumed the user-owned shape — `tests/check_gallery.py:3` and `tests/check_artwork.py:3` both open with "Needs a server already running::" — so the agent's habit, not the test design, was the outlier. Probe: `GET /api/meta/types` on 127.0.0.1:8765; stranded listener: `netstat -ano | findstr :8765`.
+- applications: 2026-08-24
+

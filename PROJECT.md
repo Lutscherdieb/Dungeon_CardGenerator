@@ -25,6 +25,7 @@ Just me, on this machine.
 - **A wrong-sized image is a failed render, not a warning.** Geometry assertions run inside the pipeline, so an image that does not match its profile never reaches the output directory. Do not downgrade an assertion to a log line.
 - **Preview before writing** any new design, schema change, or data migration — show what will change and get an explicit OK first.
 - Escalate when simple turns complex: if a change starts touching the geometry, the card model, and the templates at once, stop and say so before continuing.
+- **A task is not done while a server Claude started is still listening.** The gallery on 8765 is the author's, started from `serve.bat`; Claude may run its own throwaway on 8766 for testing, and closing it is part of the close-out, not an afterthought — see the server rule in [CLAUDE.md](CLAUDE.md).
 
 ## Verify method
 
@@ -33,6 +34,10 @@ Render one card of every type and assert every written PNG against its print pro
 - Command: `python tests/run_tests.py > tests/last-run.txt 2>&1`
 - Evidence: `tests/last-run.txt`
 - Exempt: `["**/*.md", "Rules/**", "data/**"]`
+
+Run it from VS Code with **Terminal → Run Task → `Verify`**, or by hand with the command above.
+
+**The gate does not cover the gallery frontend.** `web/**` is mapped to `docs/ARCHITECTURE.md` but deliberately kept out of `source_globs`: rendering cards proves nothing about the browser UI, so demanding the gate for a frontend edit would be ritual rather than verification. The frontend's checks are `tests/check_gallery.py` and `tests/check_artwork.py`, which drive a real browser and need the gallery **already running** — start it with `serve.bat`, then run them against it. Both honour `CARDGEN_URL`, which is also how Claude points them at its own throwaway server on 8766 instead of yours on 8765 — see the server rule in [CLAUDE.md](CLAUDE.md).
 
 Artwork supplied by the user is validated separately and advisorily: `cardgen.spec.artwork_warnings` warns when an image is smaller than the safe zone and would print soft. That is a warning by design, never a block. Artwork itself is stored in the database as bytes, not as a path — `tests/check_artwork.py` drives that end to end in a real browser.
 

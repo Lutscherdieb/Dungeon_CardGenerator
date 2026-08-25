@@ -43,8 +43,21 @@ A batch run creates `out/<unix-timestamp>_<count>/` containing, per card, `<Name
 
 ```bash
 python -m cardgen.cli import     # load data/Mixed into the store (skips names already there)
-python -m cardgen.cli serve      # http://127.0.0.1:8765
+serve.bat                        # http://127.0.0.1:8765
 ```
+
+**Start the server with `serve.bat`, in a terminal you can interrupt.** In VS Code that is
+**Terminal → Run Task → `Gallery: serve`** (the default build task, so `Ctrl+Shift+B` runs
+it too) — it opens in the terminal panel and `Ctrl+C` there stops it. `serve.bat [port]`
+takes a port; it prefers a `.venv\Scripts\python.exe` if the repo has one, and refuses to
+start with an instruction rather than a traceback when `cardgen` is not installed.
+
+If a server is ever left running with no window to interrupt, `stop-server.bat [port]` kills
+whatever is listening on that port — no Task Manager. `python -m cardgen.cli serve` still
+works and is what `serve.bat` calls.
+
+**8765 is yours; 8766 is reserved.** When Claude needs a gallery for a check it starts its own
+on 8766 and stops it when the task ends, so it can never take down the one you are browsing.
 
 Browse, edit, upload artwork, re-render. Every save re-renders in the background.
 `render` renders every stored card; `export` writes the store back out as card JSON
@@ -56,7 +69,22 @@ written back to disk for git — see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md
 Scripts directory is not on `PATH`, so `python -m cardgen.cli` is the form that always
 works. Add that directory to `PATH` if you would rather type `cardgen serve`.
 
-Verify a change with: `python tests/run_tests.py > tests/last-run.txt 2>&1`
+### Verify
+
+```bash
+python tests/run_tests.py > tests/last-run.txt 2>&1
+```
+
+That is the gate (**Terminal → Run Task → `Verify`**): it renders one card of every type and
+asserts every written PNG against its print profile. It does not touch the gallery frontend.
+
+Two further checks drive a real browser and need the gallery **already running** — start it
+first, then run them in a second terminal. Both honour `CARDGEN_URL` if it is not on 8765:
+
+```bash
+python tests/check_gallery.py    # grid, drawer, layout geometry
+python tests/check_artwork.py    # upload -> save -> re-render, end to end
+```
 
 ## Print geometry
 
@@ -81,7 +109,7 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 | `src/cardgen/web/` | The local gallery: CherryPy API plus a single render worker |
 | `web/` | The gallery frontend |
 | `generate_card.py` | The CLI renderer; being folded into `src/cardgen/` |
-| `templates/` | Jinja card templates, one per type plus shared partials |
+| `templates/` | Jinja card templates — nine, because `room` splits into a `hearth` variant — plus shared partials |
 | `style.css` | Card styling. Declares no geometry — it reads the profile's CSS variables |
 | `schemas/` | Per-type JSON Schemas. **Generated** — `python -m cardgen.model.schemas` |
 | `tools/` | One-off migrations and content maintenance scripts, kept for the record |
@@ -89,7 +117,9 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 | `data/Mixed/` | The 137 card definitions |
 | `assets/` | Icons and fonts used by the templates |
 | `Rules/` | The game's own design documents — a read-only reference, see REFERENCES.md |
-| `tests/` | The verify gate |
+| `tests/` | The verify gate, plus the two browser checks that need a running gallery |
+| `serve.bat` / `stop-server.bat` | Start the gallery in a terminal you can Ctrl+C; stop a stranded one |
+| `.vscode/tasks.json` | The shared `Gallery: serve` / `Gallery: stop` / `Verify` tasks |
 
 ## Adding a new card type
 

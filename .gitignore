@@ -30,6 +30,11 @@ dist/
 .venv/
 venv/
 
+# VS Code -- the shared tasks (serve / stop / verify) are versioned on purpose;
+# everything else VS Code drops in here is machine-local.
+.vscode/*
+!.vscode/tasks.json
+
 # Test / tooling caches
 .pytest_cache/
 

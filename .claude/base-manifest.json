@@ -31,7 +31,7 @@
     "audit": true
   },
   "interview": {
-    "mode": "adoption retrofit (docs/ADOPTION.md), derive-then-confirm",
+    "mode": "adoption retrofit (ClaudeBase docs/ADOPTION.md -- in the plugin marketplace, not in this repo), derive-then-confirm",
     "q1_name_and_goal": {
       "name": "CardGenerator",
       "repo": "Dungeon_CardGenerator",
@@ -86,14 +86,18 @@
         "generate_card.py",
         "templates/**",
         "style.css",
-        "schemas/**"
+        "schemas/**",
+        "web/**"
       ],
       "doc": "docs/ARCHITECTURE.md"
     },
     {
       "sources": [
         "pyproject.toml",
-        "tests/**"
+        "tests/**",
+        "serve.bat",
+        "stop-server.bat",
+        ".vscode/tasks.json"
       ],
       "doc": "README.md"
     }
@@ -159,7 +163,7 @@
     {
       "id": "adopted-not-scaffolded",
       "what": "Repository predates ClaudeBase. Its git history and content tree (data/, backgrounds/, Rules/, templates/, assets/, schemas/) were not laid out by the seed, and README.md carries the project's own sections around the seeded footer region.",
-      "why": "Adopted via docs/ADOPTION.md rather than /base:new-project. The seed prescribes no source layout, so this is context for later sessions rather than a sync exception.",
+      "why": "Adopted via ClaudeBase's docs/ADOPTION.md rather than /base:new-project. The seed prescribes no source layout, so this is context for later sessions rather than a sync exception.",
       "recorded": "2026-08-24"
     },
     {
@@ -168,5 +172,8 @@
       "why": "The reference is genuinely remote. Recorded so /base:doctor reporting the guard as partly dormant reads as expected, not as breakage.",
       "recorded": "2026-08-24"
     }
-  ]
+  ],
+  "notes": {
+    "verify_scope": "web/** is mapped to a doc but deliberately left out of source_globs: the verify gate renders cards and says nothing about the gallery frontend, which tests/check_gallery.py covers against a running server. serve.bat / stop-server.bat / .vscode/tasks.json are launchers, likewise out of source_globs and into README's doc_map."
+  }
 }
