@@ -13,6 +13,7 @@ const state = {
   cards: [],
   schemas: {},      // type (lowercase) -> schema
   profiles: {},     // type (lowercase) -> print profile
+  icons: new Set(), // asset stems that exist, from /api/meta/icons
   current: null,    // the open card view
   draft: null,      // edited copy of current.card
   poll: null,
@@ -151,10 +152,49 @@ async function refreshCard(id) {
 
 function setDraft(key, value) { state.draft[key] = value; }
 
-function fieldWrap(label, control, hint) {
-  return el('label', { class: 'field', 'data-key': label },
-    el('span', { text: label }), control,
-    hint ? el('span', { class: 'hint', text: hint }) : null);
+/** The icon a name prints on the card, or null.
+ *
+ * Derived, not listed: the templates resolve every icon as
+ * `assets/<name lowercased>.png` (`assets/defence.png`, `assets/{{ Faction|lower }}.png`),
+ * and /api/meta/icons says which of those files exist. So a field, an enum
+ * value or a creature type shows its real printed icon, and a PNG dropped into
+ * assets/ starts appearing here with no edit to this file.
+ */
+function iconFor(name) {
+  const stem = String(name ?? '').toLowerCase();
+  if (!state.icons.has(stem)) return null;
+  return el('img', { class: 'icon', src: `/assets/${stem}.png`, alt: '', 'aria-hidden': 'true' });
+}
+
+/** Fill an icon slot with the first of `names` that has one. A field is tried
+ *  by its key first (Mana -> mana.png), then by its value, which is what gives
+ *  Faction=Demon the demon icon and Type=Spell the spell icon. */
+function paintIcon(slot, ...names) {
+  for (const name of names) {
+    const img = iconFor(name);
+    if (img) { slot.replaceChildren(img); return; }
+  }
+  slot.replaceChildren();
+}
+
+/** One form row: [icon] label | control, on a single line.
+ *
+ * The label used to sit above the control and every explanation printed a third
+ * line below it, so eight fields filled the panel twice over. The explanation is
+ * the row's tooltip now; `data-hint` marks the labels that carry one so a hint
+ * that is invisible is still discoverable.
+ */
+function fieldWrap(label, control, hint, { tall = false } = {}) {
+  const slot = el('span', { class: 'field-icon' });
+  paintIcon(slot, label);
+  return el('label', {
+    class: `field${tall ? ' tall' : ''}`,
+    'data-key': label,
+    'data-hint': hint ? '' : null,
+    title: hint || null,
+  },
+    el('span', { class: 'field-label' }, slot, el('span', { text: label })),
+    control);
 }
 
 
@@ -174,7 +214,7 @@ function buildTagList(key, values, options) {
   const redraw = () => {
     wrap.replaceChildren();
     (state.draft[key] || []).forEach((v, i) => {
-      wrap.append(el('span', { class: 'tag' }, el('span', { text: v }),
+      wrap.append(el('span', { class: 'tag' }, iconFor(v), el('span', { text: v }),
         el('button', {
           type: 'button', title: 'remove', text: '×',
           onclick: () => { state.draft[key].splice(i, 1); redraw(); },
@@ -213,8 +253,11 @@ function buildSlots(key, creatureTypes) {
           })));
 
       spots.forEach((spot, si) => {
+        const slot = el('span', { class: 'field-icon' });
+        paintIcon(slot, spot[0]);
         group.append(el('div', { class: 'spot' },
-          buildEnumSelect(creatureTypes, spot[0], (v) => { spot[0] = v; }),
+          slot,
+          buildEnumSelect(creatureTypes, spot[0], (v) => { spot[0] = v; paintIcon(slot, v); }),
           el('input', {
             type: 'number', value: spot[1], title: 'the second number — meaning not yet decided',
             oninput: (e) => { spot[1] = Number(e.target.value || 0); },
@@ -232,19 +275,31 @@ function buildSlots(key, creatureTypes) {
     }));
   };
   redraw();
-  return fieldWrap('Slots', wrap, 'Creature spots per group. The number is a badge on the card; what it means is still open.');
+  return fieldWrap('Slots', wrap,
+    'Creature spots per group. The number is a badge on the card; what it means is still open.',
+    { tall: true });
 }
 
 function buildField(schema, key, spec) {
   const value = state.draft[key];
   const resolved = deref(schema, spec);
 
+  // A field's own icon wins; failing that, the icon of its value -- which is what
+  // gives Type and Faction the icon they actually stamp on the card. The two
+  // branches below are the ones whose value can have one.
   if (spec.const !== undefined) {
-    return fieldWrap(key, el('input', { type: 'text', value: spec.const, readonly: 'readonly' }));
+    const row = fieldWrap(key, el('input', { type: 'text', value: spec.const, readonly: 'readonly' }));
+    paintIcon(row.querySelector('.field-icon'), key, spec.const);
+    return row;
   }
 
   if (resolved.enum) {
-    return fieldWrap(key, buildEnumSelect(resolved.enum, value, (v) => setDraft(key, v)));
+    const row = fieldWrap(key, null);
+    const slot = row.querySelector('.field-icon');
+    const repaint = (v) => paintIcon(slot, key, v);
+    row.append(buildEnumSelect(resolved.enum, value, (v) => { setDraft(key, v); repaint(v); }));
+    repaint(value);
+    return row;
   }
 
   if (resolved.type === 'integer' || resolved.type === 'number') {
@@ -263,16 +318,22 @@ function buildField(schema, key, spec) {
       oninput: (e) => setDraft(key, e.target.value),
     });
     control.value = value ?? '';
-    return fieldWrap(key, control, long ? 'Use [Mana], [Demon], [Wild] … for inline icons.' : null);
+    return fieldWrap(key, control,
+      long ? 'Use [Mana], [Demon], [Wild] … for inline icons.' : null,
+      { tall: long });
   }
 
   if (resolved.type === 'array') {
     const items = deref(schema, resolved.items);
     if (items?.enum) {
-      return fieldWrap(key, buildTagList(key, value, items.enum));
+      return fieldWrap(key, buildTagList(key, value, items.enum), null, { tall: true });
     }
-    if (items?.type === 'array' && items.prefixItems) {
-      const first = deref(schema, items.prefixItems[0]);
+    // Slots is List[List[SlotSpot]] -- groups of spots -- so the pair shape sits
+    // two levels down. Testing only one level left buildSlots unreachable and
+    // dropped every Room's Slots into the raw-JSON fallback instead.
+    if (items?.type === 'array') {
+      const pair = deref(schema, items.prefixItems ? items : items.items);
+      const first = deref(schema, pair?.prefixItems?.[0]);
       if (first?.enum) return buildSlots(key, first.enum);
     }
   }
@@ -285,7 +346,7 @@ function buildField(schema, key, spec) {
     },
   });
   box.value = JSON.stringify(value ?? null, null, 2);
-  return fieldWrap(key, box, 'No editor for this shape yet — raw JSON.');
+  return fieldWrap(key, box, 'No editor for this shape yet — raw JSON.', { tall: true });
 }
 
 function buildForm(schema) {
@@ -521,6 +582,14 @@ async function newCard() {
 
 /* ---------- boot ---------- */
 
+/** The asset stems, fetched once. A form built before this lands would simply
+ *  show no icons, so it is awaited ahead of the first paint rather than guarded
+ *  for at every call site. */
+async function loadIcons() {
+  const { icons } = await getJSON('/api/meta/icons').catch(() => ({ icons: [] }));
+  state.icons = new Set(icons);
+}
+
 async function reload({ keepPanel = false } = {}) {
   const { cards } = await getJSON('/api/cards');
   state.cards = cards;
@@ -549,4 +618,6 @@ function wire() {
 }
 
 wire();
-reload().catch((err) => banner(String(err.message || err), 'error'));
+loadIcons()
+  .then(() => reload())
+  .catch((err) => banner(String(err.message || err), 'error'));

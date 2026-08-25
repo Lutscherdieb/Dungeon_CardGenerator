@@ -2,6 +2,7 @@
 
 from .service import (
     ARTWORK_DIR,
+    ASSETS_DIR,
     GALLERY_OUT,
     REPO_ROOT,
     render_and_record,
@@ -12,6 +13,7 @@ from .service import (
 
 __all__ = [
     "ARTWORK_DIR",
+    "ASSETS_DIR",
     "GALLERY_OUT",
     "REPO_ROOT",
     "render_and_record",

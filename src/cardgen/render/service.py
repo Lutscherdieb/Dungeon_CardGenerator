@@ -30,6 +30,12 @@ GALLERY_OUT = Path("out") / "gallery"
 #: two follow one convention.
 ARTWORK_DIR = Path("backgrounds")
 
+#: The icon set the templates address as ``assets/<stem>.png``. One home for the
+#: path: the web app mounts this directory, and /api/meta/icons lists it, so the
+#: gallery can show the very icon a field prints without either side keeping a
+#: list of which fields have one.
+ASSETS_DIR = REPO_ROOT / "assets"
+
 #: Grid thumbnail edge, in pixels. The gallery grid shows cards at ~190px; without
 #: this it would pull 137 full-size PNGs (~1.6MB each) to draw them.
 THUMB_PX = 420

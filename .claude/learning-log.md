@@ -105,3 +105,18 @@ this example from being scanned as a real candidate by `/base:promote`):
 - evidence: `requirements.txt` listed 3 of the 7 dependencies in `pyproject.toml` — missing pillow, pydantic, SQLAlchemy and CherryPy. `pyproject.toml:11` already carried the scar: "Imported by the renderer since day one; the old requirements.txt never listed it, so a fresh clone failed at `from PIL import Image`." The comment documented the hazard instead of removing it, and the file drifted three more dependencies further.
 - applications: 2026-08-24
 
+## 2026-08-25 — put-a-detector-on-every-deliberately-silent-fallback
+- scope: generic
+- status: candidate
+- rule: A fallback that exists so bad input stays visible must be paired, in the same edit, with a check that fails when anything actually reaches it. "Degrade gracefully" and "tell nobody" are two decisions, not one — take only the first.
+- home: tests/check_gallery.py (the per-type "json-fallback" block and the docstring bullet naming it), docs/ARCHITECTURE.md (`src/cardgen/render/` and `src/cardgen/web/` — the gallery)
+- evidence: `web/app.js` routed an unrecognised field shape to a raw-JSON textarea "rather than disappearing: a field you cannot see is a field you cannot fix" — a deliberate, documented choice. The array branch tested one level of nesting (`items?.type === 'array' && items.prefixItems`) and `Slots` is `List[List[SlotSpot]]`, so `buildSlots` — 40 lines with its own group/spot editor — had never once run, and every Room offered a JSON blob instead. Nothing reported it because the fallback is silent by design. The detector added with the fix opens one card of each of the 8 types and reports `json-fallback=none` for all of them.
+- applications: 2026-08-25
+
+## 2026-08-25 — call-a-windows-batch-file-by-absolute-path-through-cmd
+- scope: generic
+- status: candidate
+- rule: From a Bash-style shell on Windows, invoke a repo `.bat` as `cmd //c "<absolute path>.bat" <args>`. Never `cmd //c name.bat` (the `//c` rewrite loses the working directory) and never `cmd.exe /c "name.bat args"` (opens an interactive shell and exits). Both fail with exit code 0, so a cleanup step that did nothing is indistinguishable from one that worked — always re-check the state the script was supposed to change.
+- home: CLAUDE.md#the-gallery-server-servebat-starts-it-and-nothing-claude-starts-outlives-the-turn (the invocation form and its verification step)
+- evidence: `cmd.exe /c "stop-server.bat 8766"` printed the Windows banner and a `<repo root>>` cmd prompt, returned 0, and left PID 12456 listening on 8766; `cmd //c stop-server.bat 8799` printed "'stop-server.bat' is not recognized as an internal or external command"; `cmd //c "<repo root>\stop-server.bat" 8799` printed "Nothing is listening on port 8799." The stranded listener was only visible because the close-out re-ran `netstat`.
+- applications: 2026-08-25

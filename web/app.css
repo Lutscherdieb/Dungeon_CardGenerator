@@ -181,7 +181,7 @@ body {
 
 .panel-body { flex: 1; overflow-y: auto; padding: 16px; }
 .panel-body h3 {
-  margin: 22px 0 10px;
+  margin: 16px 0 8px;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: .08em;
@@ -216,20 +216,54 @@ body {
 
 /* ---------- form ---------- */
 
-.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
-.field.inline { flex-direction: row; align-items: center; gap: 6px; margin: 0; }
-.field > span { font-size: 12px; color: var(--muted); }
+/* One row per field: [icon] label in a fixed column, control in the rest.
+
+   The label used to sit on its own line above the control, and the fields that
+   needed explaining printed a third line of prose below it -- so a Room, at
+   twelve fields, ran to roughly three panel-heights of scrolling. The label is
+   now a prefix, and the explanation is the row's tooltip. */
+.field {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+/* Controls that are taller than one line (Description, tag lists, Slots, the
+   JSON fallback) keep the same two columns and hang their label at the top. */
+.field.tall { align-items: start; }
+.field.tall > .field-label { padding-top: 6px; }
+
+.field.inline { display: flex; align-items: center; gap: 6px; margin: 0; }
+.field.inline > span { font-size: 12px; color: var(--muted); }
+
+.field-label {
+  display: flex; align-items: center; gap: 6px;
+  min-width: 0; font-size: 12px; color: var(--muted);
+}
+.field-label > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* A tooltip nobody knows is there is not documentation: the dotted underline
+   and the help cursor are what make the hint discoverable. */
+.field[data-hint] { cursor: help; }
+.field[data-hint] .field-label > span { border-bottom: 1px dotted var(--muted); }
+
+/* The icon the field prints on the card. A fixed-width slot so labels line up
+   whether or not their field has one -- it is a legend, not a control. */
+.field-icon { display: inline-flex; justify-content: center; width: 16px; flex: none; }
+.icon { width: 16px; height: 16px; object-fit: contain; }
 
 input[type="text"], input[type="number"], select, textarea {
   background: var(--bg);
   color: var(--text);
   border: 1px solid var(--line);
   border-radius: 6px;
-  padding: 7px 9px;
+  padding: 4px 8px;
   font: inherit;
+  font-size: 13px;
   width: 100%;
 }
-textarea { min-height: 76px; resize: vertical; }
+textarea { min-height: 64px; resize: vertical; }
 input:focus, select:focus, textarea:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
 input[readonly] { color: var(--muted); }
 
@@ -237,7 +271,7 @@ input[readonly] { color: var(--muted); }
 .row > .field { flex: 1; }
 
 /* tag list (Roads, Creatures) */
-.tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
 .tag {
   display: inline-flex;
   gap: 6px;
@@ -245,8 +279,8 @@ input[readonly] { color: var(--muted); }
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 3px 6px 3px 10px;
-  font-size: 13px;
+  padding: 2px 5px 2px 7px;
+  font-size: 12px;
 }
 .tag button {
   background: none; border: 0; color: var(--muted);
@@ -259,14 +293,14 @@ input[readonly] { color: var(--muted); }
 .slot-group {
   border: 1px solid var(--line);
   border-radius: 6px;
-  padding: 8px 10px;
-  margin-bottom: 8px;
+  padding: 6px 8px;
+  margin-bottom: 6px;
 }
 .slot-group > header {
   display: flex; align-items: center; gap: 8px;
-  font-size: 12px; color: var(--muted); margin-bottom: 6px;
+  font-size: 12px; color: var(--muted); margin-bottom: 5px;
 }
-.spot { display: flex; gap: 6px; margin-bottom: 6px; align-items: center; }
+.spot { display: flex; gap: 6px; margin-bottom: 4px; align-items: center; }
 .spot select { flex: 2; }
 .spot input { flex: 1; }
 

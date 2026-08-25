@@ -23,6 +23,12 @@ What it guards, and why each one is here:
   walked it through 6 -> 5 -> 4 columns in 180ms, because auto-fill recomputes
   the column count at every intermediate width; the middle state lasted 16ms
   and read as a flicker.
+- No field on any card type falls back to the raw-JSON box. That fallback is
+  deliberately silent -- it keeps an unrecognised shape visible instead of
+  dropping it -- which is exactly why nothing reported that `Slots` had been
+  landing in it. The builder tested one level of array nesting and `Slots` is
+  `List[List[SlotSpot]]`, so every Room offered a JSON blob where the spot
+  editor should have been.
 """
 import os
 import sys
@@ -234,6 +240,32 @@ def main():
             problems.append("Escape did not close the drawer")
         if page.locator("#grid .card.selected").count():
             problems.append("selection survived closing the drawer")
+
+        # --- every card type gets real editors, not the JSON fallback ---------
+        # One card of each type, because the shapes differ per type and only
+        # Room has the nesting that broke.
+        page.keyboard.press("Escape")
+        options = page.locator("#filter-type option").evaluate_all(
+            "els => els.map(e => e.value).filter(Boolean)")
+        for card_type in options:
+            page.select_option("#filter-type", card_type)
+            page.wait_for_timeout(150)
+            if not page.locator("#grid .card").count():
+                continue
+            page.locator("#grid .card").first.click()
+            page.wait_for_selector("#panel.open .field", timeout=5000)
+            page.wait_for_timeout(250)
+            raw = page.locator('#form-fields .field[title^="No editor"]').evaluate_all(
+                "els => els.map(e => e.dataset.key)")
+            print("%-10s fields=%2d json-fallback=%s"
+                  % (card_type, page.locator("#form-fields .field").count(), raw or "none"))
+            if raw:
+                problems.append(
+                    "%s falls back to the raw-JSON box for %s -- the form builder "
+                    "does not recognise that field's shape" % (card_type, ", ".join(raw)))
+            page.keyboard.press("Escape")
+            page.wait_for_timeout(150)
+        page.select_option("#filter-type", "")
 
         browser.close()
 

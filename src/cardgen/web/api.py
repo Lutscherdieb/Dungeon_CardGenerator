@@ -15,7 +15,7 @@ import cherrypy
 
 from ..model import card_type_names
 from ..model.schemas import schema_for
-from ..render import render_dir_for, safe_stem
+from ..render import ASSETS_DIR, render_dir_for, safe_stem
 from ..spec import artwork_warnings, profile_for_type
 from ..store import (
     ArtworkError,
@@ -278,6 +278,19 @@ class MetaAPI:
         if key not in card_type_names():
             raise cherrypy.HTTPError(404, "unknown card type {!r}".format(card_type))
         return schema_for(key)
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def icons(self, **params):
+        """The icon stems that exist under ``assets/``.
+
+        Derived from the directory, never listed. The templates resolve an icon
+        as ``assets/<lowercased name>.png`` -- ``defence``, ``mana``, a Faction
+        value like ``demon`` -- so handing the gallery the same stems lets the
+        form show the icon a field actually prints, and a new PNG dropped into
+        ``assets/`` shows up there with no code change on either side.
+        """
+        return {"icons": sorted(p.stem.lower() for p in ASSETS_DIR.glob("*.png"))}
 
     @cherrypy.expose
     @cherrypy.tools.json_out()

@@ -13,7 +13,7 @@ from pathlib import Path
 
 import cherrypy
 
-from ..render import REPO_ROOT, render_and_record
+from ..render import ASSETS_DIR, REPO_ROOT, render_and_record
 from ..store import SessionLocal, init_db
 from .api import CardsAPI, MetaAPI
 from .queue import RENDER_QUEUE
@@ -60,7 +60,7 @@ def build_config() -> dict:
         # POST is not guaranteed to keep its method or body.
         "/api": {"tools.trailing_slash.on": False},
         "/web": static(WEB_DIR),
-        "/assets": static(REPO_ROOT / "assets"),
+        "/assets": static(ASSETS_DIR),
         "/backgrounds": static(REPO_ROOT / "backgrounds"),
         "/out": static(REPO_ROOT / "out"),
         "/style.css": {
