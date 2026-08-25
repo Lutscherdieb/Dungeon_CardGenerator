@@ -89,3 +89,11 @@ this example from being scanned as a real candidate by `/base:promote`):
 - evidence: a gallery started as a backgrounded process had no window to interrupt and had to be killed through Task Manager. Banning the agent from starting one at all was the wrong correction and the user reversed it the same day ("you may still start/end the server yourself as that is easier for you to also see the servers output", "but these have to be closed by you by the end of these tasks") — the invariant is the close-out, not the abstention, and a reserved port is what keeps the stop command from taking the user's server with it. The two browser checks already assumed the user-owned shape — `tests/check_gallery.py:3` and `tests/check_artwork.py:3` both open with "Needs a server already running::" — so the agent's habit, not the test design, was the outlier. Probe: `GET /api/meta/types` on 127.0.0.1:8765; stranded listener: `netstat -ano | findstr :8765`.
 - applications: 2026-08-24
 
+## 2026-08-24 — diff-a-rejected-config-against-one-the-host-accepts
+- scope: generic
+- status: candidate
+- rule: When a host rejects a settings file, diff its shape key-by-key against a file that host already accepts before checking syntax — a config can be valid JSON and still be the wrong shape, and the error text says "failed to parse" either way.
+- home: .claude/base-manifest.json (notes.settings_shape)
+- evidence: `.claude/settings.json` carried `"enabledPlugins": ["base@claudebase"]`. `python -c "import json; json.load(...)"` reported it valid; Claude Code still reported the settings file as failing to parse. `~/.claude/settings.json` had the accepted shape three lines away: `"enabledPlugins": {"base@claudebase": true}` — an object map, not a list.
+- applications: 2026-08-24
+
