@@ -97,3 +97,11 @@ this example from being scanned as a real candidate by `/base:promote`):
 - evidence: `.claude/settings.json` carried `"enabledPlugins": ["base@claudebase"]`. `python -c "import json; json.load(...)"` reported it valid; Claude Code still reported the settings file as failing to parse. `~/.claude/settings.json` had the accepted shape three lines away: `"enabledPlugins": {"base@claudebase": true}` — an object map, not a list.
 - applications: 2026-08-24
 
+## 2026-08-24 — point-the-second-dependency-list-at-the-first
+- scope: generic
+- status: candidate
+- rule: When a project has two files that could both list dependencies, make the secondary one point at the primary (`-e .`) instead of restating it; a restated list is not a convenience, it is a second source of truth that will be wrong the next time a dependency is added.
+- home: requirements.txt (its header comment)
+- evidence: `requirements.txt` listed 3 of the 7 dependencies in `pyproject.toml` — missing pillow, pydantic, SQLAlchemy and CherryPy. `pyproject.toml:11` already carried the scar: "Imported by the renderer since day one; the old requirements.txt never listed it, so a fresh clone failed at `from PIL import Image`." The comment documented the hazard instead of removing it, and the file drifted three more dependencies further.
+- applications: 2026-08-24
+

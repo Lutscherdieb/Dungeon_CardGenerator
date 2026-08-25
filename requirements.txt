@@ -1,3 +1,5 @@
-jinja2>=3.0
-jsonschema>=4.0
-playwright>=1.40
+# The dependency list has one home: pyproject.toml. This file stays so that
+# `pip install -r requirements.txt` keeps working, and points at it rather than
+# restating it -- it listed 3 of the 7 dependencies for a while, which is how a
+# fresh clone came to die on `from PIL import Image`.
+-e .
