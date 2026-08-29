@@ -15,7 +15,7 @@ import cherrypy
 
 from ..model import card_type_names
 from ..model.schemas import schema_for
-from ..render import ASSETS_DIR, render_dir_for, safe_stem
+from ..render import ASSETS_DIR, render_dir_for, safe_stem, token_list
 from ..spec import artwork_warnings, profile_for_type
 from ..store import (
     ArtworkError,
@@ -291,6 +291,18 @@ class MetaAPI:
         ``assets/`` shows up there with no code change on either side.
         """
         return {"icons": sorted(p.stem.lower() for p in ASSETS_DIR.glob("*.png"))}
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def tokens(self, **params):
+        """The ``[Token]`` codes a Description may use, and the icon each prints.
+
+        Served from the same table the renderer substitutes with
+        (``cardgen.render.symbols.TOKEN_TO_ICON``), so the legend the gallery
+        shows under the Description field cannot offer a code that prints as
+        literal text.
+        """
+        return {"tokens": token_list()}
 
     @cherrypy.expose
     @cherrypy.tools.json_out()

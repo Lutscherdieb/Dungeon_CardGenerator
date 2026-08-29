@@ -66,9 +66,37 @@ SQLite behind the model. The validated card is stored **whole**, as JSON, in its
 
 The `/api` mount turns CherryPy's `trailing_slash` tool **off**. CherryPy treats a class with an `index` method as a directory and 301s `/api/cards` to `/api/cards/`; harmless for a GET, but a redirected POST is not guaranteed to keep its method or body.
 
-The gallery's edit form is generated from the card type's JSON Schema, so a new field on the model appears in the form with no frontend change. The schema carries `x-key-order` — the same order `to_json_dict` writes — so the form and the exported file agree without JavaScript restating the list. A field whose shape the builder does not recognise falls back to a JSON box rather than disappearing: a field you cannot see is a field you cannot fix. That fallback is silent by design, so `tests/check_gallery.py` opens one card of every type and fails if any field lands in it — the `Slots` editor was unreachable for exactly that reason (the builder tested one level of array nesting; `Slots` is `List[List[SlotSpot]]`).
+`render/symbols.py` owns the `[Token]` table — the codes a Description may contain and the icon each prints. It is the one home for that list: `generate_card` imports the substitution from it, `GET /api/meta/tokens` serves it to the gallery's code legend, and the matching regex is **derived from the dict's keys** rather than hand-typed beside it. The two used to be separate literals inside `generate_card.py`; they agreed only by inspection, and adding a token to one without the other would have made it print as literal text with nothing to report it.
+
+### `web/` — the gallery frontend
+
+Plain ES modules, no build step and no dependency: the server already serves `web/` as static files, so `<script type="module">` is the whole toolchain.
+
+| Module | Role |
+|---|---|
+| `app.js` | Boot and wiring only. No behaviour of its own |
+| `api.js` | The single fetch path, and the only place errors are shaped |
+| `dom.js` | `$`, `el()`, `banner()`, `fileSize()` |
+| `state.js` | The card cache, the open card, its draft |
+| `schema.js` | Per-type JSON Schemas, print profiles, `blankCard()` |
+| `icons.js` | Which `assets/*.png` exist, and the `<img>` for one |
+| `cards.js` | Loading the deck, refreshing one card |
+| `grid.js` | Tiles, selection, and where the inline editor sits |
+| `form.js` | The schema-driven card-data form |
+| `codes.js` | The `[]` icon-code legend under the Description field |
+| `render.js` | Render status and polling |
+| `editor.js` | The open card: preview, artwork, form, actions |
+| `popover.js` | Floating-panel chrome, shared by the two below |
+| `filters.js` | The filter panel, derived from the schemas |
+| `newcard.js` | The New card dialog |
+
+**The module graph is acyclic by construction**, which is the reason for two indirections that would otherwise look like ceremony: `grid.js` does not import `editor.js` — clicking a tile dispatches a `card:select` event that `app.js` routes — and `cards.js` does not import the chrome — `loadAll()` fires `cards:loaded` for anything that derives choices from the deck.
+
+The edit form is generated from the card type's JSON Schema, so a new field on the model appears in the form with no frontend change. The schema carries `x-key-order` — the same order `to_json_dict` writes — so the form and the exported file agree without JavaScript restating the list. A field whose shape the builder does not recognise falls back to a JSON box rather than disappearing: a field you cannot see is a field you cannot fix. That fallback is silent by design, so `tests/check_gallery.py` opens one card of every type and fails if any field lands in it — the `Slots` editor was unreachable for exactly that reason (the builder tested one level of array nesting and `Slots` was then `List[List[Tuple[CreatureType, int]]]`). Add a branch to `form.js` whenever the model grows a shape it does not name; `boolean` was added for `Starter` for exactly that reason.
 
 Each field is one row — `[icon] label | control` — and the explanations that used to print under a control are the row's `title` instead, marked with a dotted underline so an invisible tooltip is still discoverable. The icon is the one the card actually prints: `/api/meta/icons` lists the stems under `assets/`, and the form resolves a name to `assets/<name lowercased>.png` exactly as the templates do, trying the field's key first and its value second — so `Mana` shows `mana.png`, `Faction: Wild` shows `wild.png` and follows the select. Neither side keeps a list of which fields have an icon; a PNG dropped into `assets/` starts appearing on its own.
+
+**The filter panel is derived the same way.** `filters.js` unions the properties of every card type's schema and picks a control from each one's JSON Schema shape — `const` and `enum` become chip sets, `boolean` an any/yes/no toggle, `integer` a min–max pair, `string` a contains box, and an array of enums a "has any of" chip set. Two facets that are not card fields, render status and whether artwork was uploaded, are declared explicitly. Filtering happens client-side because `GET /api/cards` already returns every card's whole JSON. Active filters persist in `localStorage`, and the topbar reports "N of 137" whenever a filter is hiding anything.
 
 ### `templates/` and `style.css`
 
@@ -133,6 +161,16 @@ Four cards have been renamed without their file being renamed: `Magic_Sentry.jso
 **`Background` survives as an interchange-only key** (`model.TRANSPORT_KEYS`). Import reads it to find the image to load; export writes the image back out and emits it again. That keeps `data/Mixed` plus `backgrounds/` a complete, git-diffable copy of the deck, which matters because the database is gitignored. `parse_card` strips transport keys, so a card JSON straight off disk still validates.
 
 **Export is the only thing that writes artwork to disk.** An upload touches the store alone, so the file tree cannot drift underneath it unnoticed; `cardgen export` is the deliberate moment the two are reconciled. Verified byte-exact: 137/137 JSON files and 137/137 images.
+
+### The editor is a grid item, not a drawer (2026-08-29)
+
+**Reverses the right-hand drawer** shipped on 2026-08-24. The editor is now a full-width `<section>` placed *inside* the grid, on the row below the card it belongs to; tiles below it shift down and nothing shifts sideways.
+
+**Why:** the drawer narrowed the grid to make room for itself. `auto-fill` recomputes the column count at the new width, so all 137 tiles were repositioned on open and again on close — the author's report was that opening or closing the editor lost their place in the gallery. The 2026-08-24 fix removed the *animated* reflow (6 → 5 → 4 columns in 180 ms) but not the reflow itself; the geometry of a side panel makes one unavoidable.
+
+**Consequence:** the grid's own width never changes, so the column count cannot change. `tests/check_gallery.py` asserts exactly that — column count, grid width and the clicked tile's x position are all recorded before opening and compared after, and the frame sampler must now see a *single* column state rather than "at most two". The same reasoning makes the filter panel and the New card dialog floating popovers (`popover.js`) rather than anything that displaces the grid.
+
+`grid.js` measures the column count from the resolved `gridTemplateColumns` track list. Measured, never predicted: nothing about the viewport width turns into that number reliably, as `scrollbar-gutter` reserving space outside `documentElement.clientWidth` has already demonstrated. The clicked tile's viewport position is recorded before insertion and the page scrolled by the difference after, so the card you clicked stays under the cursor.
 
 ### Room slots are a flat list, and they print where the Overlord's do (2026-08-29)
 

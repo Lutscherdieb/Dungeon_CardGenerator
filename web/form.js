@@ -7,11 +7,15 @@
  * cannot fix.
  *
  * That fallback is silent by design, which is exactly why nothing reported that
- * `Slots` had been landing in it for the life of the feature. It is guarded now:
- * tests/check_gallery.py opens one card of every type and fails if any field
- * reaches the fallback.
+ * `Slots` had been landing in it for the life of the feature (it was
+ * List[List[Tuple]] and this builder tested one level of nesting). Hence the
+ * detector: tests/check_gallery.py opens one card of every type and fails if
+ * any field reaches the fallback. Add a branch here whenever the model grows a
+ * shape this file does not name -- `boolean` was added for `Starter` on
+ * 2026-08-29 for exactly that reason.
  */
 
+import { codesLegend, codesTooltip } from './codes.js';
 import { el } from './dom.js';
 import { iconFor, paintIcon } from './icons.js';
 import { deref } from './schema.js';
@@ -74,53 +78,6 @@ function buildTagList(key, values, options) {
   return wrap;
 }
 
-function buildSlots(key, creatureTypes) {
-  const wrap = el('div');
-  const redraw = () => {
-    wrap.replaceChildren();
-    const groups = state.draft[key] || [];
-    groups.forEach((spots, gi) => {
-      const group = el('div', { class: 'slot-group' },
-        el('header', {},
-          el('span', { text: `Group ${gi + 1}` }),
-          el('span', { class: 'spacer', style: 'flex:1' }),
-          el('button', {
-            type: 'button', class: 'btn small', text: '+ spot',
-            onclick: () => { spots.push(['All', 0]); redraw(); },
-          }),
-          el('button', {
-            type: 'button', class: 'btn small danger', text: 'remove group',
-            onclick: () => { groups.splice(gi, 1); redraw(); },
-          })));
-
-      spots.forEach((spot, si) => {
-        const slot = el('span', { class: 'field-icon' });
-        paintIcon(slot, spot[0]);
-        group.append(el('div', { class: 'spot' },
-          slot,
-          buildEnumSelect(creatureTypes, spot[0], (v) => { spot[0] = v; paintIcon(slot, v); }),
-          el('input', {
-            type: 'number', value: spot[1], title: 'the second number — meaning not yet decided',
-            oninput: (e) => { spot[1] = Number(e.target.value || 0); },
-          }),
-          el('button', {
-            type: 'button', class: 'btn small', text: '×',
-            onclick: () => { spots.splice(si, 1); redraw(); },
-          })));
-      });
-      wrap.append(group);
-    });
-    wrap.append(el('button', {
-      type: 'button', class: 'btn small', text: '+ group',
-      onclick: () => { state.draft[key] = [...groups, []]; redraw(); },
-    }));
-  };
-  redraw();
-  return fieldWrap('Slots', wrap,
-    'Creature spots per group. The number is a badge on the card; what it means is still open.',
-    { tall: true });
-}
-
 function buildField(schema, key, spec) {
   const value = state.draft[key];
   const resolved = deref(schema, spec);
@@ -143,6 +100,16 @@ function buildField(schema, key, spec) {
     return row;
   }
 
+  if (resolved.type === 'boolean') {
+    const box = el('input', {
+      type: 'checkbox',
+      class: 'checkbox',
+      oninput: (e) => setDraft(key, e.target.checked),
+    });
+    box.checked = Boolean(value);
+    return fieldWrap(key, box);
+  }
+
   if (resolved.type === 'integer' || resolved.type === 'number') {
     const control = el('input', {
       type: 'number', value: value ?? 0,
@@ -159,23 +126,20 @@ function buildField(schema, key, spec) {
       oninput: (e) => setDraft(key, e.target.value),
     });
     control.value = value ?? '';
-    return fieldWrap(key, control,
-      long ? 'Use [Mana], [Demon], [Wild] … for inline icons.' : null,
-      { tall: long });
+    if (!long) return fieldWrap(key, control);
+
+    // Description carries the icon-code legend: the tooltip lists every code,
+    // and the toggle reveals them as clickable icons that insert at the cursor.
+    const { toggle, list } = codesLegend(control);
+    return fieldWrap(key,
+      el('div', { class: 'described' }, control, el('div', { class: 'codes-bar' }, toggle), list),
+      codesTooltip(), { tall: true });
   }
 
   if (resolved.type === 'array') {
     const items = deref(schema, resolved.items);
     if (items?.enum) {
       return fieldWrap(key, buildTagList(key, value, items.enum), null, { tall: true });
-    }
-    // Slots is List[List[SlotSpot]] -- groups of spots -- so the pair shape sits
-    // two levels down. Testing only one level left buildSlots unreachable and
-    // dropped every Room's Slots into the raw-JSON fallback instead.
-    if (items?.type === 'array') {
-      const pair = deref(schema, items.prefixItems ? items : items.items);
-      const first = deref(schema, pair?.prefixItems?.[0]);
-      if (first?.enum) return buildSlots(key, first.enum);
     }
   }
 

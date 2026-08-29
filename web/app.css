@@ -76,9 +76,9 @@ body {
 .card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* Which card the open drawer belongs to. Needed once the panel stopped being
-   modal: the grid stays clickable, so the focus ring alone is lost as soon as
-   anything else takes focus, leaving 137 identical-looking tiles. */
+/* Which card the inline editor belongs to. The grid stays fully clickable, so
+   the focus ring alone is lost as soon as anything else takes focus, leaving
+   137 identical-looking tiles. */
 .card.selected {
   border-color: var(--accent);
   box-shadow: 0 0 0 1px var(--accent), 0 6px 18px rgba(0,0,0,.4);
@@ -116,78 +116,66 @@ body {
 .dot.pending, .dot.queued, .dot.rendering { background: var(--warn); }
 .dot.error { background: var(--danger); }
 
-/* ---------- panel ---------- */
+/* ---------- inline editor ---------- */
 
-/* The drawer is shown and hidden by the .open class, never by the [hidden]
-   attribute: [hidden] only sets display:none in the UA sheet, and the author
-   rule `display: flex` below beats it, so the panel stayed on screen and the
-   close button looked dead. */
+/* The editor is a grid ITEM, not a drawer and not an overlay: a full-width
+   section placed on the row below the card it belongs to (see grid.js
+   placeEditor). Tiles below it shift DOWN; nothing shifts sideways.
 
-/* No dimming overlay: this is a side menu, not a modal. A scrim would swallow
-   the click on the next card, making it two clicks to move between cards while
-   browsing 137 of them. The grid stays live and shifts over instead. */
-
-.panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 40;
+   That is the whole reason the drawer was replaced. The drawer narrowed the
+   grid, `auto-fill` recomputed the column count at the new width, and all 137
+   tiles were repositioned -- so closing and reopening it lost your place. A
+   full-width row cannot change the column count, because the grid's own width
+   never changes. tests/check_gallery.py asserts exactly that. */
+.editor {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  width: min(560px, 100vw);
-  height: 100vh;
   background: var(--surface);
-  border-left: 1px solid var(--line);
-
-  transform: translateX(100%);
-  visibility: hidden;
-  box-shadow: -18px 0 40px rgba(0,0,0,.35);
-  transition: transform .18s cubic-bezier(.4, 0, .2, 1), visibility 0s linear .18s;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .45);
+  overflow: hidden;
 }
-.panel.open {
-  transform: translateX(0);
-  visibility: visible;
-  transition: transform .18s cubic-bezier(.4, 0, .2, 1), visibility 0s;
-}
+.editor[hidden] { display: none; }
 
-/* Make room for the open drawer rather than covering the last column. Below
-   this width there is not enough grid left to push, so it overlays instead.
-
-   The padding change is deliberately NOT transitioned. Animating it looks like
-   the obvious thing to do and is actively wrong here: auto-fill recomputes the
-   column count at every intermediate width, so a 180ms padding animation walked
-   the grid through 6 -> 5 -> 4 columns, repositioning all 137 tiles each time.
-   The 5-column state lasted 16ms, which reads as a flicker rather than a
-   transition. One instant reflow, while the panel slides, is the smooth option.
-   Measured by tests/check_gallery.py, which fails if more than one occurs. */
-@media (min-width: 900px) {
-  body.panel-open .grid { padding-right: calc(min(560px, 100vw) + 20px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .panel { transition-duration: 0s; }
-}
-
-.panel-head, .panel-foot {
+.editor-head, .editor-foot {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: var(--surface-2);
 }
-.panel-head { border-bottom: 1px solid var(--line); }
-.panel-foot { border-top: 1px solid var(--line); }
-.panel-head h2 { margin: 0; font-size: 15px; }
+.editor-head { border-bottom: 1px solid var(--line); }
+.editor-foot { border-top: 1px solid var(--line); }
+.editor-head h2 { margin: 0; font-size: 15px; }
 
-.panel-body { flex: 1; overflow-y: auto; padding: 16px; }
-.panel-body h3 {
-  margin: 16px 0 8px;
+/* Preview | form | artwork. The form is the widest because it is the column
+   you actually work in; the other two are reference. Below 1100px there is not
+   enough width for three, and below 760px not enough for two. */
+.editor-cols {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 260px;
+  gap: 18px;
+  padding: 14px;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .editor-cols { grid-template-columns: 240px minmax(0, 1fr); }
+  .editor-cols .artwork { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .editor-cols { grid-template-columns: minmax(0, 1fr); }
+  .editor-cols .artwork { grid-column: auto; }
+}
+
+.editor-cols h3 {
+  margin: 0 0 8px;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: .08em;
   color: var(--muted);
 }
-.panel-body section:first-child h3 { margin-top: 0; }
 
 .preview img {
   display: block;
@@ -195,11 +183,6 @@ body {
   border-radius: var(--radius);
   background: #000;
 }
-
-.render-state { margin: 8px 0 0; font-size: 13px; }
-.render-state.done { color: var(--ok); }
-.render-state.error { color: var(--danger); }
-.render-state.pending, .render-state.queued, .render-state.rendering { color: var(--warn); }
 
 .hint { color: var(--muted); font-size: 12px; margin: 6px 0 0; }
 .hint a { color: var(--accent); }
@@ -214,13 +197,19 @@ body {
 }
 .art-meta { margin: 0; font-size: 13px; color: var(--text); }
 
+.render-state { margin: 0; font-size: 13px; }
+.render-state.done { color: var(--ok); }
+.render-state.error { color: var(--danger); }
+.render-state.pending, .render-state.queued, .render-state.rendering { color: var(--warn); }
+
+
 /* ---------- form ---------- */
 
 /* One row per field: [icon] label in a fixed column, control in the rest.
 
    The label used to sit on its own line above the control, and the fields that
    needed explaining printed a third line of prose below it -- so a Room, at
-   twelve fields, ran to roughly three panel-heights of scrolling. The label is
+   twelve fields, ran to roughly three screens of scrolling. The label is
    now a prefix, and the explanation is the row's tooltip. */
 .field {
   display: grid;
@@ -289,20 +278,13 @@ input[readonly] { color: var(--muted); }
 .tag button:hover { color: var(--danger); }
 .tags select { width: auto; min-width: 120px; }
 
-/* slots */
-.slot-group {
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 6px 8px;
-  margin-bottom: 6px;
+/* checkbox (Starter) -- the generic control rules above stretch a control to
+   the full column, which on a checkbox just moves it away from its label. */
+input[type="checkbox"].checkbox {
+  width: 16px; height: 16px; margin: 0;
+  accent-color: var(--accent);
+  justify-self: start;
 }
-.slot-group > header {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 12px; color: var(--muted); margin-bottom: 5px;
-}
-.spot { display: flex; gap: 6px; margin-bottom: 4px; align-items: center; }
-.spot select { flex: 2; }
-.spot input { flex: 1; }
 
 /* ---------- buttons ---------- */
 
@@ -322,3 +304,86 @@ input[readonly] { color: var(--muted); }
 .btn.icon { padding: 4px 10px; font-size: 18px; line-height: 1; }
 .btn:disabled { opacity: .5; cursor: default; }
 .btn.small { padding: 3px 9px; font-size: 12px; }
+
+/* ---------- popovers (filters, new card) ---------- */
+
+/* Floating, never displacing. A control that reflows the gallery costs you your
+   place in it -- the lesson the edit drawer taught. */
+.pop {
+  position: fixed;
+  z-index: 60;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .5);
+  max-height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+}
+.pop[hidden] { display: none; }
+.pop-head {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+.pop-body { padding: 10px 12px; overflow-y: auto; }
+
+.shown-count { color: var(--muted); font-size: 12px; }
+
+/* ---------- filter rows ---------- */
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+  padding: 3px 0;
+}
+.filter-label { font-size: 12px; color: var(--muted); padding-top: 3px; }
+.filter-foot { display: flex; justify-content: flex-end; padding-top: 8px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip {
+  background: var(--bg);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px 9px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--accent); }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #10131c; font-weight: 600; }
+
+.range { display: flex; align-items: center; gap: 6px; }
+.range span { color: var(--muted); }
+input.mini { width: 62px; }
+
+/* ---------- description code legend ---------- */
+
+.described { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+
+.codes-bar { display: flex; justify-content: flex-end; }
+.codes-toggle { padding: 1px 7px; font-size: 11px; }
+
+.codes { display: flex; flex-wrap: wrap; gap: 4px; }
+.codes[hidden] { display: none; }
+.code {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.code:hover { border-color: var(--accent); color: var(--text); }

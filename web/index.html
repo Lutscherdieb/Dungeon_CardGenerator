@@ -10,64 +10,68 @@
   <header class="topbar">
     <h1>CardGenerator</h1>
     <div class="spacer"></div>
-    <label class="field inline">
-      <span>Type</span>
-      <select id="filter-type"><option value="">all</option></select>
-    </label>
+    <span id="shown-count" class="shown-count"></span>
+    <button id="btn-filters" class="btn" aria-expanded="false" aria-controls="filters">Filters</button>
     <button id="btn-new" class="btn primary">New card</button>
     <button id="btn-refresh" class="btn">Refresh</button>
   </header>
 
   <p id="banner" class="banner" hidden></p>
 
-  <main id="grid" class="grid" aria-live="polite"></main>
+  <!-- The editor lives INSIDE the grid, as a full-width grid item placed after
+       the selected card's row. It is a permanent child rather than something
+       cloned in on open, so every id below is always in the document and no
+       module has to guard for a missing node. Hidden, it occupies no track. -->
+  <main id="grid" class="grid" aria-live="polite">
+    <section id="editor" class="editor" hidden aria-label="Card editor">
+      <header class="editor-head">
+        <h2 id="editor-title">Card</h2>
+        <div class="spacer"></div>
+        <button id="btn-close" class="btn icon" title="Close">&times;</button>
+      </header>
 
-  <aside id="panel" class="panel" aria-hidden="true">
-    <header class="panel-head">
-      <h2 id="panel-title">Card</h2>
-      <button id="btn-close" class="btn icon" title="Close">&times;</button>
-    </header>
+      <div class="editor-cols">
+        <section class="preview">
+          <h3>Preview</h3>
+          <img id="preview-img" alt="" />
+          <p class="hint">
+            The full-bleed PNG is the file you upload to MakePlayingCards.
+            <a id="link-canvas" href="#" target="_blank" rel="noopener">full bleed</a> &middot;
+            <a id="link-trim" href="#" target="_blank" rel="noopener">trim</a> &middot;
+            <a id="link-safe" href="#" target="_blank" rel="noopener">safe</a>
+          </p>
+        </section>
 
-    <div class="panel-body">
-      <section class="preview">
-        <img id="preview-img" alt="" />
-        <p id="render-state" class="render-state"></p>
-        <p class="hint">
-          The full-bleed PNG is the file you upload to MakePlayingCards.
-          <a id="link-canvas" href="#" target="_blank" rel="noopener">full bleed</a> &middot;
-          <a id="link-trim" href="#" target="_blank" rel="noopener">trim</a> &middot;
-          <a id="link-safe" href="#" target="_blank" rel="noopener">safe</a>
-        </p>
-      </section>
+        <section class="form">
+          <h3>Card data</h3>
+          <div id="form-fields"></div>
+          <p id="form-error" class="err" hidden></p>
+        </section>
 
-      <section class="artwork">
-        <h3>Artwork</h3>
-        <div class="art-row">
-          <img id="art-current" alt="current artwork" hidden />
-          <div>
-            <p id="art-meta" class="art-meta"></p>
-            <p class="hint" id="art-hint"></p>
+        <section class="artwork">
+          <h3>Artwork</h3>
+          <div class="art-row">
+            <img id="art-current" alt="current artwork" hidden />
+            <div>
+              <p id="art-meta" class="art-meta"></p>
+              <p class="hint" id="art-hint"></p>
+            </div>
           </div>
-        </div>
-        <input type="file" id="art-file" accept="image/*" />
-        <button id="btn-art" class="btn">Replace artwork</button>
-        <p id="art-warning" class="warn" hidden></p>
-      </section>
+          <input type="file" id="art-file" accept="image/*" />
+          <button id="btn-art" class="btn">Replace artwork</button>
+          <p id="art-warning" class="warn" hidden></p>
+        </section>
+      </div>
 
-      <section class="form">
-        <h3>Card data</h3>
-        <div id="form-fields"></div>
-        <p id="form-error" class="err" hidden></p>
-      </section>
-    </div>
-
-    <footer class="panel-foot">
-      <button id="btn-delete" class="btn danger">Delete</button>
-      <div class="spacer"></div>
-      <button id="btn-render" class="btn">Re-render</button>
-      <button id="btn-save" class="btn primary">Save &amp; render</button>
-    </footer>
-  </aside>
+      <footer class="editor-foot">
+        <button id="btn-delete" class="btn danger">Delete</button>
+        <p id="render-state" class="render-state"></p>
+        <div class="spacer"></div>
+        <button id="btn-render" class="btn">Re-render</button>
+        <button id="btn-save" class="btn primary">Save &amp; render</button>
+      </footer>
+    </section>
+  </main>
 
   <script type="module" src="/web/app.js"></script>
 </body>

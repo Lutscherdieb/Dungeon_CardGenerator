@@ -13,7 +13,12 @@ from playwright.sync_api import sync_playwright
 from PIL import Image  # pip install pillow
 from jsonschema import validate as js_validate, ValidationError
 
+from cardgen.render.symbols import replace_symbols_in_rules
 from cardgen.spec import assert_png, css_variables, profile_for_type
+
+# The [Token] table and its substitution live in cardgen.render.symbols --
+# one home, shared with the gallery's /api/meta/tokens legend, so the codes
+# the form offers and the codes this renderer substitutes cannot drift.
 
 
 # Print geometry lives in cardgen.spec.profiles and nowhere else. The table
@@ -49,61 +54,6 @@ SCHEMA_PATHS = {
     "overlord": "schemas/overlord.schema.json",
 }
 
-
-
-# =========================
-# Inline symbol replacement
-# =========================
-TOKEN_TO_ICON = {
-    "undead":   "undead.png",
-    "demon":    "demon.png",
-    "wild":     "wild.png",
-    "magic":    "magic.png",
-    "all":      "all.png",
-    "mana":     "mana.png",
-    "treasure": "treasure.png",
-    "cards":    "cards.png",
-    "defence":  "defence.png",
-    "health": "health.png",
-    "hero": "hero.png",
-    "spell": "spell.png",
-    "trap": "trap.png",
-    "research": "research.png",
-    "movement": "movement.png",
-    "food": "food.png",
-    "chaos": "chaos.png"
-
-}
-
-# [  token  ] with optional spaces, case-insensitive
-_symbol_pattern = re.compile(
-    r"\[\s*(undead|demon|wild|magic|all|mana|treasure|cards|defence|health|hero|spell|trap|research|movement|food|chaos)\s*\]",
-    re.IGNORECASE
-)
-
-def replace_symbols_in_rules(text: str) -> str:
-    """
-    Replace bracketed tokens (e.g., [Undead]) with inline <img> tags.
-    Works inside longer text like 'aaa[Demon]zzz'. Case/space tolerant.
-    Returns the transformed HTML string.
-    """
-    if not isinstance(text, str):
-        return text
-
-    def _sub(m: re.Match) -> str:
-        key = m.group(1).lower()
-        filename = TOKEN_TO_ICON.get(key)
-        if not filename:
-            return m.group(0)
-        # Root-relative thanks to <base href="{{ base_href }}">
-        return f'<img src="assets/{filename}" alt="{key.title()}" class="inline-symbol icon-glow">'
-
-    new_text, n = _symbol_pattern.subn(_sub, text)
-    print(f"[Text] Icon replacements: {n}")
-    if n == 0:
-        preview = text[:120].replace("\n", " ")
-        print(f"[Text] No tokens found in: {preview!r}")
-    return new_text
 
 
 # =========================

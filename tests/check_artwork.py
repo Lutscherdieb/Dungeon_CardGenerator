@@ -74,7 +74,7 @@ def main():
             page.goto(PAGE, wait_until="networkidle")
             page.wait_for_selector("#grid .card", timeout=15000)
             page.locator('#grid [data-id="%d"]' % cid).click()
-            page.wait_for_selector("#panel.open", timeout=5000)
+            page.wait_for_selector("#editor:not([hidden])", timeout=5000)
             page.wait_for_timeout(500)
 
             # 1. No path field anywhere in the form.
@@ -95,7 +95,7 @@ def main():
             page.wait_for_timeout(2500)
             after_upload = art_summary(cid)
             print("artwork after upload:  %s" % after_upload)
-            print("panel shows: %r" % page.locator("#art-meta").inner_text())
+            print("editor shows: %r" % page.locator("#art-meta").inner_text())
             if not after_upload["present"] or after_upload["mime"] != "image/jpeg":
                 problems.append("upload did not store the image: %s" % after_upload)
             if after_upload["width"] != 1200:

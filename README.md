@@ -60,6 +60,15 @@ works and is what `serve.bat` calls.
 on 8766 and stops it when the task ends, so it can never take down the one you are browsing.
 
 Browse, edit, upload artwork, re-render. Every save re-renders in the background.
+
+Clicking a card opens its editor **inline**, on the row below the card, so the gallery is
+pushed down rather than narrowed and you keep your place. **Filters** is a floating panel
+over the grid offering every card attribute — type, tier, faction, each cost and stat, the
+`Starter` flag, roads, slots, render state, whether artwork is uploaded — and it is built
+from the card schemas, so a field added to the model appears there on its own. Your filters
+survive a reload. The Description field carries a `codes` toggle listing every `[]` icon
+code; clicking one inserts it at the cursor.
+
 `render` renders every stored card; `export` writes the store back out as card JSON
 **and artwork**, byte-for-byte matching what `data/Mixed` and `backgrounds/` already
 hold. Artwork lives in the store as bytes, so export is the deliberate moment it is
@@ -82,7 +91,7 @@ Two further checks drive a real browser and need the gallery **already running**
 first, then run them in a second terminal. Both honour `CARDGEN_URL` if it is not on 8765:
 
 ```bash
-python tests/check_gallery.py    # grid, drawer, layout geometry
+python tests/check_gallery.py    # grid geometry, inline editor, filters, code legend
 python tests/check_artwork.py    # upload -> save -> re-render, end to end
 ```
 
@@ -107,7 +116,7 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 | `src/cardgen/store/` | SQLite behind the model: import, edit, export, render state |
 | `src/cardgen/render/` | Card data in, print-ready PNGs out. The only rendering path |
 | `src/cardgen/web/` | The local gallery: CherryPy API plus a single render worker |
-| `web/` | The gallery frontend |
+| `web/` | The gallery frontend — plain ES modules, no build step |
 | `generate_card.py` | The CLI renderer; being folded into `src/cardgen/` |
 | `templates/` | Jinja card templates — nine, because `room` splits into a `hearth` variant — plus shared partials |
 | `style.css` | Card styling. Declares no geometry — it reads the profile's CSS variables |

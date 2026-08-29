@@ -4,10 +4,10 @@
  * writes cards back to the server.
  */
 
-import { api, getJSON, sendJSON } from './api.js';
+import { api, sendJSON } from './api.js';
 import { loadAll, refreshCard } from './cards.js';
 import { $, banner, fileSize } from './dom.js';
-import { markSelected } from './grid.js';
+import { markSelected, placeEditor } from './grid.js';
 import { buildForm } from './form.js';
 import { isBusy, paintRenderState, startPolling, stopPolling } from './render.js';
 import { blankCard, profileFor, schemaFor } from './schema.js';
@@ -38,22 +38,23 @@ async function paintArtwork(view) {
 /* ---------- open / close ---------- */
 
 export async function openCard(id) {
-  const view = await getJSON(`/api/cards/${id}`);
+  const view = await api(`/api/cards/${id}`);
   state.current = view;
   state.draft = structuredClone(view.card);
 
-  $('#panel-title').textContent = `#${view.id} — ${view.name}`;
+  $('#editor-title').textContent = `#${view.id} — ${view.name}`;
   $('#form-error').hidden = true;
   $('#art-warning').hidden = true;
   paintRenderState(view);
   buildForm($('#form-fields'), await schemaFor(view.type));
   await paintArtwork(view);
 
-  $('#panel').classList.add('open');
-  $('#panel').setAttribute('aria-hidden', 'false');
-  document.body.classList.add('panel-open');
-
+  // The editor is a full-width grid item on the row below the card it belongs
+  // to, so the gallery is pushed DOWN rather than narrowed. Narrowing was the
+  // old drawer's problem: it changed the column count, which moved every tile
+  // and lost your place among 137 of them.
   markSelected(view.id);
+  placeEditor(view.id);
   if (isBusy(view)) poll(view.id);
 }
 
@@ -62,9 +63,7 @@ export function closePanel() {
   markSelected(null);
   state.current = null;
   state.draft = null;
-  $('#panel').classList.remove('open');
-  $('#panel').setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('panel-open');
+  placeEditor(null);
 }
 
 /* ---------- polling ---------- */
@@ -80,7 +79,7 @@ function poll(id) {
       const view = await refreshCard(cid);
       if (view && state.current?.id === cid) {
         state.current = view;
-        $('#panel-title').textContent = `#${view.id} — ${view.name}`;
+        $('#editor-title').textContent = `#${view.id} — ${view.name}`;
         paintRenderState(view);
       }
     },
@@ -104,7 +103,7 @@ export async function save() {
   const view = await refreshCard(id);
   if (view && state.current?.id === id) {
     state.current = view;
-    $('#panel-title').textContent = `#${view.id} — ${view.name}`;
+    $('#editor-title').textContent = `#${view.id} — ${view.name}`;
     paintRenderState(view);
   }
   poll(id);
@@ -151,17 +150,11 @@ export async function removeCard() {
   await loadAll();
 }
 
-export async function newCard() {
-  const { types } = await getJSON('/api/meta/types');
-  const type = prompt(`Card type?\n\n${types.join(', ')}`, types[0]);
-  if (!type) return;
-  const key = type.trim().toLowerCase();
-  let schema;
-  try { schema = await schemaFor(key); }
-  catch { banner(`Unknown card type "${type}".`, 'error'); return; }
-
-  const card = blankCard(schema);
-  card.Name = 'Untitled';
+/** Create a card of `type` named `name`, then open it. Driven by newcard.js,
+ *  which owns the dialog that collects those two values. */
+export async function newCard({ type, name }) {
+  const card = blankCard(await schemaFor(type));
+  card.Name = name;
 
   try {
     const { id } = await sendJSON('/api/cards', 'POST', card);
