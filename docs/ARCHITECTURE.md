@@ -46,7 +46,7 @@ Currently a single top-level module; being folded into `src/cardgen/render/`. It
 
 ### `src/cardgen/store/` — the card store
 
-SQLite behind the model. The validated card is stored **whole**, as JSON, in its JSON key spelling; the scalar columns beside it (`type`, `name`, `subtype`, `faction`, `tier`) exist only so the gallery can list and filter without parsing every row, and are derived on write by `index_fields` rather than passed in — so they cannot disagree with the JSON they came from. Adding a field to the model therefore needs no schema change here at all.
+SQLite behind the model. The validated card is stored **whole**, as JSON, in its JSON key spelling; the scalar columns beside it (`type`, `name`, `subtype`, `faction`, `tier`) exist only so the gallery can list and sort without parsing every row, and are derived on write by `index_fields` rather than passed in — so they cannot disagree with the JSON they came from. Adding a field to the model therefore needs no schema change here at all.
 
 **Artwork is stored as bytes, in the row.** The `artwork` column is deferred, so listing 137 cards does not drag ~227 MB of image data along to draw their names; the image is fetched from `GET /api/cards/{id}/artwork`, which is the only endpoint that returns something other than JSON.
 
@@ -72,7 +72,9 @@ Each field is one row — `[icon] label | control` — and the explanations that
 
 ### `templates/` and `style.css`
 
-Nine per-type templates over shared partials (`_costs_box`, `_spiderweb`, `filters_defs`). Theming is data-attribute driven: `body[data-type]`, `body[data-subtype]`, `body[data-faction]` and `body[data-tier]` select CSS custom-property blocks, so a card's colours follow from its data rather than from template branching.
+Nine per-type templates over shared partials (`_costs_box`, `_spiderweb`, `filters_defs`, `_creature_strip`, `_starter_stamp`). Theming is data-attribute driven: `body[data-type]`, `body[data-subtype]`, `body[data-faction]` and `body[data-tier]` select CSS custom-property blocks, so a card's colours follow from its data rather than from template branching.
+
+`_creature_strip.html` draws a boxed row of creature-type icons from a `strip` variable, and both types that have such a list use it: the Overlord's starting creature pool and a Room's creature spots. `_starter_stamp.html` is included by all nine and prints nothing unless the card carries `Starter: true`; the stamp is CSS text, not an asset, so it inherits `--frame-border-color` and themes per type and tier on its own.
 
 ### `src/cardgen/model/` — the card definition
 
@@ -131,6 +133,24 @@ Four cards have been renamed without their file being renamed: `Magic_Sentry.jso
 **`Background` survives as an interchange-only key** (`model.TRANSPORT_KEYS`). Import reads it to find the image to load; export writes the image back out and emits it again. That keeps `data/Mixed` plus `backgrounds/` a complete, git-diffable copy of the deck, which matters because the database is gitignored. `parse_card` strips transport keys, so a card JSON straight off disk still validates.
 
 **Export is the only thing that writes artwork to disk.** An upload touches the store alone, so the file tree cannot drift underneath it unnoticed; `cardgen export` is the deliberate moment the two are reconciled. Verified byte-exact: 137/137 JSON files and 137/137 images.
+
+### Room slots are a flat list, and they print where the Overlord's do (2026-08-29)
+
+`Room.Slots` was `List[List[Tuple[CreatureType, int]]]` — groups of `(type, number)` spots — and printed as a column of 102px circles at the top left. It is now `List[CreatureType]`, printed through the same `_creature_strip.html` partial the Overlord's `Creatures` uses.
+
+**Why:** the outer grouping was layout rather than data. All 23 rooms had exactly three groups and the third was empty on every one of them, so it carried no information the renderer could not derive. Two shapes and two visual languages for one concept — "a list of creature types this card cares about" — meant two editors in the form and two blocks of CSS.
+
+**Consequence:** the gallery's 40-line `buildSlots` group/spot editor is gone; the existing tag-list branch, which `Overlord.Creatures` already used, picks `Slots` up with no new code. `.slot`, `.slot-icon`, `.slot-icon-wrapper`, `.slot-count`, `--slot-size` and `--slot-text-color` are gone from `style.css`.
+
+### Reversed: "the second number in a Slots spot means something" (2026-08-29)
+
+Recorded as an open question on 2026-08-24 — 0 on 64 of 66 spots, `2` on the two `Sacred_Hain` spots whose text mentioned "[Wild] with Level 1", and `Rules/Ideas.txt` listing slot requirements as an *idea*. **Answered by the author on 2026-08-29: it means nothing, and the two exceptions were cleared in the gallery before the migration.** Every spot in the store read 0, so flattening lost nothing. Kept here because the question was a reasonable one and the next reader of the old JSON in git history will ask it again.
+
+### `Starter` is on `CardBase`, so every type carries it (2026-08-29)
+
+A boolean marking a card that ships in the starting deck; it prints as a small rotated corner stamp. It sits on the base class rather than on the six deck-buildable types, because every downstream consumer — the JSON Schemas, the gallery form, the filter panel — derives from the model, so putting it in one place makes it appear in all of them and a ninth card type cannot be added and forget it. `Hero` and `Overlord` carry a flag that means nothing for them; that is cheaper than a mixin the next type has to remember to inherit.
+
+`Hero.Treasure` landed in the same change — how much treasure a hero drops as loot when slain. It shares one `TreasureCount` alias with `Room.treasure` so the two cannot drift. The alias is deliberately **not** named `Treasure`: that is already a card-type class in the same module, and with `from __future__ import annotations` the shadowing would only surface if pydantic ever re-resolved the annotation.
 
 ### Do not bound a numeric field on intuition
 

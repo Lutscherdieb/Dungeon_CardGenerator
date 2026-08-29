@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Blood Altar",
+    "Starter": false,
     "Description": "Whenever [All] or [Hero] dies in this room, gain [Cards]<br>Sacrifice a non-[Demon] : Add [Food] ",
     "Mana": 0,
     "Cards": 0,
@@ -13,23 +14,9 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ],
-            [
-                "All",
-                0
-            ]
-        ],
-        [
-            [
-                "Demon",
-                0
-            ]
-        ],
-        []
+        "All",
+        "All",
+        "Demon"
     ],
     "Background": "./backgrounds/Blood_Altar.png"
 }

@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Terror of the Seas",
+    "Starter": false,
     "Description": "You can spend [Food] as though it were [Mana]",
     "Mana": 0,
     "Cards": 2,

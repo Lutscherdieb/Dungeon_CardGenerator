@@ -43,7 +43,6 @@
 :root {
   --title-min-width: 400px;
   --name-height: 64px;
-  --slot-size:102px;
 
   --rules-bottom-offset: 80px;     /* matches .rules-box bottom offset */
   --faction-size: 102px; /* tweak per taste */
@@ -61,10 +60,16 @@
   --costs-top-offset: 12px;   /* distance from safe-zone top to COSTS box */
   --costs-box-height: 60px;   /* tweak if you change icon size/padding */
   /* COLORS */
-  --slot-text-color: #ffffff;             /* number in slot icons */
   --frame-background: rgba(0,0,0,0.5);    /* background of name, stats, type, description boxes */
   --frame-text-color: #ffffff;            /* text color in these boxes */
   --frame-border-color: #000000;          /* border color */
+
+  /* Starter stamp (top-right corner, cards that ship in the starting deck) */
+  --starter-size: 34px;       /* cap height of the stamp text */
+  --starter-rotate: -12deg;
+  --starter-inset: 14px;      /* distance from the safe-zone corner */
+  --starter-color: var(--frame-text-color);
+  --starter-stroke: var(--frame-border-color);
 
   /* Filaments (tier lines) */
   --filament-color: var(--frame-border-color); /* default = frame color */
@@ -79,7 +84,6 @@ body[data-type="overlord"] {
   --frame-background: rgba(10, 10, 12, 0.65);  /* near-black overlay, slightly transparent */
   --frame-border-color: #111111;               /* deep black border */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
 
   /* accents (optional subtle purple glow to set it apart from plain black) */
   --accent-color: #7d5cff;                     /* muted violet highlight */
@@ -91,7 +95,6 @@ body[data-type="room"] {
   --frame-background: rgba(20, 20, 22, 0.65);   /* deep neutral overlay */
   --frame-border-color: #6a6a6a;                /* mid steel grey */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
 }
 /* ROOM — HEARTH subtype */
 body[data-type="room"][data-subtype="hearth"] {
@@ -101,14 +104,12 @@ body[data-type="room"][data-subtype="hearth"] {
 
   /* override text color with a warm red */
   --frame-text-color: #fff;   /* warm clay red */
-  --slot-text-color: #fff;
 }
 /* SPELL — arcane teal */
 body[data-type="spell"] {
   --frame-background: rgba(40, 38, 10, 0.65);  /* yellow tint */
   --frame-border-color: #d3d173;              /* yellow border */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #fdfb8b;                    /* glowing yellow */
   --accent-glow: rgba(216, 199, 47, 0.18);
 }
@@ -118,7 +119,6 @@ body[data-type="research"] {
   --frame-background: rgba(10, 50, 60, 0.65);   /* deep teal overlay */
   --frame-border-color: #24c0c0;                /* bright cyan edge */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #2fffff;                      /* glowing teal */
   --accent-glow: rgba(63, 213, 230, 0.18);
 }
@@ -128,7 +128,6 @@ body[data-type="hero"] {
   --frame-background: rgba(18, 18, 18, 0.65);   /* clean dark */
   --frame-border-color: #f1f1f1;                /* soft white border (less harsh than pure) */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
 }
 
 /* TRAP — fiery orange */
@@ -136,7 +135,6 @@ body[data-type="trap"] {
   --frame-background: rgba(65, 32, 5, 0.65);    /* dark ember overlay */
   --frame-border-color: #c75a0a;                /* molten orange border */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #ff7a1f;                      /* glowing orange */
   --accent-glow: rgba(255, 122, 31, 0.18);
 }
@@ -146,7 +144,6 @@ body[data-type="creature"] {
   --frame-background: rgba(18, 36, 20, 0.65);   /* forest tint */
   --frame-border-color: #2e6a3a;                /* moss green */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
 }
 /* TREASURE — rich metallic gold (distinct from Spell’s yellow) */
 body[data-type="treasure"] {
@@ -155,7 +152,6 @@ body[data-type="treasure"] {
   /* Metallic edge with a hint of bronze so it reads “gold” not “yellow” */
   --frame-border-color: #c7a648;                /* classic antique gold */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
 
   /* Accents for glows/badges: warmer, more orange-gold than Spell’s lemon-yellow */
   --accent-color: #e8c35a;                      /* warm gold highlight */
@@ -170,7 +166,6 @@ body[data-type="creature"][data-faction="demon"] {
   --frame-background: rgba(55, 10, 10, 0.65);
   --frame-border-color: #a62323;  /* saturated deep red */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #ff4d4d;
   --accent-glow: rgba(255, 77, 77, 0.18);
 }
@@ -180,7 +175,6 @@ body[data-type="creature"][data-faction="wild"] {
   --frame-background: rgba(16, 40, 18, 0.65);
   --frame-border-color: #2f7a40;  /* lively evergreen */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #78ff78;
   --accent-glow: rgba(120, 255, 120, 0.16);
 }
@@ -190,7 +184,6 @@ body[data-type="creature"][data-faction="magic"] {
   --frame-background: rgba(16, 28, 56, 0.65);
   --frame-border-color: #2a56a5;  /* arcane blue */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #7fb2ff;
   --accent-glow: rgba(127, 178, 255, 0.16);
 }
@@ -200,7 +193,6 @@ body[data-type="creature"][data-faction="undead"] {
   --frame-background: rgba(40, 18, 55, 0.65);
   --frame-border-color: #7a45b3;  /* eerie violet */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #caa0ff;
   --accent-glow: rgba(202, 160, 255, 0.16);
 }
@@ -210,7 +202,6 @@ body[data-type="creature"][data-faction="all"] {
   --frame-background: rgba(34, 34, 36, 0.65);
   --frame-border-color: #7a7a7a;  /* balanced mid-grey */
   --frame-text-color: #fff;
-  --slot-text-color: #fff;
   --accent-color: #d6d6d6;
   --accent-glow: rgba(214, 214, 214, 0.16);
 }
@@ -518,6 +509,36 @@ body {
   white-space: nowrap;              /* prevent wrapping */
 }
 /* =========================
+   STARTER STAMP (top-right)
+   =========================
+   Printed by _starter_stamp.html when a card carries Starter: true. Text, not
+   an image: it takes its colours from the frame variables, so it themes per
+   card type and per tier with no asset to keep in step. Sits above the name
+   header (z-index 41) because a long title can reach the same corner. */
+.starter-stamp {
+  position: absolute;
+  top: var(--starter-inset);
+  right: var(--starter-inset);
+  z-index: 45;
+  pointer-events: none;
+
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: var(--starter-size);
+  line-height: 1;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+
+  color: var(--starter-color);
+  -webkit-text-stroke: 2px var(--starter-stroke);
+  paint-order: stroke fill;   /* stroke behind the glyph, not over it */
+
+  transform: rotate(var(--starter-rotate));
+  transform-origin: 100% 0;
+  opacity: .92;
+}
+
+/* =========================
    FACTION BOX (below Type)
    ========================= */
 
@@ -595,40 +616,16 @@ body {
 /* =========================
    SLOTS (left)
    ========================= */
+/* An empty left-hand spacer since 2026-08-29: a room's creature spots print in
+   the shared bottom strip (_creature_strip.html) alongside the Overlord's
+   creature pool. The element stays so .header-aligned keeps pushing .stats to
+   the right edge on every card type. */
 .slots {
-  position: relative;          /* no absolute offset anymore */
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.slot {
-  display: flex;
-  gap: 6px;
-}
-.slot-icon {
-  width: var(--slot-size);
-  height: var(--slot-size);
-  border-radius: 50%;
-  object-fit: cover;
-}
-.slot-icon-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.slot-count {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: calc(var(--slot-size) * 0.35);
-  font-weight: 800;
-  color: var(--slot-text-color);   /* configurable */
-  line-height: 1;
-  pointer-events: none;
-}
-
-
 
 /* =========================
    COSTS (top-center, all types)

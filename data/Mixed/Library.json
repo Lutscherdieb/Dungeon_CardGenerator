@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Library",
+    "Starter": false,
     "Description": "[All]: Add [Cards].",
     "Mana": 0,
     "Cards": 3,
@@ -14,14 +15,7 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        [],
-        []
+        "All"
     ],
     "Background": "./backgrounds/Library.png"
 }

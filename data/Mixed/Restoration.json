@@ -2,6 +2,7 @@
     "Type": "Spell",
     "Name": "Restoration",
     "Tier": 1,
+    "Starter": false,
     "Description": "Return up to one target card from your discard pile to your hand.",
     "Mana": 1,
     "Cards": 0,

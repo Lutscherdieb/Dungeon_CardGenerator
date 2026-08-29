@@ -3,6 +3,7 @@
     "Name": "Vampire",
     "Faction": "Undead",
     "Tier": 2,
+    "Starter": false,
     "Description": "When a [Hero] is killed in the same room, add [Undead] to your domain.",
     "Mana": 2,
     "Cards": 2,

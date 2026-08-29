@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Hearth",
     "Name": "Liquid Hearth",
+    "Starter": false,
     "Description": "When building an adjacent room from your hand, you may pay [Mana] less.",
     "Mana": 0,
     "Cards": 0,
@@ -15,23 +16,9 @@
         "W"
     ],
     "Slots": [
-        [
-            [
-                "Magic",
-                0
-            ],
-            [
-                "Magic",
-                0
-            ]
-        ],
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        []
+        "Magic",
+        "Magic",
+        "All"
     ],
     "Background": "./backgrounds/Liquid_Hearth.png"
 }

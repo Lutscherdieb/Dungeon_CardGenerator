@@ -1,0 +1,11 @@
+{# The "Starter" corner stamp, for cards that ship in the starting deck.
+
+   Text rather than an image on purpose: it inherits the card's own frame
+   colours through --frame-border-color, so it themes per card type and per
+   tier with no per-type asset to keep in step. Its size, angle and colours are
+   the --starter-* variables in style.css.
+
+   Include it inside .safe-zone in every card template. #}
+{% if Starter %}
+  <div class="starter-stamp" aria-hidden="true">Starter</div>
+{% endif %}

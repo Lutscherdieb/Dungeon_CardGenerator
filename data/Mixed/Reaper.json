@@ -3,6 +3,7 @@
     "Name": "Reaper",
     "Faction": "Undead",
     "Tier": 3,
+    "Starter": false,
     "Description": "After winning combat, kill target Hero in the room before damage is assigned.",
     "Mana": 2,
     "Cards": 4,

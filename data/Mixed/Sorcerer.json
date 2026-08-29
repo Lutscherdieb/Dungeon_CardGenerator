@@ -2,11 +2,13 @@
     "Type": "Hero",
     "Name": "Sorcerer",
     "Tier": 2,
+    "Starter": false,
     "Description": "",
     "Mana": 4,
     "Cards": 2,
     "Food": 0,
     "Defence": 5,
+    "Treasure": 0,
     "Movement": 2,
     "Health": 3,
     "Background": "./backgrounds/Sorcerer.png"

@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Black Market",
+    "Starter": false,
     "Description": "[All] : Discard a card, then draw a card.",
     "Mana": 0,
     "Cards": 1,
@@ -14,23 +15,9 @@
         "W"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ],
-            [
-                "All",
-                0
-            ]
-        ],
-        [
-            [
-                "Demon",
-                0
-            ]
-        ],
-        []
+        "All",
+        "All",
+        "Demon"
     ],
     "Background": "./backgrounds/Black_Market.png"
 }

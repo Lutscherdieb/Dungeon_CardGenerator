@@ -3,6 +3,7 @@
     "Name": "Skeletal Dragon",
     "Faction": "Undead",
     "Tier": 3,
+    "Starter": false,
     "Description": "",
     "Mana": 5,
     "Cards": 3,

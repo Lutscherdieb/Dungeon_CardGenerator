@@ -3,6 +3,7 @@
     "Name": "Fallen Sphinx",
     "Faction": "Undead",
     "Tier": 2,
+    "Starter": false,
     "Description": "",
     "Mana": 4,
     "Cards": 2,

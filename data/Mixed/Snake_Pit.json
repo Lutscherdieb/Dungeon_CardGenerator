@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Snake Pit",
+    "Starter": false,
     "Description": "When a hero enters this Room, it is dealt 1 damage",
     "Mana": 1,
     "Cards": 0,
@@ -14,14 +15,7 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "Undead",
-                0
-            ]
-        ],
-        [],
-        []
+        "Undead"
     ],
     "Background": "./backgrounds/Snake_Pit.png"
 }

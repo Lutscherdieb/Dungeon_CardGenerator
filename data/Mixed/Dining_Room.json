@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Dining Room",
+    "Starter": false,
     "Description": "You may place [All] drawn from your domain in this room.",
     "Mana": 0,
     "Cards": 1,
@@ -12,27 +13,10 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ],
-            [
-                "All",
-                0
-            ]
-        ],
-        [
-            [
-                "All",
-                0
-            ],
-            [
-                "All",
-                0
-            ]
-        ],
-        []
+        "All",
+        "All",
+        "All",
+        "All"
     ],
     "Background": "./backgrounds/Dining_Room.png"
 }

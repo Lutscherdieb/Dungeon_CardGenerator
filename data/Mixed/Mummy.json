@@ -3,6 +3,7 @@
     "Name": "Mummy",
     "Faction": "Undead",
     "Tier": 1,
+    "Starter": false,
     "Description": "Each [Hero] in the same room have their [Defence] capped at 3.",
     "Mana": 3,
     "Cards": 2,

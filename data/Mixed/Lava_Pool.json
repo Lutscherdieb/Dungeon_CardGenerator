@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Lava Pool",
+    "Starter": false,
     "Description": "[Demon][Food][Mana]: Add [Demon] to your Domain.<br>Can store up to 2 [Mana].",
     "Mana": 2,
     "Cards": 0,
@@ -13,18 +14,8 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "Demon",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ]
-        ],
-        [],
-        []
+        "Demon",
+        "Demon"
     ],
     "Background": "./backgrounds/Lava_Pool.png"
 }

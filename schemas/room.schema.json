@@ -60,6 +60,11 @@
       "title": "Description",
       "type": "string"
     },
+    "Starter": {
+      "default": false,
+      "title": "Starter",
+      "type": "boolean"
+    },
     "Type": {
       "const": "Room",
       "title": "Type",
@@ -73,6 +78,7 @@
       "type": "integer"
     },
     "Treasure": {
+      "default": 0,
       "minimum": 0,
       "title": "Treasure",
       "type": "integer"
@@ -86,20 +92,7 @@
     },
     "Slots": {
       "items": {
-        "items": {
-          "maxItems": 2,
-          "minItems": 2,
-          "prefixItems": [
-            {
-              "$ref": "#/$defs/CreatureType"
-            },
-            {
-              "type": "integer"
-            }
-          ],
-          "type": "array"
-        },
-        "type": "array"
+        "$ref": "#/$defs/CreatureType"
       },
       "title": "Slots",
       "type": "array"
@@ -111,8 +104,7 @@
     "Cards",
     "Type",
     "Subtype",
-    "Defence",
-    "Treasure"
+    "Defence"
   ],
   "title": "Room Card",
   "type": "object",
@@ -122,6 +114,7 @@
     "Type",
     "Subtype",
     "Name",
+    "Starter",
     "Description",
     "Mana",
     "Cards",

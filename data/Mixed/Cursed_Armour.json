@@ -3,6 +3,7 @@
     "Name": "Cursed Armour",
     "Faction": "Magic",
     "Tier": 2,
+    "Starter": false,
     "Description": "+1 [Defence] for each [Mana] you have stored.",
     "Mana": 4,
     "Cards": 0,

@@ -2,6 +2,7 @@
     "Type": "Research",
     "Name": "Magical Drafting",
     "Tier": 2,
+    "Starter": false,
     "Description": "When building a Room from your hand, you may pay any one resource less.",
     "Mana": 3,
     "Cards": 3,

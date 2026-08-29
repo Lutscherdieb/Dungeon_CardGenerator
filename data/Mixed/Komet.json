@@ -2,6 +2,7 @@
     "Type": "Spell",
     "Name": "Komet",
     "Tier": 2,
+    "Starter": false,
     "Description": "Deal 4 damage to each Creature and Hero in target room.",
     "Mana": 2,
     "Cards": 0,

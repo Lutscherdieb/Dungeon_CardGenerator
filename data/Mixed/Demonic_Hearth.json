@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Hearth",
     "Name": "Demonic Hearth",
+    "Starter": false,
     "Description": "[Demon][Demon]: Return [Chaos] to your domain",
     "Mana": 0,
     "Cards": 0,
@@ -15,23 +16,9 @@
         "W"
     ],
     "Slots": [
-        [
-            [
-                "Demon",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ]
-        ],
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        []
+        "Demon",
+        "Demon",
+        "All"
     ],
     "Background": "./backgrounds/Demon_Hearth.png"
 }

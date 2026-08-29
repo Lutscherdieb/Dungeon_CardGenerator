@@ -2,6 +2,7 @@
     "Type": "Treasure",
     "Name": "Sun Orb",
     "Tier": 2,
+    "Starter": false,
     "Description": "Start of Replenish: All [Hero] are dealt 1 damage.",
     "Mana": 2,
     "Cards": 0,

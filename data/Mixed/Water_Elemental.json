@@ -3,6 +3,7 @@
     "Name": "Water Elemental",
     "Faction": "Magic",
     "Tier": 1,
+    "Starter": false,
     "Description": "+1 [Mana] when this dies",
     "Mana": 3,
     "Cards": 1,

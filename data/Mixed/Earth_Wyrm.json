@@ -3,6 +3,7 @@
     "Name": "Earth Wyrm",
     "Faction": "Wild",
     "Tier": 2,
+    "Starter": false,
     "Description": "Ignore Paths when moving <br>-1 [Defence] for each other [Wild] in the room",
     "Mana": 4,
     "Cards": 0,

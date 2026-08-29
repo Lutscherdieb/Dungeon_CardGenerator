@@ -2,11 +2,13 @@
     "Type": "Hero",
     "Name": "Adventurer",
     "Tier": 1,
+    "Starter": false,
     "Description": "",
     "Mana": 1,
     "Cards": 0,
     "Food": 0,
     "Defence": 2,
+    "Treasure": 0,
     "Movement": 2,
     "Health": 6,
     "Background": "./backgrounds/Lizard_Adventurer.png"

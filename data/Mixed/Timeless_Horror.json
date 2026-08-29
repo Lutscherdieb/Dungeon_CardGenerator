@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Chaos Overseer",
+    "Starter": false,
     "Description": "You start with 1 [Chaos] less in your domain.",
     "Mana": 2,
     "Cards": 2,

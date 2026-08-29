@@ -41,6 +41,11 @@
       "title": "Description",
       "type": "string"
     },
+    "Starter": {
+      "default": false,
+      "title": "Starter",
+      "type": "boolean"
+    },
     "Defence": {
       "title": "Defence",
       "type": "integer"
@@ -84,6 +89,7 @@
   "x-key-order": [
     "Type",
     "Name",
+    "Starter",
     "Description",
     "Mana",
     "Cards",

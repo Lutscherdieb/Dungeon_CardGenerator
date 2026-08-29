@@ -2,6 +2,7 @@
     "Type": "Treasure",
     "Name": "Root Network",
     "Tier": 1,
+    "Starter": false,
     "Description": "[All] can activate abilities of rooms which are adjacent and connected to the room they are in.",
     "Mana": 2,
     "Cards": 1,

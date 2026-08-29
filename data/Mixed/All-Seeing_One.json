@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "All-Seeing One",
+    "Starter": false,
     "Description": "All Discover Boni marker in your dungeon are face-up.<br>You gain twice the effect of all Discover Boni markers.",
     "Mana": 1,
     "Cards": 4,

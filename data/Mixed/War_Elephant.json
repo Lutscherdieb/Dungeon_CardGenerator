@@ -2,11 +2,13 @@
     "Type": "Hero",
     "Name": "War Elephant",
     "Tier": 3,
+    "Starter": false,
     "Description": "[All] with Base [Defence] <= 2 in the same room count as having base [Defence] 0.",
     "Mana": 0,
     "Cards": 4,
     "Food": 4,
     "Defence": 4,
+    "Treasure": 0,
     "Movement": 2,
     "Health": 12,
     "Background": "./backgrounds/War_Elephant.png"

@@ -2,6 +2,7 @@
     "Type": "Research",
     "Name": "Bottled Monster",
     "Tier": 2,
+    "Starter": false,
     "Description": "[All] may be placed on any tile in your dungeon.",
     "Mana": 0,
     "Cards": 2,

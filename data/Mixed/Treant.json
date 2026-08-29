@@ -3,6 +3,7 @@
     "Name": "Treant",
     "Faction": "Wild",
     "Tier": 1,
+    "Starter": false,
     "Description": "When this creature would die, return it to your domain instead.",
     "Mana": 1,
     "Cards": 1,

@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Hearth",
     "Name": "Blood Hearth",
+    "Starter": false,
     "Description": "If an [All] in an adjacent connected room would die, return it to your domain instead.",
     "Mana": 0,
     "Cards": 0,
@@ -15,27 +16,10 @@
         "W"
     ],
     "Slots": [
-        [
-            [
-                "Demon",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ]
-        ],
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        []
+        "Demon",
+        "Demon",
+        "Demon",
+        "All"
     ],
     "Background": "./backgrounds/Blood_Hearth.png"
 }

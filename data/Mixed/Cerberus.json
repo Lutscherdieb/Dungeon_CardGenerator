@@ -3,6 +3,7 @@
     "Name": "Cerberus",
     "Faction": "Demon",
     "Tier": 2,
+    "Starter": false,
     "Description": "Counts as [Demon][Demon] when activating abilities",
     "Mana": 3,
     "Cards": 3,

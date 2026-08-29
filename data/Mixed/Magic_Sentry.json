@@ -2,6 +2,7 @@
     "Type": "Trap",
     "Name": "Battledroid",
     "Tier": 3,
+    "Starter": false,
     "Description": "On activation: Prevent all damage [All] would take in your dungeon this turn.",
     "Mana": 3,
     "Cards": 1,

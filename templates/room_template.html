@@ -29,6 +29,7 @@
 
   {% include 'filters_defs.html' %}
 <div class="safe-zone">
+    {% include '_starter_stamp.html' %}
 
   {% if 'N' in Roads %}<div class="road-band n"></div>{% endif %}
   {% if 'E' in Roads %}<div class="road-band e"></div>{% endif %}
@@ -55,30 +56,8 @@
     <!-- SLOTS + STATS start directly under the Name bar -->
     <div class="header-aligned">
 
-      <!-- SLOTS (left) -->
-      <div class="slots">
-        {# Support both shapes:
-           A) [{"1":["All","All"]}, {"2":[...]}]
-           B) [ ["All","All"], ["Undead", ...] ]
-        #}
-        {% for slot in Slots %}
-  <div class="slot">
-    {# Each slot is a plain list of [type, number] spots. It used to be a
-       single-key dict whose "1"/"2"/"3" key was never read. #}
-    {% for spot in slot %}
-      {% set icon = spot[0] %}
-      {% set count = spot[1] %}
-      <div class="slot-icon-wrapper">
-        <img src="assets/{{ icon|lower }}.png" class="slot-icon icon-glow">
-        {% if count > 0 %}
-          <span class="slot-count">{{ count }}</span>
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
-{% endfor %}
-
-      </div>
+      <!-- SLOTS moved to the bottom strip, alongside Overlord's creature pool -->
+      <div class="slots"><!-- intentionally empty: see _creature_strip.html below --></div>
 
       <!-- STATS (right) -->
       <div class="stats">
@@ -88,12 +67,15 @@
 
     </div>
 
-    <!-- RULES -->
-    {% if Description and Description.strip() %}
-      <div class="rules-box">
-        {{ Description | safe }}
-      </div>
-    {% endif %}
+    <!-- Bottom stack: creature spots, then card text -- the Overlord layout -->
+    <div class="bottom-stack">
+      {% with strip = Slots %}{% include '_creature_strip.html' %}{% endwith %}
+      {% if Description and Description.strip() %}
+        <div class="rules-box">
+          {{ Description | safe }}
+        </div>
+      {% endif %}
+    </div><!-- /bottom-stack -->
 
 
   </div>

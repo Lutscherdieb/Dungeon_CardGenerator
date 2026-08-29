@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Acid Chamber",
+    "Starter": false,
     "Description": "Damage dealt to [Hero] and [All] in this room is increased by 1.",
     "Mana": 0,
     "Cards": 2,
@@ -13,23 +14,9 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        [
-            [
-                "Magic",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ]
-        ],
-        []
+        "All",
+        "Magic",
+        "Demon"
     ],
     "Background": "./backgrounds/Acid_Chamber.png"
 }

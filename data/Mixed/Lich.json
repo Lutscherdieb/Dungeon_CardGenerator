@@ -3,6 +3,7 @@
     "Name": "Lich",
     "Faction": "Undead",
     "Tier": 2,
+    "Starter": false,
     "Description": "+2 [Health] for each other [Undead] in the same room.",
     "Mana": 4,
     "Cards": 2,

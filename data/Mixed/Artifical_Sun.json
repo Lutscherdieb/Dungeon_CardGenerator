@@ -2,6 +2,7 @@
     "Type": "Trap",
     "Name": "Artifical Sun",
     "Tier": 3,
+    "Starter": false,
     "Description": "On activation: Kill all [All] and [Hero] in this room.",
     "Mana": 1,
     "Cards": 2,

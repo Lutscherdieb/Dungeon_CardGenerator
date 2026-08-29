@@ -3,6 +3,7 @@
     "Name": "Bear",
     "Faction": "Wild",
     "Tier": 2,
+    "Starter": false,
     "Description": "",
     "Mana": 0,
     "Cards": 3,

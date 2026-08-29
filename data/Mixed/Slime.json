@@ -3,6 +3,7 @@
     "Name": "Slime",
     "Faction": "Undead",
     "Tier": 1,
+    "Starter": false,
     "Description": "[Food][Food][Undead]: Add [Undead] to your domain",
     "Mana": 1,
     "Cards": 0,

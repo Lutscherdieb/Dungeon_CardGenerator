@@ -3,6 +3,7 @@
     "Name": "Lightning Elemental",
     "Faction": "Magic",
     "Tier": 1,
+    "Starter": false,
     "Description": "",
     "Mana": 2,
     "Cards": 0,

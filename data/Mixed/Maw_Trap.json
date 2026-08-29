@@ -2,6 +2,7 @@
     "Type": "Trap",
     "Name": "Maw Trap",
     "Tier": 1,
+    "Starter": false,
     "Description": "On activation: Deal 2 damage to any [Hero] in this room.",
     "Mana": 1,
     "Cards": 0,

@@ -2,6 +2,7 @@
     "Type": "Spell",
     "Name": "Forced Teleportation",
     "Tier": 2,
+    "Starter": false,
     "Description": "Place any one [All] or [Hero] from a room into another room.",
     "Mana": 2,
     "Cards": 0,

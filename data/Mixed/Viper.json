@@ -3,6 +3,7 @@
     "Name": "Viper",
     "Faction": "Wild",
     "Tier": 2,
+    "Starter": false,
     "Description": "If damage would be dealt to a [Hero] in the same room, that much + 1 damage is dealt to it instead.",
     "Mana": 3,
     "Cards": 3,

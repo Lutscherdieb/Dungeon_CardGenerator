@@ -3,6 +3,7 @@
     "Name": "Skelett",
     "Faction": "Undead",
     "Tier": 1,
+    "Starter": false,
     "Description": "",
     "Mana": 0,
     "Cards": 1,

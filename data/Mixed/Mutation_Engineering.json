@@ -2,6 +2,7 @@
     "Type": "Research",
     "Name": "Mutation Engineering",
     "Tier": 1,
+    "Starter": false,
     "Description": "You may station an additional [All] in rooms with at least one [Treasure] or [Research]",
     "Mana": 0,
     "Cards": 1,

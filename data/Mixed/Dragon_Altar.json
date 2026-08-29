@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Dragon Altar",
+    "Starter": false,
     "Description": "[Demon][Wild][Undead][All]: Gain [Cards][Cards]",
     "Mana": 1,
     "Cards": 3,
@@ -14,36 +15,12 @@
         "W"
     ],
     "Slots": [
-        [
-            [
-                "Wild",
-                0
-            ],
-            [
-                "Wild",
-                0
-            ]
-        ],
-        [
-            [
-                "Demon",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ]
-        ],
-        [
-            [
-                "Undead",
-                0
-            ],
-            [
-                "Undead",
-                0
-            ]
-        ]
+        "Wild",
+        "Wild",
+        "Demon",
+        "Demon",
+        "Undead",
+        "Undead"
     ],
     "Background": "./backgrounds/Dragon_Altar.png"
 }

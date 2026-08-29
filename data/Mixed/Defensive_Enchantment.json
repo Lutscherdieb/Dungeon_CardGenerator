@@ -2,6 +2,7 @@
     "Type": "Research",
     "Name": "Defensive Enchantment",
     "Tier": 1,
+    "Starter": false,
     "Description": "Rooms in your dungeon add twice their [Defence].",
     "Mana": 2,
     "Cards": 2,

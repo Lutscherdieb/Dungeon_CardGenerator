@@ -1,0 +1,17 @@
+{# A boxed row of creature-type icons.
+   Set `strip` to the list of type names before including:
+
+       {% with strip = Creatures %}{% include '_creature_strip.html' %}{% endwith %}
+
+   Overlord uses it for its starting creature pool; Room uses it for the
+   creature spots it offers. Both are plain lists of creature-type names, so
+   one partial serves both -- and the two cannot drift apart visually. #}
+{% if strip and strip|length %}
+  <div class="creatures-box">
+    <div class="creatures-strip">
+      {% for c in strip %}
+        <img src="assets/{{ c|lower }}.png" alt="{{ c }}" class="inline-symbol icon-glow">
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

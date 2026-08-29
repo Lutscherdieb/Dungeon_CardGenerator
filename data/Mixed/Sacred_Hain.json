@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Sacred Hain",
+    "Starter": false,
     "Description": "[Wild][Wild]: Add [Wild] to your domain. ",
     "Mana": 3,
     "Cards": 0,
@@ -13,23 +14,9 @@
         "W"
     ],
     "Slots": [
-        [
-            [
-                "Wild",
-                0
-            ],
-            [
-                "Wild",
-                0
-            ]
-        ],
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        []
+        "Wild",
+        "Wild",
+        "All"
     ],
     "Background": "./backgrounds/Sacred_Hain.png"
 }

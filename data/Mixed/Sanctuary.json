@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Tombyard",
+    "Starter": false,
     "Description": "[Undead][Undead]: Add [Undead] to your Domain",
     "Mana": 0,
     "Cards": 1,
@@ -13,23 +14,9 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ],
-            [
-                "All",
-                0
-            ]
-        ],
-        [
-            [
-                "Undead",
-                0
-            ]
-        ],
-        []
+        "All",
+        "All",
+        "Undead"
     ],
     "Background": "./backgrounds/Sanctuary.png"
 }

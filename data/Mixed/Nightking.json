@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Nightking",
+    "Starter": false,
     "Description": "Return the first [All] you draw each turn to your domain.",
     "Mana": 2,
     "Cards": 2,

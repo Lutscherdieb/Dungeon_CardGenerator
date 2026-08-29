@@ -3,6 +3,7 @@
     "Name": "Dragon",
     "Faction": "Wild",
     "Tier": 3,
+    "Starter": false,
     "Description": "",
     "Mana": 4,
     "Cards": 4,

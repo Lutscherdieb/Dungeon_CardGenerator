@@ -2,6 +2,7 @@
     "Type": "Spell",
     "Name": "Lightning Strike",
     "Tier": 1,
+    "Starter": false,
     "Description": "Deal X damage to all [All] and [Hero] in a room, where X is the number of all [All] and [Hero] in that room.",
     "Mana": 0,
     "Cards": 1,

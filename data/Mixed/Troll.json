@@ -3,6 +3,7 @@
     "Name": "Troll",
     "Faction": "Wild",
     "Tier": 2,
+    "Starter": false,
     "Description": "When this would die, roll a D6, on a 4+ return it to your domain instead.",
     "Mana": 2,
     "Cards": 3,

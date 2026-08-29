@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Ageless Horror",
+    "Starter": false,
     "Description": "[Hero] in your dungeon have - 1 [Defence]",
     "Mana": 2,
     "Cards": 2,

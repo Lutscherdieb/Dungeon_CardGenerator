@@ -3,6 +3,7 @@
     "Name": "Stone Golem",
     "Faction": "Magic",
     "Tier": 2,
+    "Starter": false,
     "Description": "+1 [Defence] when fighting alone",
     "Mana": 3,
     "Cards": 3,

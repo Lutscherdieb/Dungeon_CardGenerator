@@ -3,6 +3,7 @@
     "Name": "Wolf",
     "Faction": "Wild",
     "Tier": 1,
+    "Starter": false,
     "Description": "",
     "Mana": 0,
     "Cards": 0,

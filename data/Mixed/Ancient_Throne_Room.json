@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Ancient Throne Room",
+    "Starter": false,
     "Description": "Before combat you may pay [Cards] to give all [All] in this Room +1 [Defence]",
     "Mana": 0,
     "Cards": 4,
@@ -12,22 +13,9 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ],
-            [
-                "All",
-                0
-            ],
-            [
-                "All",
-                0
-            ]
-        ],
-        [],
-        []
+        "All",
+        "All",
+        "All"
     ],
     "Background": "./backgrounds/Ancient_Throne_Room.png"
 }

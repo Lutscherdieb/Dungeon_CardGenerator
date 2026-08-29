@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Moonfang",
+    "Starter": false,
     "Description": "Put a counter face up on this Card, the counter is flipped at the start of each turn.<br>While the counter is face-down : [All] have +1 to [Defence],[Health] & [Movement]",
     "Mana": 1,
     "Cards": 2,

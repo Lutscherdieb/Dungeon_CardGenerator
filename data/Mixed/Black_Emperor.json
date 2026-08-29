@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Black Emperor",
+    "Starter": false,
     "Description": "",
     "Mana": 1,
     "Cards": 3,

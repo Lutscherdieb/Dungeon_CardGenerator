@@ -3,6 +3,7 @@
     "Name": "Orc",
     "Faction": "Wild",
     "Tier": 2,
+    "Starter": false,
     "Description": "Gain [Food] after winning a combat in the same room.",
     "Mana": 0,
     "Cards": 1,

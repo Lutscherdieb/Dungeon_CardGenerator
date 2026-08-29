@@ -25,7 +25,7 @@ produces exactly the dict the templates already read.
 from __future__ import annotations
 
 from enum import Enum
-from typing import Annotated, List, Literal, Tuple, Union
+from typing import Annotated, List, Literal, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -65,18 +65,16 @@ class RoomSubtype(str, Enum):
     HEARTH = "Hearth"
 
 
-#: A single creature spot in a room: the type it accepts, and a number.
-#:
-#: The number is 0 on 64 of the 66 spots in the current data; the two exceptions
-#: are both on Sacred_Hain, whose text mentions "[Wild] with Level 1", and
-#: Rules/Ideas.txt lists "Requirements on Room.CreatureSlots (eg min Level,
-#: Speed, Defence)" as an *idea*. So it most likely means a minimum level -- but
-#: Rules/ mixes decided rules with parked ideas, and guessing from it has been
-#: wrong before. The neutral name the template already uses is kept until the
-#: author says what it means.
-SlotSpot = Tuple[CreatureType, int]
-
 Tier = Annotated[int, Field(ge=1, le=4)]
+
+#: How much treasure a card carries: on a Room, what it holds; on a Hero, what
+#: it drops as loot when slain. One definition used by both, so the two cannot
+#: drift apart.
+#:
+#: NOT named ``Treasure`` -- that is already the name of a card type class in
+#: this module, and with ``from __future__ import annotations`` the shadowing
+#: would only surface if pydantic ever re-resolved the annotation.
+TreasureCount = Annotated[int, Field(default=0, ge=0)]
 
 
 class CardBase(BaseModel):
@@ -93,9 +91,9 @@ class CardBase(BaseModel):
     mana: int = Field(ge=0)
     cards: int = Field(ge=0)
 
-    #: Kept deliberately although only one card uses it: cards that cost Food
-    #: are not designed yet (confirmed 2026-08-24), and dropping it would mean
-    #: re-adding it to the model, the schemas and the store together.
+    #: Kept in 2026-08-24 although only one card used it then. Vindicated on
+    #: 2026-08-29: the author rebalanced Mana into Food across the deck and it
+    #: is now a live cost on 78 of 137 cards.
     food: int = Field(default=0, ge=0)
 
     #: The card's printed rules text. Rooms used to call this field "Rules" and
@@ -103,6 +101,14 @@ class CardBase(BaseModel):
     #: Rules/Rules.txt:34 says "Costs are defined in front of a ':' within the
     #: description of a card."
     description: str = ""
+
+    #: Ships in the starting deck. Printed as a small corner stamp so a starter
+    #: card is recognisable at a glance without dominating the face.
+    #:
+    #: On CardBase rather than on the deck-buildable types alone: the flag is
+    #: derived into every schema, form and filter from here, so a ninth card
+    #: type cannot be added and forget it.
+    starter: bool = False
 
 
 #: Defence is deliberately unbounded. It reads as a modifier as well as a stat --
@@ -129,6 +135,8 @@ class Creature(_Fighter):
 class Hero(_Fighter):
     type: Literal["Hero"]
     tier: Tier
+    #: How many Treasures this hero drops as loot when slain.
+    treasure: TreasureCount
 
 
 class Overlord(_Fighter):
@@ -141,11 +149,17 @@ class Room(CardBase):
     type: Literal["Room"]
     subtype: RoomSubtype
     defence: Defence
-    treasure: int = Field(ge=0)
+    #: How much treasure this room holds.
+    treasure: TreasureCount
     roads: List[Direction] = Field(default_factory=list)
-    #: Exactly three groups in all current data. Not constrained to three: that
-    #: is an observation about 23 rooms, not a stated rule.
-    slots: List[List[SlotSpot]] = Field(default_factory=list)
+    #: One entry per creature spot the room offers, in print order.
+    #:
+    #: Was List[List[Tuple[CreatureType, int]]] until 2026-08-29 -- groups of
+    #: (type, number) pairs. The grouping was layout, not data (the third group
+    #: was empty on all 23 rooms), and the number was 0 on every spot in the
+    #: store once the author cleared the two Sacred Hain exceptions. Both were
+    #: dropped; see tools/migrate_20260829_flatten_slots_add_starter_treasure.py.
+    slots: List[CreatureType] = Field(default_factory=list)
 
 
 class _TieredSpellLike(CardBase):
@@ -234,7 +248,7 @@ def split_transport(data: dict) -> "tuple[dict, dict]":
 #: check instead of a wall of reordering. A key missing from this tuple is not
 #: dropped, it sorts to the end.
 _JSON_KEY_ORDER = (
-    "Type", "Subtype", "Name", "Faction", "Tier",
+    "Type", "Subtype", "Name", "Faction", "Tier", "Starter",
     "Description",
     "Mana", "Cards", "Food",
     "Defence", "Treasure", "Movement", "Health",

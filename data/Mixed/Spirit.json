@@ -3,6 +3,7 @@
     "Name": "Spirit",
     "Faction": "Magic",
     "Tier": 1,
+    "Starter": false,
     "Description": "May ignore Paths when moving",
     "Mana": 3,
     "Cards": 0,

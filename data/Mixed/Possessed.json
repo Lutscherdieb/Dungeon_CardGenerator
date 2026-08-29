@@ -3,6 +3,7 @@
     "Name": "Possessed",
     "Faction": "Demon",
     "Tier": 2,
+    "Starter": false,
     "Description": "+X [Defence] where X is the greatest [Defence] among [Hero] in the room.",
     "Mana": 3,
     "Cards": 2,

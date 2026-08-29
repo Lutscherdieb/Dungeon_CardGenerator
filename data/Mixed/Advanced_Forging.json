@@ -2,6 +2,7 @@
     "Type": "Research",
     "Name": "Advanced Forging",
     "Tier": 2,
+    "Starter": false,
     "Description": "[All] in your dungeon have + X [Defence] during combat, where X is the amount of [Treasure] placed in the same room.",
     "Mana": 0,
     "Cards": 3,

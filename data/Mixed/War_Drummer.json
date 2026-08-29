@@ -2,11 +2,13 @@
     "Type": "Hero",
     "Name": "War Drummer",
     "Tier": 1,
+    "Starter": false,
     "Description": "Damage dealt to [Hero] in the same room is reduced by 2.<br>Damage dealt to [All] in the same room is increased by 2.",
     "Mana": 1,
     "Cards": 2,
     "Food": 2,
     "Defence": 0,
+    "Treasure": 0,
     "Movement": 1,
     "Health": 5,
     "Background": "./backgrounds/War_Drummer.png"

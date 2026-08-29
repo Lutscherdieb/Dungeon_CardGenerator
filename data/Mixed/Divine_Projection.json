@@ -3,6 +3,7 @@
     "Name": "Divine Projection",
     "Faction": "Magic",
     "Tier": 3,
+    "Starter": false,
     "Description": "If this creature would die, return it to your domain instead.<br>Start of Combat: You may sacrifice this creature to deal 4 damage to each Hero in the room",
     "Mana": 10,
     "Cards": 0,

@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Pool",
+    "Starter": false,
     "Description": "",
     "Mana": 1,
     "Cards": 0,
@@ -14,27 +15,10 @@
         "W"
     ],
     "Slots": [
-        [
-            [
-                "Wild",
-                0
-            ],
-            [
-                "Wild",
-                0
-            ]
-        ],
-        [
-            [
-                "Magic",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ]
-        ],
-        []
+        "Wild",
+        "Wild",
+        "Magic",
+        "Demon"
     ],
     "Background": "./backgrounds/Pool.png"
 }

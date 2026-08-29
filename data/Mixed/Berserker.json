@@ -2,11 +2,13 @@
     "Type": "Hero",
     "Name": "Berserker",
     "Tier": 2,
+    "Starter": false,
     "Description": "+3 [Defence] when fighting alone",
     "Mana": 1,
     "Cards": 1,
     "Food": 0,
     "Defence": 5,
+    "Treasure": 0,
     "Movement": 2,
     "Health": 8,
     "Background": "./backgrounds/Berserker.png"

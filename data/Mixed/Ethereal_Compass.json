@@ -2,6 +2,7 @@
     "Type": "Treasure",
     "Name": "Ethereal Compass",
     "Tier": 2,
+    "Starter": false,
     "Description": "When a hero enters your dungeon, you choose any room it enters at.",
     "Mana": 2,
     "Cards": 1,

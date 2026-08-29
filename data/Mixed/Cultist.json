@@ -3,6 +3,7 @@
     "Name": "Cultist",
     "Faction": "Demon",
     "Tier": 1,
+    "Starter": false,
     "Description": "When this creature dies, you may pay [Mana] to gain [Cards]",
     "Mana": 1,
     "Cards": 1,

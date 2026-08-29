@@ -3,6 +3,7 @@
     "Name": "Hellhound",
     "Faction": "Demon",
     "Tier": 1,
+    "Starter": false,
     "Description": "",
     "Mana": 2,
     "Cards": 2,

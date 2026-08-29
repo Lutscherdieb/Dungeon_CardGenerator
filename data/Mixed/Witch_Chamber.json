@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Witch Chamber",
+    "Starter": false,
     "Description": "[Magic]: Gain [Cards].<br>[Wild][Magic]: Gain [Cards][Cards].",
     "Mana": 4,
     "Cards": 1,
@@ -12,19 +13,8 @@
         "N"
     ],
     "Slots": [
-        [
-            [
-                "Wild",
-                0
-            ]
-        ],
-        [
-            [
-                "Magic",
-                0
-            ]
-        ],
-        []
+        "Wild",
+        "Magic"
     ],
     "Background": "./backgrounds/Witch_Chamber.png"
 }

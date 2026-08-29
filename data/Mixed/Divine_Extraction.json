@@ -2,6 +2,7 @@
     "Type": "Treasure",
     "Name": "Divine Extraction",
     "Tier": 1,
+    "Starter": false,
     "Description": "Start of Replenish: Gain [Mana] or [Cards]",
     "Mana": 2,
     "Cards": 2,

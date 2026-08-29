@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Dragon God",
+    "Starter": false,
     "Description": "When [All] with Base [Defence] >= 4 would die, return it to your domain instead",
     "Mana": 3,
     "Cards": 1,

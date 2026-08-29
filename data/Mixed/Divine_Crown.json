@@ -2,6 +2,7 @@
     "Type": "Treasure",
     "Name": "Divine Crown",
     "Tier": 1,
+    "Starter": false,
     "Description": "End of Summon: If you drew the fewest [Chaos] this turn, gain 1 [Mana],1 [Food] and 1 [Cards].",
     "Mana": 1,
     "Cards": 1,

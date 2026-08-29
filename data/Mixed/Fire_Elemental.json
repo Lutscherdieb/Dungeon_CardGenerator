@@ -3,6 +3,7 @@
     "Name": "Fire Elemental",
     "Faction": "Magic",
     "Tier": 2,
+    "Starter": false,
     "Description": "At the start of combat you may pay any amount of [Mana] to deal that much damage x2 to each [Hero] in the room",
     "Mana": 3,
     "Cards": 1,

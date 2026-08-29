@@ -2,11 +2,13 @@
     "Type": "Hero",
     "Name": "Summoner",
     "Tier": 2,
+    "Starter": false,
     "Description": "+1 [Defence] for each [All] in the same room.",
     "Mana": 0,
     "Cards": 3,
     "Food": 3,
     "Defence": 3,
+    "Treasure": 0,
     "Movement": 2,
     "Health": 7,
     "Background": "./backgrounds/Summoner.png"

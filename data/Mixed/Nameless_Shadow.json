@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Nameless Shadow",
+    "Starter": false,
     "Description": "[All] can move through walls",
     "Mana": 2,
     "Cards": 2,

@@ -2,6 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Ritual Chamber",
+    "Starter": false,
     "Description": "Whenever [All] would die in this room, return it to your domain instead.",
     "Mana": 3,
     "Cards": 0,
@@ -13,23 +14,9 @@
         "S"
     ],
     "Slots": [
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        [
-            [
-                "Magic",
-                0
-            ],
-            [
-                "Demon",
-                0
-            ]
-        ],
-        []
+        "All",
+        "Magic",
+        "Demon"
     ],
     "Background": "./backgrounds/Ritual_Chamber.png"
 }

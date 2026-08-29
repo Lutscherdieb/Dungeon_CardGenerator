@@ -3,6 +3,7 @@
     "Name": "Beholder",
     "Faction": "Wild",
     "Tier": 1,
+    "Starter": false,
     "Description": "Also counts as [Magic] for all purposes.",
     "Mana": 2,
     "Cards": 1,

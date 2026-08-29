@@ -27,6 +27,7 @@
 <body data-type="{{ Type|lower }}">
   {% include 'filters_defs.html' %}
   <div class="safe-zone">
+    {% include '_starter_stamp.html' %}
     {% include '_costs_box.html' %}
     <!-- NAME HEADER -->
     <div class="name-header">
@@ -50,15 +51,7 @@
 
     <!-- Bottom stack: Creatures strip + card text (if any) -->
     <div class="bottom-stack">
-      {% if Creatures and Creatures|length %}
-        <div class="creatures-box">
-          <div class="creatures-strip">
-            {% for c in Creatures %}
-              <img src="assets/{{ c|lower }}.png" alt="{{ c }}" class="inline-symbol icon-glow">
-            {% endfor %}
-          </div>
-        </div>
-      {% endif %}
+      {% with strip = Creatures %}{% include '_creature_strip.html' %}{% endwith %}
     <!-- DESCRIPTION (uses rules-box styling) -->
     {% if Description and Description.strip() %}
       <div class="rules-box">

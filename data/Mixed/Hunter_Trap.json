@@ -2,6 +2,7 @@
     "Type": "Trap",
     "Name": "Hunter Trap",
     "Tier": 2,
+    "Starter": false,
     "Description": "On activation: the [Hero] party has their total [Defence] halved this combat.",
     "Mana": 0,
     "Cards": 1,

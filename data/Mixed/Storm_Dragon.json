@@ -3,6 +3,7 @@
     "Name": "Storm Dragon",
     "Faction": "Magic",
     "Tier": 3,
+    "Starter": false,
     "Description": "May join in combat in adjacent connected rooms.",
     "Mana": 4,
     "Cards": 3,

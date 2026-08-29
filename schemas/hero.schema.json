@@ -27,6 +27,11 @@
       "title": "Description",
       "type": "string"
     },
+    "Starter": {
+      "default": false,
+      "title": "Starter",
+      "type": "boolean"
+    },
     "Defence": {
       "title": "Defence",
       "type": "integer"
@@ -51,6 +56,12 @@
       "minimum": 1,
       "title": "Tier",
       "type": "integer"
+    },
+    "Treasure": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Treasure",
+      "type": "integer"
     }
   },
   "required": [
@@ -71,11 +82,13 @@
     "Type",
     "Name",
     "Tier",
+    "Starter",
     "Description",
     "Mana",
     "Cards",
     "Food",
     "Defence",
+    "Treasure",
     "Movement",
     "Health"
   ]

@@ -2,6 +2,7 @@
     "Type": "Treasure",
     "Name": "Dragon Statue",
     "Tier": 2,
+    "Starter": false,
     "Description": "Whenever [Hero] is defeated in your dungeon gain [Cards]",
     "Mana": 2,
     "Cards": 1,

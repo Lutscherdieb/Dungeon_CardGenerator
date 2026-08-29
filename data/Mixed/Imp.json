@@ -3,6 +3,7 @@
     "Name": "Imp",
     "Faction": "Demon",
     "Tier": 1,
+    "Starter": false,
     "Description": "When this dies, deal 1 damage to target [Hero] in the same room.",
     "Mana": 1,
     "Cards": 0,

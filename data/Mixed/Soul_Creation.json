@@ -2,6 +2,7 @@
     "Type": "Research",
     "Name": "Soul Creation",
     "Tier": 1,
+    "Starter": false,
     "Description": "[All] cost 1 less [Mana] or [Food] to recruit.",
     "Mana": 2,
     "Cards": 0,

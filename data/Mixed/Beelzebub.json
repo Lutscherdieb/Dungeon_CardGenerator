@@ -1,6 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "Beelzebub",
+    "Starter": false,
     "Description": "[Cards] : Reroll the combat dice, activate this ability only once each turn.",
     "Mana": 2,
     "Cards": 2,

@@ -27,6 +27,11 @@
       "title": "Description",
       "type": "string"
     },
+    "Starter": {
+      "default": false,
+      "title": "Starter",
+      "type": "boolean"
+    },
     "Tier": {
       "maximum": 4,
       "minimum": 1,
@@ -54,6 +59,7 @@
     "Type",
     "Name",
     "Tier",
+    "Starter",
     "Description",
     "Mana",
     "Cards",

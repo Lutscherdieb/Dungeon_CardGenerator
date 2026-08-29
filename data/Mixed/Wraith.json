@@ -3,6 +3,7 @@
     "Name": "Wraith",
     "Faction": "Undead",
     "Tier": 1,
+    "Starter": false,
     "Description": "Can move through Walls.",
     "Mana": 2,
     "Cards": 0,

@@ -41,6 +41,11 @@
       "title": "Description",
       "type": "string"
     },
+    "Starter": {
+      "default": false,
+      "title": "Starter",
+      "type": "boolean"
+    },
     "Defence": {
       "title": "Defence",
       "type": "integer"
@@ -90,6 +95,7 @@
     "Name",
     "Faction",
     "Tier",
+    "Starter",
     "Description",
     "Mana",
     "Cards",

@@ -2,11 +2,13 @@
     "Type": "Hero",
     "Name": "Mage Adept",
     "Tier": 1,
+    "Starter": false,
     "Description": "",
     "Mana": 2,
     "Cards": 0,
     "Food": 0,
     "Defence": 3,
+    "Treasure": 0,
     "Movement": 2,
     "Health": 3,
     "Background": "./backgrounds/Mage_Adept.png"

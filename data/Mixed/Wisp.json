@@ -3,6 +3,7 @@
     "Name": "Wisp",
     "Faction": "Magic",
     "Tier": 1,
+    "Starter": false,
     "Description": "+1 [Defence] for each other [Magic] in the room.",
     "Mana": 1,
     "Cards": 0,
