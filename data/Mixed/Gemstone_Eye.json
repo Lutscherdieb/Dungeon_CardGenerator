@@ -4,7 +4,7 @@
     "Tier": 1,
     "Description": "When buying cards from the market, the maximum extra cost you have to pay is limited to 1",
     "Mana": 2,
-    "Cards": 2,
-    "Food": 0,
+    "Cards": 0,
+    "Food": 1,
     "Background": "./backgrounds/Gemstone_Eye.png"
 }

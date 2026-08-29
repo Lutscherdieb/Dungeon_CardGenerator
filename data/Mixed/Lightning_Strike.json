@@ -3,7 +3,7 @@
     "Name": "Lightning Strike",
     "Tier": 1,
     "Description": "Deal X damage to all [All] and [Hero] in a room, where X is the number of all [All] and [Hero] in that room.",
-    "Mana": 1,
+    "Mana": 0,
     "Cards": 1,
     "Food": 0,
     "Background": "./backgrounds/Lightning_Strike.png"

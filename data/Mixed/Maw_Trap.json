@@ -2,9 +2,9 @@
     "Type": "Trap",
     "Name": "Maw Trap",
     "Tier": 1,
-    "Description": "On activation: Deal 2 damage to the activating Hero",
-    "Mana": 0,
-    "Cards": 1,
+    "Description": "On activation: Deal 2 damage to any [Hero] in this room.",
+    "Mana": 1,
+    "Cards": 0,
     "Food": 0,
     "Background": "./backgrounds/Maw_Trap.png"
 }

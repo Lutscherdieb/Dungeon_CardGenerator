@@ -5,7 +5,7 @@
     "Description": "[Wild] / [Magic],[Food]: Deal 3 damage to any one hero in this room",
     "Mana": 1,
     "Cards": 1,
-    "Food": 0,
+    "Food": 2,
     "Defence": -1,
     "Treasure": 1,
     "Roads": [

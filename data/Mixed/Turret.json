@@ -1,9 +1,9 @@
 {
     "Type": "Trap",
     "Name": "Turret",
-    "Tier": 1,
-    "Description": "On activation: target hero in this room is dealt 4 damage",
-    "Mana": 0,
+    "Tier": 2,
+    "Description": "On activation: target hero in this room is dealt 5 damage",
+    "Mana": 1,
     "Cards": 1,
     "Food": 0,
     "Background": "./backgrounds/Laser_Turret.png"

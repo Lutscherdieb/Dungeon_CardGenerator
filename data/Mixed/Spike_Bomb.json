@@ -3,8 +3,8 @@
     "Name": "Spike Bomb",
     "Tier": 1,
     "Description": "On activation: Deal 4 Damage to each [All] and [Hero] in the room.",
-    "Mana": 0,
-    "Cards": 1,
-    "Food": 0,
+    "Mana": 1,
+    "Cards": 0,
+    "Food": 1,
     "Background": "./backgrounds/Spike_Bomb.png"
 }

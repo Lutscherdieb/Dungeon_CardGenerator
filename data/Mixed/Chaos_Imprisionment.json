@@ -5,6 +5,6 @@
     "Description": "Return up to one [Chaos] to your domain.",
     "Mana": 1,
     "Cards": 0,
-    "Food": 0,
+    "Food": 1,
     "Background": "./backgrounds/Chaos_Imprisonment.png"
 }

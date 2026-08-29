@@ -1,10 +1,10 @@
 {
     "Type": "Research",
     "Name": "Advanced Forging",
-    "Tier": 1,
-    "Description": "Your Side has + X [Defence] during combat, where X is the amount of [Treasure] placed in that room",
-    "Mana": 1,
-    "Cards": 2,
-    "Food": 0,
+    "Tier": 2,
+    "Description": "[All] in your dungeon have + X [Defence] during combat, where X is the amount of [Treasure] placed in the same room.",
+    "Mana": 0,
+    "Cards": 3,
+    "Food": 2,
     "Background": "./backgrounds/Advanced_Forging.png"
 }

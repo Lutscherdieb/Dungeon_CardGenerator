@@ -2,12 +2,12 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Witch Chamber",
-    "Description": "[Magic][Cards]: Gain 1 [Cards].<br>[Wild][Magic]: Gain 2 [Cards].",
-    "Mana": 0,
-    "Cards": 2,
+    "Description": "[Magic]: Gain [Cards].<br>[Wild][Magic]: Gain [Cards][Cards].",
+    "Mana": 4,
+    "Cards": 1,
     "Food": 0,
     "Defence": 1,
-    "Treasure": 3,
+    "Treasure": 1,
     "Roads": [
         "N"
     ],

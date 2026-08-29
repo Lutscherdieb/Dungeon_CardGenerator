@@ -2,10 +2,10 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Dragon Altar",
-    "Description": "If a [Wild] with Level 1 would die, return it to your Domain instead",
+    "Description": "[Demon][Wild][Undead][All]: Gain [Cards][Cards]",
     "Mana": 1,
     "Cards": 3,
-    "Food": 0,
+    "Food": 3,
     "Defence": 1,
     "Treasure": 2,
     "Roads": [
@@ -36,11 +36,11 @@
         ],
         [
             [
-                "Magic",
+                "Undead",
                 0
             ],
             [
-                "Magic",
+                "Undead",
                 0
             ]
         ]

@@ -3,7 +3,7 @@
     "Name": "Zombie",
     "Faction": "Undead",
     "Tier": 1,
-    "Description": "",
+    "Description": "If this would die, return it to your domain instead.",
     "Mana": 1,
     "Cards": 0,
     "Food": 0,

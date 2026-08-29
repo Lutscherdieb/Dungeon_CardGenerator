@@ -2,12 +2,12 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Laboratory",
-    "Description": "Sacrifice [Wild]: Add one [Magic] to your domain.",
-    "Mana": 0,
+    "Description": "Sacrifice [Wild]: Add [Magic] to your domain.",
+    "Mana": 1,
     "Cards": 2,
-    "Food": 0,
+    "Food": 1,
     "Defence": 1,
-    "Treasure": 3,
+    "Treasure": 1,
     "Roads": [
         "N"
     ],

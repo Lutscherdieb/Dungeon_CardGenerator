@@ -1,7 +1,7 @@
 {
     "Type": "Overlord",
     "Name": "All Consuming Madness",
-    "Description": "Whenever you draw [Chaos] gain 1 [Food]",
+    "Description": "Whenever you draw [Chaos] gain [Food]",
     "Mana": 3,
     "Cards": 2,
     "Food": 0,

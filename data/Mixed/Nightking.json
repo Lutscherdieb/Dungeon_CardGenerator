@@ -1,13 +1,13 @@
 {
     "Type": "Overlord",
     "Name": "Nightking",
-    "Description": "",
+    "Description": "Return the first [All] you draw each turn to your domain.",
     "Mana": 2,
     "Cards": 2,
-    "Food": 0,
+    "Food": 2,
     "Defence": 1,
     "Movement": 1,
-    "Health": 0,
+    "Health": 1,
     "Creatures": [
         "Demon",
         "Magic",

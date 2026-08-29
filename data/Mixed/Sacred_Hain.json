@@ -2,10 +2,10 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Sacred Hain",
-    "Description": "If a [Wild] with Level 1 would die, return it to your Domain instead",
+    "Description": "[Wild][Wild]: Add [Wild] to your domain. ",
     "Mana": 3,
-    "Cards": 1,
-    "Food": 0,
+    "Cards": 0,
+    "Food": 3,
     "Defence": 1,
     "Treasure": 1,
     "Roads": [
@@ -16,11 +16,11 @@
         [
             [
                 "Wild",
-                2
+                0
             ],
             [
                 "Wild",
-                2
+                0
             ]
         ],
         [

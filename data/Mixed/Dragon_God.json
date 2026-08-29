@@ -2,21 +2,21 @@
     "Type": "Overlord",
     "Name": "Dragon God",
     "Description": "When [All] with Base [Defence] >= 4 would die, return it to your domain instead",
-    "Mana": 0,
+    "Mana": 3,
     "Cards": 1,
-    "Food": 0,
+    "Food": 3,
     "Defence": 0,
     "Movement": 0,
     "Health": 1,
     "Creatures": [
         "Demon",
         "Magic",
-        "Magic",
         "Wild",
         "Wild",
         "Wild",
         "Wild",
-        "Wild"
+        "Undead",
+        "Undead"
     ],
     "Background": "./backgrounds/Dragon_God.png"
 }

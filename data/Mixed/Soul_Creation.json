@@ -2,9 +2,9 @@
     "Type": "Research",
     "Name": "Soul Creation",
     "Tier": 1,
-    "Description": "[All] cost 1 less [Mana] to recruit.<br><i>(this cannot reduce the cost below 1).</i>",
-    "Mana": 3,
-    "Cards": 1,
-    "Food": 0,
+    "Description": "[All] cost 1 less [Mana] or [Food] to recruit.",
+    "Mana": 2,
+    "Cards": 0,
+    "Food": 2,
     "Background": "./backgrounds/Soul_Creation.png"
 }

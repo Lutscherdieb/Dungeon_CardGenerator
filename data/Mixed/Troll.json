@@ -3,12 +3,12 @@
     "Name": "Troll",
     "Faction": "Wild",
     "Tier": 2,
-    "Description": "",
+    "Description": "When this would die, roll a D6, on a 4+ return it to your domain instead.",
     "Mana": 2,
     "Cards": 3,
     "Food": 0,
     "Defence": 3,
     "Movement": 2,
-    "Health": 5,
+    "Health": 3,
     "Background": "./backgrounds/Troll.png"
 }

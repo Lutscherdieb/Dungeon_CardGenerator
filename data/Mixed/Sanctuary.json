@@ -1,11 +1,11 @@
 {
     "Type": "Room",
     "Subtype": "Basic",
-    "Name": "Sanctuary",
-    "Description": "[Undead][Undead]: Put one Power 2 [Undead] into your Domain",
+    "Name": "Tombyard",
+    "Description": "[Undead][Undead]: Add [Undead] to your Domain",
     "Mana": 0,
-    "Cards": 2,
-    "Food": 0,
+    "Cards": 1,
+    "Food": 3,
     "Defence": 1,
     "Treasure": 2,
     "Roads": [

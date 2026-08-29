@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Hearth",
     "Name": "Necromantic Hearth",
-    "Description": "",
+    "Description": "When you place [Undead] in this room, it gains +1 [Movement] if there are [Undead][Undead] stationed in the room.",
     "Mana": 0,
     "Cards": 0,
     "Food": 0,
@@ -21,14 +21,7 @@
                 "Undead",
                 0
             ]
-        ],
-        [
-            [
-                "All",
-                0
-            ]
-        ],
-        []
+        ]
     ],
     "Background": "./backgrounds/Necromantic_Hearth.png"
 }

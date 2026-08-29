@@ -2,9 +2,9 @@
     "Type": "Trap",
     "Name": "Battledroid",
     "Tier": 3,
-    "Description": "On activation: If a [All] you control would die this turn, instead deal 2 damage to all [Hero]",
-    "Mana": 1,
+    "Description": "On activation: Prevent all damage [All] would take in your dungeon this turn.",
+    "Mana": 3,
     "Cards": 1,
-    "Food": 0,
+    "Food": 3,
     "Background": "./backgrounds/Magic_Sentry.png"
 }

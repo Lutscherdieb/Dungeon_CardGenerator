@@ -3,7 +3,7 @@
     "Name": "Wraith",
     "Faction": "Undead",
     "Tier": 1,
-    "Description": "May ignore Paths when moving",
+    "Description": "Can move through Walls.",
     "Mana": 2,
     "Cards": 0,
     "Food": 0,

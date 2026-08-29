@@ -3,8 +3,8 @@
     "Name": "Crystal Orb",
     "Tier": 2,
     "Description": "Start of Replenish: Look at the top 3 cards of your library, you may put any number of them into your discard pile.",
-    "Mana": 3,
+    "Mana": 2,
     "Cards": 0,
-    "Food": 0,
+    "Food": 2,
     "Background": "./backgrounds/Crystal_Orb.png"
 }

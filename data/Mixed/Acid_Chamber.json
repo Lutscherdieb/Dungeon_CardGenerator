@@ -5,9 +5,9 @@
     "Description": "Damage dealt to [Hero] and [All] in this room is increased by 1.",
     "Mana": 0,
     "Cards": 2,
-    "Food": 0,
-    "Defence": 1,
-    "Treasure": 3,
+    "Food": 2,
+    "Defence": 0,
+    "Treasure": 1,
     "Roads": [
         "N",
         "S"

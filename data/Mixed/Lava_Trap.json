@@ -2,9 +2,9 @@
     "Type": "Trap",
     "Name": "Lava Trap",
     "Tier": 1,
-    "Description": "On activation: Move each [Hero] in this room to an adjacent room.<br>The rooms may differ for each [Hero].",
-    "Mana": 0,
-    "Cards": 1,
+    "Description": "On activation: Move all [Hero] to an adjacent room of your choice.",
+    "Mana": 1,
+    "Cards": 0,
     "Food": 0,
     "Background": "./backgrounds/Lava_Trap.png"
 }

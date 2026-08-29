@@ -3,9 +3,9 @@
     "Subtype": "Basic",
     "Name": "Pool",
     "Description": "",
-    "Mana": 0,
-    "Cards": 1,
-    "Food": 0,
+    "Mana": 1,
+    "Cards": 0,
+    "Food": 1,
     "Defence": 0,
     "Treasure": 0,
     "Roads": [

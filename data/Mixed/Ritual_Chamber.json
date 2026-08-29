@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Ritual Chamber",
-    "Description": "",
+    "Description": "Whenever [All] would die in this room, return it to your domain instead.",
     "Mana": 3,
     "Cards": 0,
     "Food": 0,

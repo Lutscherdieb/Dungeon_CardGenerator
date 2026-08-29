@@ -4,7 +4,7 @@
     "Description": "You can spend [Food] as though it were [Mana]",
     "Mana": 0,
     "Cards": 2,
-    "Food": 0,
+    "Food": 3,
     "Defence": 0,
     "Movement": 0,
     "Health": 0,

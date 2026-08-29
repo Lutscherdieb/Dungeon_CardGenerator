@@ -3,8 +3,8 @@
     "Name": "Market Manipulation",
     "Tier": 1,
     "Description": "You may discard all open cards in the market to the neutral discard pile, then fully restock the market.",
-    "Mana": 1,
+    "Mana": 0,
     "Cards": 0,
-    "Food": 0,
+    "Food": 1,
     "Background": "./backgrounds/Market_Manipulation.png"
 }

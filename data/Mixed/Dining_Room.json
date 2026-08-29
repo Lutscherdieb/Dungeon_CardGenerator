@@ -2,21 +2,17 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Dining Room",
-    "Description": "",
+    "Description": "You may place [All] drawn from your domain in this room.",
     "Mana": 0,
     "Cards": 1,
-    "Food": 0,
+    "Food": 3,
     "Defence": 0,
-    "Treasure": 1,
+    "Treasure": 0,
     "Roads": [
         "S"
     ],
     "Slots": [
         [
-            [
-                "All",
-                0
-            ],
             [
                 "All",
                 0

@@ -4,7 +4,7 @@
     "Tier": 2,
     "Description": "[All] have +1 [Defence]",
     "Mana": 3,
-    "Cards": 0,
-    "Food": 0,
+    "Cards": 2,
+    "Food": 2,
     "Background": "./backgrounds/Enchanted_Weaponry.png"
 }

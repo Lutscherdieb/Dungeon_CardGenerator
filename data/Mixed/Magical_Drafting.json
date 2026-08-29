@@ -2,9 +2,9 @@
     "Type": "Research",
     "Name": "Magical Drafting",
     "Tier": 2,
-    "Description": "When building a Room from your hand, you may pay 1 [Cards] less",
-    "Mana": 2,
-    "Cards": 2,
+    "Description": "When building a Room from your hand, you may pay any one resource less.",
+    "Mana": 3,
+    "Cards": 3,
     "Food": 0,
     "Background": "./backgrounds/Magic_Drafts.png"
 }

@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Hearth",
     "Name": "Liquid Hearth",
-    "Description": "",
+    "Description": "When building an adjacent room from your hand, you may pay [Mana] less.",
     "Mana": 0,
     "Cards": 0,
     "Food": 0,

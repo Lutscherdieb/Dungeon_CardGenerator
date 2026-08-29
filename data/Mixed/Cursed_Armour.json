@@ -3,7 +3,7 @@
     "Name": "Cursed Armour",
     "Faction": "Magic",
     "Tier": 2,
-    "Description": "+1 [Defence] for each [Mana] you have stored in rooms up to a maximum of +5.",
+    "Description": "+1 [Defence] for each [Mana] you have stored.",
     "Mana": 4,
     "Cards": 0,
     "Food": 0,

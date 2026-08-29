@@ -2,7 +2,7 @@
     "Type": "Room",
     "Subtype": "Hearth",
     "Name": "Blood Hearth",
-    "Description": "",
+    "Description": "If an [All] in an adjacent connected room would die, return it to your domain instead.",
     "Mana": 0,
     "Cards": 0,
     "Food": 0,
@@ -10,7 +10,9 @@
     "Treasure": 1,
     "Roads": [
         "N",
-        "S"
+        "E",
+        "S",
+        "W"
     ],
     "Slots": [
         [
@@ -29,7 +31,7 @@
         ],
         [
             [
-                "Magic",
+                "All",
                 0
             ]
         ],

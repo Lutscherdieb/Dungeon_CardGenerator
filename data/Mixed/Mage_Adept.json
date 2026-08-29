@@ -3,11 +3,11 @@
     "Name": "Mage Adept",
     "Tier": 1,
     "Description": "",
-    "Mana": 1,
+    "Mana": 2,
     "Cards": 0,
     "Food": 0,
-    "Defence": 2,
+    "Defence": 3,
     "Movement": 2,
-    "Health": 2,
+    "Health": 3,
     "Background": "./backgrounds/Mage_Adept.png"
 }

@@ -2,9 +2,9 @@
     "Type": "Treasure",
     "Name": "Ethereal Compass",
     "Tier": 2,
-    "Description": "When a hero enters your dungeon, you choose the room it enters at.",
+    "Description": "When a hero enters your dungeon, you choose any room it enters at.",
     "Mana": 2,
     "Cards": 1,
-    "Food": 0,
+    "Food": 1,
     "Background": "./backgrounds/Ethereal_Compass.png"
 }

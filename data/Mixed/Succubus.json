@@ -3,7 +3,7 @@
     "Name": "Succubus",
     "Faction": "Demon",
     "Tier": 2,
-    "Description": "At the start of combat: For each Succubus, one target Hero in this room cannot fight this combat.",
+    "Description": "At the start of combat, one target [Hero] in this room cannot fight this combat.",
     "Mana": 5,
     "Cards": 2,
     "Food": 0,

@@ -2,9 +2,9 @@
     "Type": "Treasure",
     "Name": "Divine Crown",
     "Tier": 1,
-    "Description": "End of Summon: If you control the creature with the highest [Defence], gain 1 [Mana],1 [Food] and 1 [Cards].",
-    "Mana": 0,
-    "Cards": 2,
-    "Food": 0,
+    "Description": "End of Summon: If you drew the fewest [Chaos] this turn, gain 1 [Mana],1 [Food] and 1 [Cards].",
+    "Mana": 1,
+    "Cards": 1,
+    "Food": 1,
     "Background": "./backgrounds/Divine_Crown.png"
 }

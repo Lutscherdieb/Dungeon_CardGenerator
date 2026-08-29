@@ -3,12 +3,12 @@
     "Name": "Storm Dragon",
     "Faction": "Magic",
     "Tier": 3,
-    "Description": "",
+    "Description": "May join in combat in adjacent connected rooms.",
     "Mana": 4,
-    "Cards": 4,
-    "Food": 0,
-    "Defence": 5,
+    "Cards": 3,
+    "Food": 1,
+    "Defence": 3,
     "Movement": 3,
-    "Health": 4,
+    "Health": 5,
     "Background": "./backgrounds/Storm_Dragon.png"
 }

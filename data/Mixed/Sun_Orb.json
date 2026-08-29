@@ -4,7 +4,7 @@
     "Tier": 2,
     "Description": "Start of Replenish: All [Hero] are dealt 1 damage.",
     "Mana": 2,
-    "Cards": 1,
-    "Food": 0,
+    "Cards": 0,
+    "Food": 3,
     "Background": "./backgrounds/Sun_Orb.png"
 }

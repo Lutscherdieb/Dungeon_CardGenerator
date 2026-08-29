@@ -4,7 +4,7 @@
     "Tier": 1,
     "Description": "There is no combat in target room this turn.<br>[All] and [Hero] in that room take 1 damage.",
     "Mana": 1,
-    "Cards": 1,
-    "Food": 0,
+    "Cards": 0,
+    "Food": 2,
     "Background": "./backgrounds/Fog.png"
 }

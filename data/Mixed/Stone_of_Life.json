@@ -2,9 +2,9 @@
     "Type": "Treasure",
     "Name": "Stone of Life",
     "Tier": 3,
-    "Description": "When you place a [Wild] in a room, gain 1 [Cards]",
+    "Description": "End of Summon: For each room with at least [Wild][Wild] or [Magic][Magic] add [Cards]",
     "Mana": 2,
-    "Cards": 3,
-    "Food": 0,
+    "Cards": 2,
+    "Food": 2,
     "Background": "./backgrounds/Stone_of_Life.png"
 }

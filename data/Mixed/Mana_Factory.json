@@ -5,6 +5,6 @@
     "Description": "At the start of Replenish: Gain 1 [Mana]",
     "Mana": 0,
     "Cards": 1,
-    "Food": 0,
+    "Food": 2,
     "Background": "./backgrounds/Mana_Factory.png"
 }

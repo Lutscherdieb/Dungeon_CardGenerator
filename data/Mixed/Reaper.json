@@ -3,12 +3,12 @@
     "Name": "Reaper",
     "Faction": "Undead",
     "Tier": 3,
-    "Description": "Damage from this creature will instantly kill Heroes",
+    "Description": "After winning combat, kill target Hero in the room before damage is assigned.",
     "Mana": 2,
     "Cards": 4,
-    "Food": 0,
-    "Defence": 2,
-    "Movement": 3,
-    "Health": 4,
+    "Food": 2,
+    "Defence": 1,
+    "Movement": 2,
+    "Health": 7,
     "Background": "./backgrounds/Reaper.png"
 }

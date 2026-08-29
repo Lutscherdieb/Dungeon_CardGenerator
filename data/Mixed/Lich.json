@@ -3,12 +3,12 @@
     "Name": "Lich",
     "Faction": "Undead",
     "Tier": 2,
-    "Description": "",
-    "Mana": 6,
+    "Description": "+2 [Health] for each other [Undead] in the same room.",
+    "Mana": 4,
     "Cards": 2,
     "Food": 0,
     "Defence": 4,
     "Movement": 3,
-    "Health": 6,
+    "Health": 5,
     "Background": "./backgrounds/Lich.png"
 }

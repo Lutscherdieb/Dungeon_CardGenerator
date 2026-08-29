@@ -1,9 +1,9 @@
 {
     "Type": "Research",
     "Name": "Defensive Enchantment",
-    "Tier": 2,
-    "Description": "Combat: Rooms in your dungeon add twice their [Defence].",
-    "Mana": 1,
+    "Tier": 1,
+    "Description": "Rooms in your dungeon add twice their [Defence].",
+    "Mana": 2,
     "Cards": 2,
     "Food": 0,
     "Background": "./backgrounds/Defensive_Enchantment.png"

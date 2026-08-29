@@ -2,13 +2,13 @@
     "Type": "Creature",
     "Name": "Fire Elemental",
     "Faction": "Magic",
-    "Tier": 1,
-    "Description": "",
+    "Tier": 2,
+    "Description": "At the start of combat you may pay any amount of [Mana] to deal that much damage x2 to each [Hero] in the room",
     "Mana": 3,
     "Cards": 1,
-    "Food": 0,
+    "Food": 1,
     "Defence": 3,
     "Movement": 2,
-    "Health": 1,
+    "Health": 2,
     "Background": "./backgrounds/Fire_Elemental.png"
 }

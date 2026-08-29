@@ -3,7 +3,7 @@
     "Name": "Spellscroll",
     "Faction": "Magic",
     "Tier": 1,
-    "Description": "When you activate [Magic], Add [Mana]",
+    "Description": "When you activate this, Add [Mana]",
     "Mana": 1,
     "Cards": 1,
     "Food": 0,

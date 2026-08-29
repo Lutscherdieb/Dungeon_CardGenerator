@@ -3,7 +3,7 @@
     "Name": "Cursed Item",
     "Faction": "Demon",
     "Tier": 1,
-    "Description": "",
+    "Description": "[Hero] in the same room have -1 [Defence] down to a minimum of 0.",
     "Mana": 3,
     "Cards": 1,
     "Food": 0,

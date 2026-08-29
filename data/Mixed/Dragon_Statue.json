@@ -2,9 +2,9 @@
     "Type": "Treasure",
     "Name": "Dragon Statue",
     "Tier": 2,
-    "Description": "Whenever [All] with [Defence] > 4 enters your dungeon: Gain 1 [WinPoint]",
-    "Mana": 0,
-    "Cards": 3,
-    "Food": 0,
+    "Description": "Whenever [Hero] is defeated in your dungeon gain [Cards]",
+    "Mana": 2,
+    "Cards": 1,
+    "Food": 2,
     "Background": "./backgrounds/Dragon_Statue.png"
 }

@@ -6,9 +6,9 @@
     "Description": "",
     "Mana": 1,
     "Cards": 4,
-    "Food": 0,
+    "Food": 1,
     "Defence": 4,
-    "Movement": 3,
+    "Movement": 2,
     "Health": 4,
     "Background": "./backgrounds/Devil.png"
 }

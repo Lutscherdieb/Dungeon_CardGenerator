@@ -2,12 +2,12 @@
     "Type": "Room",
     "Subtype": "Basic",
     "Name": "Food Storage",
-    "Description": "Can store up to 3 [Food]",
+    "Description": "Sacrifice [All]: Gain [Food][Food]",
     "Mana": 0,
     "Cards": 1,
-    "Food": 0,
+    "Food": 3,
     "Defence": 0,
-    "Treasure": 1,
+    "Treasure": 2,
     "Roads": [
         "N"
     ],
@@ -17,9 +17,7 @@
                 "All",
                 0
             ]
-        ],
-        [],
-        []
+        ]
     ],
     "Background": "./backgrounds/Food_Storage.png"
 }
