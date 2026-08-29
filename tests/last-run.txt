@@ -2,7 +2,7 @@ CardGenerator verify gate
 repo: E:\Boardgame\CardGenerator
 SQUARE_3_5IN: 3.5in x 3.5in square (MPC "Large Square") @ 300dpi -- canvas 1122x1122, trim 1050x1050, safe 978x978 (bleed 36px, safe margin 36px, both per side)
 
-[1/4] profile derivation vs the MPC published spec
+[1/5] profile derivation vs the MPC published spec
   ok    MPC constants: 36px bleed, 36px safe margin, per side
   ok    poker cross-check: 2.5x3.5in -> 822x1122, matches MPC's published figure
   ok    canvas region 1122x1122
@@ -11,79 +11,86 @@ SQUARE_3_5IN: 3.5in x 3.5in square (MPC "Large Square") @ 300dpi -- canvas 1122x
   ok    trim and safe boxes are centred in the canvas
   ok    all 8 card types resolve to a profile
 
-[2/4] no geometry literals outside cardgen.spec
+[2/5] no geometry literals outside cardgen.spec
   ok    no geometry literals in style.css, templates, src, generate_card.py
 
-[3/4] card data vs the model, schemas vs the model
+[3/5] card data vs the model, schemas vs the model
   ok    all 137 cards validate against the model
   ok    all 8 committed schemas match the model
 
-[4/4] render one card per type, assert every PNG
+[4/5] the balance fitter recovers a known cost rule
+  ok    recovered intercept  1.087 (rule: 1.000)
+  ok    recovered tier       1.967 (rule: 2.000)
+  ok    recovered health     0.499 (rule: 0.500)
+  ok    r2 = 0.9998 on noise-free synthetic cards
+  ok    activation_cost reads 5 description shapes correctly
+
+[5/5] render one card per type, assert every PNG
 [TYPE] Detected via field: room
 [Text] Icon replacements: 2
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Acid_Chamber.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Acid_Chamber.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Acid_Chamber_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Acid_Chamber_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Acid_Chamber.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Acid_Chamber.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Acid_Chamber_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Acid_Chamber_trim.png
   ok    Room - Basic       Acid_Chamber.json canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: research
 [Text] Icon replacements: 3
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Advanced_Forging.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Advanced_Forging.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Advanced_Forging_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Advanced_Forging_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Advanced_Forging.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Advanced_Forging.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Advanced_Forging_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Advanced_Forging_trim.png
   ok    Research           Advanced_Forging.json canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: hero
 [Text] Icon replacements: 0
 [Text] No tokens found in: ''
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Adventurer.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Adventurer.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Adventurer_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Adventurer_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Adventurer.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Adventurer.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Adventurer_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Adventurer_trim.png
   ok    Hero               Adventurer.json  canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: overlord
 [Text] Icon replacements: 2
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Ageless_Horror.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Ageless_Horror.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Ageless_Horror_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Ageless_Horror_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Ageless_Horror.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Ageless_Horror.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Ageless_Horror_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Ageless_Horror_trim.png
   ok    Overlord           Ageless_Horror.json canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: trap
 [Text] Icon replacements: 2
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Artifical_Sun.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Artifical_Sun.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Artifical_Sun_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Artifical_Sun_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Artifical_Sun.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Artifical_Sun.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Artifical_Sun_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Artifical_Sun_trim.png
   ok    Trap               Artifical_Sun.json canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: creature
 [Text] Icon replacements: 0
 [Text] No tokens found in: ''
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Bear.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Bear.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Bear_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Bear_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Bear.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Bear.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Bear_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Bear_trim.png
   ok    Creature           Bear.json        canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: room
 [Text] Icon replacements: 1
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Blood_Hearth.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Blood_Hearth.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Blood_Hearth_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Blood_Hearth_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Blood_Hearth.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Blood_Hearth.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Blood_Hearth_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Blood_Hearth_trim.png
   ok    Room - Hearth      Blood_Hearth.json canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: spell
 [Text] Icon replacements: 1
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Chaos_Imprisonment.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Chaos_Imprisonment.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Chaos_Imprisonment_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Chaos_Imprisonment_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Chaos_Imprisonment.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Chaos_Imprisonment.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Chaos_Imprisonment_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Chaos_Imprisonment_trim.png
   ok    Spell              Chaos_Imprisionment.json canvas/trim/safe all match SQUARE_3_5IN
 [TYPE] Detected via field: treasure
 [Text] Icon replacements: 0
 [Text] No tokens found in: 'Start of Replenish: Look at the top 3 cards of your library, you may put any number of them into your discard pile.'
-[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Crystal_Orb.html
-[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Crystal_Orb.png
-[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Crystal_Orb_safe.png
-[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-d07nwdg7\Crystal_Orb_trim.png
+[HTML] Generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Crystal_Orb.html
+[PNG] Full bleed generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Crystal_Orb.png
+[PNG] Safe zone generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Crystal_Orb_safe.png
+[PNG] Trim area generated: C:\Users\LUTSCH~1\AppData\Local\Temp\cardgen-verify-vzk9ykyj\Crystal_Orb_trim.png
   ok    Treasure           Crystal_Orb.json canvas/trim/safe all match SQUARE_3_5IN
 
 ========================================================================

@@ -42,18 +42,21 @@
     "Mana": {
       "minimum": 0,
       "title": "Mana",
-      "type": "integer"
+      "type": "integer",
+      "x-cost": true
     },
     "Cards": {
       "minimum": 0,
       "title": "Cards",
-      "type": "integer"
+      "type": "integer",
+      "x-cost": true
     },
     "Food": {
       "default": 0,
       "minimum": 0,
       "title": "Food",
-      "type": "integer"
+      "type": "integer",
+      "x-cost": true
     },
     "Description": {
       "default": "",

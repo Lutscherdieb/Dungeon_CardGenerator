@@ -88,13 +88,20 @@ class CardBase(BaseModel):
     )
 
     name: str = Field(min_length=1)
-    mana: int = Field(ge=0)
-    cards: int = Field(ge=0)
+
+    #: The three resources a card costs to play or build.
+    #:
+    #: ``x-cost`` marks them in the generated JSON Schema, which is what lets
+    #: cardgen.balance separate "what this card costs" from "what it does"
+    #: without keeping its own list of field names -- the same derive-rather-
+    #: than-enumerate rule the gallery's form and filter panel follow.
+    mana: int = Field(ge=0, json_schema_extra={"x-cost": True})
+    cards: int = Field(ge=0, json_schema_extra={"x-cost": True})
 
     #: Kept in 2026-08-24 although only one card used it then. Vindicated on
     #: 2026-08-29: the author rebalanced Mana into Food across the deck and it
     #: is now a live cost on 78 of 137 cards.
-    food: int = Field(default=0, ge=0)
+    food: int = Field(default=0, ge=0, json_schema_extra={"x-cost": True})
 
     #: The card's printed rules text. Rooms used to call this field "Rules" and
     #: the other seven types "Description"; unified on the game's own word --

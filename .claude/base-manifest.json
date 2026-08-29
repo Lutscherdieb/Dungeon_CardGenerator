@@ -77,6 +77,14 @@
       "web_stack": "Keep CherryPy - switch to FastAPI only if performance demands it, which it does not; Playwright browser launches dominate render time, not the server.",
       "source_of_truth": "SQL primary, with JSON import for the 137 existing cards.",
       "json_migration": "Unify Rules/Description and flatten Slots. Keep Food - it is unused only because cards for it are not designed yet."
+    },
+    "decisions_2026_08_29": {
+      "slots_second_number": "Means nothing. Author cleared the two Sacred Hain exceptions on 2026-08-29, leaving every spot 0; Room.Slots flattened to List[CreatureType].",
+      "editor_placement": "Inline full-width row inside the grid, below the selected card's row. Reverses the 2026-08-24 right-hand drawer, which narrowed the grid and made auto-fill reposition all 137 tiles on every open and close.",
+      "filter_ui": "Floating popover over the grid, controls derived from the union of the card schemas. Never displaces the gallery.",
+      "starter_flag": "Boolean on CardBase, so all eight types carry it. Prints as a CSS text stamp, not an asset.",
+      "balance": "Fit stat weights from the deck itself; author rulings correct the fit. Deterministic maths in src/cardgen/balance, judgment and memory in the /card-balance skill.",
+      "frontend_structure": "web/ split into ES modules, acyclic by construction. No build step."
     }
   },
   "doc_map": [
@@ -100,6 +108,13 @@
         ".vscode/tasks.json"
       ],
       "doc": "README.md"
+    },
+    {
+      "sources": [
+        "src/cardgen/balance/**",
+        ".claude/skills/card-balance/**"
+      ],
+      "doc": ".claude/skills/card-balance/references/model.md"
     }
   ],
   "source_globs": [

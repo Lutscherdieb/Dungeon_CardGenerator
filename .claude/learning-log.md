@@ -120,3 +120,53 @@ this example from being scanned as a real candidate by `/base:promote`):
 - home: CLAUDE.md#the-gallery-server-servebat-starts-it-and-nothing-claude-starts-outlives-the-turn (the invocation form and its verification step)
 - evidence: `cmd.exe /c "stop-server.bat 8766"` printed the Windows banner and a `<repo root>>` cmd prompt, returned 0, and left PID 12456 listening on 8766; `cmd //c stop-server.bat 8799` printed "'stop-server.bat' is not recognized as an internal or external command"; `cmd //c "<repo root>\stop-server.bat" 8799` printed "Nothing is listening on port 8799." The stranded listener was only visible because the close-out re-ran `netstat`.
 - applications: 2026-08-25
+
+## 2026-08-29 — export-the-live-store-before-changing-its-shape
+- scope: generic
+- status: candidate
+- rule: When a project has both a live datastore and a git-tracked export of it, run the export and commit it BEFORE any migration that changes the data's shape. Diff the export first and state how many records moved; a shape migration landing on top of unexported content edits produces one diff in which neither change is reviewable.
+- home: PROJECT.md (the resolved Food note), tools/migrate_20260829_flatten_slots_add_starter_treasure.py (its "Migrating the STORE, not the JSON files" section)
+- evidence: `data/cards.db` was ahead of `data/Mixed` by 110 of 137 cards — the author had been rebalancing Mana into Food in the gallery for days without exporting. The export alone was 111 files, 284 insertions, 295 deletions; the shape migration that followed touched 137 files with one added key each. Combined, the shape change would have been invisible. The stale files also still held the two `Sacred_Hain` "level 2" values the author had already cleared in the gallery, so migrating the files rather than the store would have silently resurrected them.
+- applications: 2026-08-29
+
+## 2026-08-29 — mark-the-role-of-a-field-in-the-schema-not-in-the-consumer
+- scope: generic
+- status: candidate
+- rule: When a downstream module needs to treat some fields differently from others (costs vs stats, secrets vs public, indexed vs not), mark the role on the field in the model so it reaches the generated schema, and have the consumer read the mark. Never let the consumer keep its own list of field names.
+- home: src/cardgen/model/cards.py (`json_schema_extra={"x-cost": True}` on mana/cards/food), src/cardgen/balance/features.py (`cost_keys` reads it back)
+- evidence: `cardgen.balance` needs to separate "what this card costs" from "what it does". Hardcoding `("Mana", "Cards", "Food")` there would have been a fourth copy of the field list, after the model, the schemas and the gallery form — and `Rules/ToDo.txt` already proposes "Optional Food Cost for every card type" and a Gold resource, so that list is expected to change. One `x-cost` flag on the model means a new resource is picked up by the analysis with no edit to it.
+- applications: 2026-08-29
+
+## 2026-08-29 — fix-the-geometry-not-the-animation-when-a-layout-moves
+- scope: generic
+- status: candidate
+- rule: When a panel opening makes the content behind it jump, check whether the panel changes the content's available WIDTH before tuning the transition. A responsive container recomputes its track count at the new width, so every child moves; removing the animation only hides the reflow. Move the panel into the flow as a full-width element instead, and assert the container's measured width and track count are unchanged across the open.
+- home: docs/ARCHITECTURE.md#the-editor-is-a-grid-item-not-a-drawer-2026-08-29, tests/check_gallery.py (the "geometry is measured, never predicted" block), web/app.css (the `.editor` comment)
+- evidence: the 2026-08-24 fix measured the drawer's reflow frame by frame (6 -> 5 -> 4 columns in 180ms), correctly diagnosed the animated `padding-right`, and removed the transition — leaving 6 -> 4 in 58ms. The author's complaint on 2026-08-29 was still "it always resizes the gallery and i lose where i was", because the remaining single reflow was the actual problem and a side panel cannot avoid it. The inline row measures 6 -> 6 columns, grid width 1425 -> 1425, first tile x 20 -> 20, and one column state across the whole open.
+- applications: 2026-08-29
+
+## 2026-08-29 — validate-a-fitted-model-against-a-rule-it-was-never-shown
+- scope: generic
+- status: candidate
+- rule: When shipping a solver, estimator or fit, add a check that feeds it synthetic data built from a rule chosen in the test and requires it to recover that rule. Checking only against real data proves nothing — the fit was derived from that data, so it cannot fail.
+- home: tests/run_tests.py (`check_balance_math`), .claude/skills/card-balance/references/method.md
+- evidence: the ridge fitter reports plausible-looking weights on the real deck (Creature r2=0.845, Tier +2.33) and would have reported plausible-looking weights with a sign error or an off-by-one in the back-substitution too. The synthetic check builds 24 cards from `cost = 1 + 2*tier + 0.5*health` and requires all three coefficients within 0.15; it recovers 1.087 / 1.967 / 0.499. Directly generalises the existing `check_profile_math` rule (verify-a-derivation-against-a-case-it-does-not-serve, 2026-08-24) from a formula to a fitted model — second application of the same principle.
+- applications: 2026-08-24, 2026-08-29
+
+## 2026-08-29 — give-a-recurring-check-a-place-to-record-verdicts
+- scope: generic
+- status: candidate
+- rule: A check meant to be re-run needs a file where the human's verdicts are recorded, and the check must read that file back and stay quiet about anything already ruled on. Without it a recurring check reports the same findings every run and is ignored by the third one.
+- home: .claude/skills/card-balance/SKILL.md ("Writing the verdict back"), .claude/skills/card-balance/references/rulings.md, src/cardgen/balance/config.py
+- evidence: the first balance run produced 14 findings over 137 cards. Several are certainly deliberate — the fit is structurally blind to what an ability is worth — so without suppression run two reports the same 14 and the signal is gone. `rulings.md` is markdown for the human with one fenced json block the tool reads, so the reason for a ruling always sits beside the ruling; a probe file suppressing "Mummy" moved the report from "14 findings to judge" to "13 findings to judge, 1 already accepted".
+- applications: 2026-08-29
+
+## 2026-08-29 — do-not-put-backslash-escapes-through-a-bash-heredoc
+- scope: generic
+- status: candidate
+- rule: When passing a script to an interpreter through a shell heredoc, never include backslash escape sequences in the payload — write the script to a file with the Write tool and run the file instead. A quoted heredoc (`<<'PY'`) is supposed to pass content through literally and does not here: `\n` arrives as `
+`, so a search string silently stops matching the file it was copied from.
+- home: .claude/learning-log.md (this entry is the home: it is a tooling rule, with no project file to own it)
+- evidence: a `str.replace` over `web/editor.js` whose search text contained `prompt(\`Card type?\n\n...\`)` failed its own `assert ... in s` even though the text was copied verbatim from the file. A char-by-char diff showed the file holding `\` where the Python string held a real newline: the heredoc had collapsed `\n` to `
+` before Python saw it. Every other replacement in the same script was discarded with it, so the failure cost a full re-run of the edit.
+- applications: 2026-08-29

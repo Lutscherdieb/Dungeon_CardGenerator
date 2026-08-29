@@ -78,6 +78,19 @@ written back to disk for git — see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md
 Scripts directory is not on `PATH`, so `python -m cardgen.cli` is the form that always
 works. Add that directory to `PATH` if you would rather type `cardgen serve`.
 
+### Balance
+
+```bash
+python -m cardgen.cli balance          # readable report
+python -m cardgen.cli balance --json   # what the /card-balance skill consumes
+```
+
+Fits `Mana + Cards + Food` against each card type's own Tier and stats and lists the
+cards that do not fit the curve, with `n` and `r²` per type so a weak fit reads as weak.
+`/card-balance` in Claude Code drives it, reads each flagged card's rules text — which the
+fit is structurally blind to — and records your verdict in the skill's own reference files
+so an accepted outlier is never reported twice.
+
 ### Verify
 
 ```bash
@@ -121,7 +134,9 @@ All at 300 DPI. The bleed and safe-margin figures are MakePlayingCards' own; see
 | `templates/` | Jinja card templates — nine, because `room` splits into a `hearth` variant — plus shared partials |
 | `style.css` | Card styling. Declares no geometry — it reads the profile's CSS variables |
 | `schemas/` | Per-type JSON Schemas. **Generated** — `python -m cardgen.model.schemas` |
+| `src/cardgen/balance/` | Cost-model fitting: what a card charges vs what its peers charge |
 | `tools/` | One-off migrations and content maintenance scripts, kept for the record |
+| `.claude/skills/card-balance/` | The `/card-balance` skill, and the cost model and rulings it remembers |
 | `backgrounds/` | The art library in git. The store holds its own copy of each card's artwork |
 | `data/Mixed/` | The 137 card definitions |
 | `assets/` | Icons and fonts used by the templates |

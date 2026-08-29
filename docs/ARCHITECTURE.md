@@ -98,6 +98,25 @@ Each field is one row — `[icon] label | control` — and the explanations that
 
 **The filter panel is derived the same way.** `filters.js` unions the properties of every card type's schema and picks a control from each one's JSON Schema shape — `const` and `enum` become chip sets, `boolean` an any/yes/no toggle, `integer` a min–max pair, `string` a contains box, and an array of enums a "has any of" chip set. Two facets that are not card fields, render status and whether artwork was uploaded, are declared explicitly. Filtering happens client-side because `GET /api/cards` already returns every card's whole JSON. Active filters persist in `localStorage`, and the topbar reports "N of 137" whenever a filter is hiding anything.
 
+### `src/cardgen/balance/` — cost analysis
+
+Fits a cost model per card type from the cards in the store and reports the ones that do not fit it. Driven by `python -m cardgen.cli balance`, and by the `/card-balance` skill that puts each finding to the author.
+
+| Module | Role |
+|---|---|
+| `features.py` | Reads the target and the features off the card's own JSON Schema — costs are the properties marked `x-cost`, features are every other integer, list length and boolean, plus `has_ability` and `activation_cost` parsed out of the Description |
+| `linear.py` | Ridge-regularised least squares in pure Python: normal equations plus Gaussian elimination with partial pivoting |
+| `report.py` | One fit per card type, the residual per card, and the outliers |
+| `config.py` | Reads the author's overrides and rulings out of the skill's own markdown reference files |
+
+**Nothing here lists a field name.** `x-cost` is set on `CardBase` via `json_schema_extra`, so the generated schema carries it and the balance module derives the cost set from the same artefact the gallery form and filter panel read. A fourth resource would be picked up with no edit to this package.
+
+**No numpy.** The largest problem in the deck is 47 rows by 6 columns; adding a compiled dependency to a card generator to solve that would be the wrong trade. Ridge rather than plain least squares because the groups are small and the features correlate — a Tier 3 Creature has more Health *and* more Defence — so an unregularised solve produces large cancelling weights that fit the sample and mean nothing.
+
+**The solver is checked against a rule it was never shown.** `check_balance_math` in `tests/run_tests.py` builds 24 synthetic cards from `cost = 1 + 2*tier + 0.5*health` and requires the fit to recover all three coefficients within 0.15. Same principle as the profile-math check: a solver validated only on the data it was tuned for is unfalsifiable.
+
+**The judgment is not in this package.** A residual says a card is priced differently from its peers; only a person reading its rules text can say whether that is a mistake or a drawback the numbers cannot see. So `/card-balance` presents each finding, and records the verdict in `.claude/skills/card-balance/references/rulings.md`, which `config.py` reads back on the next run — that loop is what stops the same cards being reported forever.
+
 ### `templates/` and `style.css`
 
 Nine per-type templates over shared partials (`_costs_box`, `_spiderweb`, `filters_defs`, `_creature_strip`, `_starter_stamp`). Theming is data-attribute driven: `body[data-type]`, `body[data-subtype]`, `body[data-faction]` and `body[data-tier]` select CSS custom-property blocks, so a card's colours follow from its data rather than from template branching.

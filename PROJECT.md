@@ -47,6 +47,7 @@ Artwork supplied by the user is validated separately and advisorily: `cardgen.sp
 |---|---|
 | `README.md` | What this is, current status, how to run + verify it |
 | `docs/ARCHITECTURE.md` | How the pipeline fits together: where geometry comes from, how a card becomes a PNG, and which module owns what |
+| `.claude/skills/card-balance/` | What "balanced" currently means for this deck, and every card the author has ruled on |
 
 ## References summary
 

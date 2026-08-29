@@ -78,6 +78,57 @@ def _cmd_render(args) -> int:
     return 1 if failures else 0
 
 
+def _cmd_balance(args) -> int:
+    """Fit a cost model per card type and report the cards that do not fit it.
+
+    Reads the store, not the JSON files: the gallery is where cards are edited,
+    so the store is the current state of the deck.
+    """
+    import json as _json
+    from collections import defaultdict
+
+    from .balance import analyse, load_model, load_rulings, render_text
+    from .balance.config import MODEL_FILE, RULINGS_FILE
+    from .model import card_type_names, model_for_type
+    from .model.schemas import schema_for
+    from .store import SessionLocal, init_db, list_cards
+
+    config = load_model(Path(args.model) if args.model else MODEL_FILE)
+    rulings = {} if args.all else load_rulings(
+        Path(args.rulings) if args.rulings else RULINGS_FILE)
+
+    # The store's `type` column holds the JSON spelling ("Creature"), so --type
+    # is resolved through the model rather than string-matched: that accepts any
+    # casing and rejects a typo with the list of real types instead of silently
+    # reporting an empty deck.
+    wanted = None
+    if args.type:
+        try:
+            wanted = model_for_type(args.type).model_fields["type"].annotation.__args__[0]
+        except ValueError as exc:
+            print(exc)
+            return 1
+
+    init_db()
+    by_type = defaultdict(list)
+    with SessionLocal() as db:
+        for row in list_cards(db, card_type=wanted):
+            by_type[row.type].append(row.data)
+
+    if not by_type:
+        print("no cards in the store -- try `cardgen import`")
+        return 1
+
+    schemas = {t: schema_for(t) for t in card_type_names()}
+    result = analyse(by_type, schemas, config, rulings)
+
+    if args.json:
+        print(_json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        print(render_text(result))
+    return 0
+
+
 def _cmd_schemas(args) -> int:
     from .model.schemas import write_schemas
 
@@ -107,6 +158,17 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("render", help="render stored cards to print-ready PNGs")
     p.add_argument("--id", type=int, nargs="*", help="render only these card ids")
     p.set_defaults(func=_cmd_render)
+
+    p = sub.add_parser("balance", help="fit a cost model and report the outliers")
+    p.add_argument("--json", action="store_true", help="machine-readable output")
+    p.add_argument("--type", default=None, help="restrict to one card type")
+    p.add_argument("--all", action="store_true",
+                   help="include findings already accepted in rulings.md")
+    p.add_argument("--model", default=None,
+                   help="markdown file holding the cost-model overrides")
+    p.add_argument("--rulings", default=None,
+                   help="markdown file holding the accepted outliers")
+    p.set_defaults(func=_cmd_balance)
 
     p = sub.add_parser("schemas", help="regenerate schemas/ from the model")
     p.add_argument("path", nargs="?", default="schemas")

@@ -8,7 +8,7 @@ Exit code 0 means every check passed.  This is the command PROJECT.md names as
 the verify method, and ``tests/last-run.txt`` is the evidence artifact whose
 freshness the check-verify hook watches.
 
-Four checks, in increasing cost:
+Five checks, in increasing cost:
 
 1. ``check_profile_math``  -- the derivation reproduces MakePlayingCards' own
    published figures, including one for a size this project does not print.
@@ -16,7 +16,9 @@ Four checks, in increasing cost:
    the spec module.
 3. ``check_card_data`` -- every card validates against the model, and the
    committed schemas are what the model currently generates.
-4. ``check_renders`` -- one card of every type actually renders, and every
+4. ``check_balance_math`` -- the ridge solver recovers weights it was never
+   shown, on synthetic data with a known answer.
+5. ``check_renders`` -- one card of every type actually renders, and every
    written PNG satisfies its profile.  Covers all nine templates.
 """
 
@@ -65,7 +67,7 @@ def _ok(message: str) -> None:
 
 def check_profile_math() -> None:
     """The derivation must match MakePlayingCards, including a size we never print."""
-    print("\n[1/4] profile derivation vs the MPC published spec")
+    print("\n[1/5] profile derivation vs the MPC published spec")
 
     # MPC states both figures as 36px per side at 300 DPI.  If these ever change
     # upstream, REFERENCES.md's comparison procedure says how to re-read them.
@@ -124,7 +126,7 @@ _EXEMPT_DIR = os.path.join("src", "cardgen", "spec")
 
 def check_no_stray_geometry() -> None:
     """No pixel measurement may live outside cardgen.spec."""
-    print("\n[2/4] no geometry literals outside cardgen.spec")
+    print("\n[2/5] no geometry literals outside cardgen.spec")
 
     hits = []
     for target in _SCANNED:
@@ -191,7 +193,7 @@ def _one_card_per_type() -> "OrderedDict[str, str]":
 
 def check_card_data() -> None:
     """Every card validates, and schemas/ is what the model generates today."""
-    print("\n[3/4] card data vs the model, schemas vs the model")
+    print("\n[3/5] card data vs the model, schemas vs the model")
 
     from cardgen.model import parse_card
     from cardgen.model.schemas import schema_for
@@ -232,9 +234,69 @@ def check_card_data() -> None:
 # ---------------------------------------------------------------------------
 
 
+def check_balance_math() -> None:
+    """The cost fitter must recover a rule it was never told.
+
+    Same principle as check_profile_math: a solver checked only against the data
+    it was tuned on is unfalsifiable. So it is given synthetic cards built from a
+    cost rule chosen here -- cost = 1 + 2*tier + 0.5*health -- and has to find
+    that rule back from nothing but the cards. A ridge penalty biases weights
+    slightly toward zero, so the tolerance is loose on purpose; being wrong by
+    0.1 is regularisation, being wrong by 1.0 is a broken solver.
+
+    Also asserts the activation-cost reader, because it is the one feature
+    parsed out of prose rather than read from a column.
+    """
+    print("\n[4/5] the balance fitter recovers a known cost rule")
+
+    from cardgen.balance import activation_cost, r_squared, ridge_fit
+
+    truth = {"intercept": 1.0, "tier": 2.0, "health": 0.5}
+    rows, target = [], []
+    for tier in (1, 2, 3, 4):
+        for health in (1, 2, 4, 6, 8, 10):
+            rows.append([float(tier), float(health)])
+            target.append(truth["intercept"] + truth["tier"] * tier
+                          + truth["health"] * health)
+
+    weights, intercept = ridge_fit(rows, target)
+    predicted = [intercept + weights[0] * r[0] + weights[1] * r[1] for r in rows]
+    got = {"intercept": intercept, "tier": weights[0], "health": weights[1]}
+
+    for name, expected in truth.items():
+        if abs(got[name] - expected) > 0.15:
+            _fail("balance", "fitted {} = {:.3f}, the rule says {:.3f}".format(
+                name, got[name], expected))
+        else:
+            _ok("recovered {:<10} {:.3f} (rule: {:.3f})".format(name, got[name], expected))
+
+    r2 = r_squared(target, predicted)
+    if r2 < 0.99:
+        _fail("balance", "r2 = {:.3f} on noise-free data; the solve is wrong".format(r2))
+    else:
+        _ok("r2 = {:.4f} on noise-free synthetic cards".format(r2))
+
+    # "Costs are defined in front of a ':' within the description of a card."
+    # -- Rules/Rules.txt:34
+    cases = {
+        "[Mana][Mana]: deal 1 damage": 2,
+        "[Undead]: return it to your domain": 1,
+        "no cost at all": 0,
+        "Start of Replenish: look at the top 3 cards": 0,
+        "": 0,
+    }
+    for text, expected in cases.items():
+        found = activation_cost(text)
+        if found != expected:
+            _fail("balance", "activation_cost({!r}) = {}, expected {}".format(
+                text, found, expected))
+    if not any(f.startswith("balance: activation_cost") for f in _failures):
+        _ok("activation_cost reads {} description shapes correctly".format(len(cases)))
+
+
 def check_renders() -> None:
     """Render one card of every type; every written PNG must satisfy its profile."""
-    print("\n[4/4] render one card per type, assert every PNG")
+    print("\n[5/5] render one card per type, assert every PNG")
 
     import generate_card  # imported late: pulls in playwright
 
@@ -276,6 +338,7 @@ def main() -> int:
     check_profile_math()
     check_no_stray_geometry()
     check_card_data()
+    check_balance_math()
     check_renders()
 
     print("\n" + "=" * 72)
